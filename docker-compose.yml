@@ -1,0 +1,16 @@
+# 本地开发便利层：docker compose up 后访问 http://localhost:1313
+services:
+  blog:
+    build: .
+    ports:
+      - "1313:1313"
+    volumes:
+      # 仓库目录挂载进容器，改文章即时生效
+      - .:/app
+      # 命名卷保住镜像构建时 npm ci 装好的 node_modules，
+      # 避免被上面的仓库挂载覆盖（宿主机 node_modules 是 macOS 二进制，容器里用不了）
+      - node_modules:/app/node_modules
+    command: hugo server --bind 0.0.0.0 --port 1313 --disableFastRender --navigateToChanged
+
+volumes:
+  node_modules:

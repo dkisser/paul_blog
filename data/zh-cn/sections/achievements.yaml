@@ -1,0 +1,12 @@
+# TODO: 本 section 为占位内容，请填写真实成就后使用
+section:
+  name: 成就
+  id: achievements
+  enable: true
+  weight: 10
+  showOnNavbar: true
+
+# TODO: 替换为真实成就
+achievements:
+- title: 占位成就（待补充）
+  summary: TODO —— 补充成就描述。

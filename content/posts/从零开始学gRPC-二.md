@@ -1,0 +1,154 @@
+---
+title: "从零开始学gRPC（二）"
+date: 2022-06-19
+url: "/2022/06/19/从零开始学gRPC-二.html"
+categories: ["newest_tech"]
+---
+
+# 前言
+
+gRPC的大致功能点相信大家一定已经有些了解。但是，在日常开发中我们很少会使用原生的gRPC，更多的是希望gRPC能集成到现有应用的开发环境中。这篇文章会围绕如何以简单的方式将gRPC集成到SpringBoot展开讲解。
+
+# 快速搭建
+
+## 环境准备
+
+* 操作系统：Windowns
+* JDK版本：1.8
+* 编辑工具：IntelliJ IDEA Community Edition 2021.1.2 x64
+
+## 框架选型
+
+目前开源切比较热门的grpc和SpringBoot整合框架有两种可选方案。分别是[LogNet](https://github.com/LogNet/grpc-spring-boot-starter) 和 [yidongnan](https://github.com/yidongnan/grpc-spring-boot-starter) 。**（这两者稍微有些区别，在最后我会有个对比）** 这里我使用后者作为demo演示。
+
+## 创建项目
+
+自己创建一个maven项目就好，没有别的要求（All in one，暂时不需要分模块）。想要偷懒的同学也可以借鉴[之前的项目](https://github.com/dkisser/demo-gRPC) ，但是我**建议自己动手尝试搭建比较好。**
+
+### MAVEN依赖
+
+**注意：我只列出了关键依赖。而且注册中心选用的是zookeeper，要注意zookeeper的版本，可以参考 [这里](https://docs.spring.io/spring-cloud-zookeeper/docs/current/reference/html/#discovery-client-usage) 。**
+
+```xml
+
+<dependencies>
+  <dependency>
+    <groupId>net.devh</groupId>
+    <artifactId>grpc-spring-boot-starter</artifactId>
+    <version>2.13.1.RELEASE</version>
+  </dependency>
+  <dependency>
+    <groupId>org.springframework.boot</groupId>
+    <artifactId>spring-boot-starter-web</artifactId>
+    <version>2.6.8</version>
+  </dependency>
+
+  <!-- spring-cloud-zookeeper-starter-->
+  <dependency>
+    <groupId>org.springframework.cloud</groupId>
+    <artifactId>spring-cloud-starter-zookeeper-discovery</artifactId>
+    <version>3.1.2</version>
+  </dependency>
+</dependencies>
+
+```
+
+### 配置
+
+```yaml
+
+server:
+  port: 8081
+
+spring:
+  application:
+    name: demo-grpc
+  cloud:
+    zookeeper:
+      connect-string: localhost:2181
+
+grpc:
+  client:
+    greeterService1:
+      address: discovery:/demo-grpc
+      negotiationType: PLAINTEXT
+  server:
+    port: 9091
+
+```
+
+这个地方的 **negotiationType要注意点（不设置的话需要对客户端传输进行加密）**
+
+### SLB测试
+
+* 本地启动zookeeper
+* 本地启动两次（记得改端口，tomcat和grpc的都要改），测试代码如下。
+  ![img.png](./assets/images/20220625/img.png)
+  ![img_1.png](./assets/images/20220625/img_1.png)
+* 测试结果展示
+  ![img_2.png](./assets/images/20220625/img_2.png)
+  ![img_3.png](./assets/images/20220625/img_3.png)
+  我前端都是通过一个地址访问的，请求通过gRPC的负载配置被分发到不同的端口去了，由此可见SLB生效了。
+
+# LogNet 与 yidongnan
+
+**共性：**
+
+1. 扩展了原生gRPC的服务注册、服务发现功能。
+2. 和SpringCloud深度整合，有很好的扩展能力。
+
+**差异：**
+
+1. 服务发现：yidongnan直接将服务发现和gRPC本身的SLB整合，LogNet需要自己做SLB，或者手动整合gRPC的软负载能力 **（官方demo上没提到如何做SLB，这里我暂且认为是这样子，知道的朋友记得联系我更正）**
+2. LogNet 多了对事务和全局异常的处理能力。**（通常不建议在RPC的过程中使用事务，所以我觉得这个功能有点鸡肋）**
+3. LogNet 还整合了spring-cloud-stream、spring-boot-validation。
+
+# 总结
+
+这里我们很容易就发现**这两个框架主要做的是服务的自动注册和发现以及gRPC自身能力和spring cloud能力的整合（鉴权、服务可观测、链路追踪）**，服务治理能力弱的问题并没有得到解决（即没有提供一些合适的限流、降级、流量调度策略，也没有提供一个合适的控制台或者API去对服务进行治理。可以参考Dubbo Admin，通过它可以对Dubbo服务进行治理）。
+
+**说明：我这里没有演示sleuth、actuator、security这些的集成，有兴趣的可以去看看 [文档](https://yidongnan.github.io/grpc-spring-boot-starter/zh-CN/) 。**
+
+### 踩坑笔记
+
+1.Client端默认设置的是密文，必须要设置TLS证书。当然也可以使用文本传输，但是生产环境不建议。[客户端安全配置传送门](https://yidongnan.github.io/grpc-spring-boot-starter/zh-CN/client/security.html#authentication)
+> 文本传输配置：grpc.client.[serviceName].negotiationType=PLAINTEXT
+
+2. 若不集成SpringCloud-Discovery则不能使用注册中心做服务发现，只能固定配置,例如：
+   grpc.client.\[serviceName\].address: static://localhost:9090,localhost:
+   //9091。具体配置可以参考下面文档
+
+``` java
+ /**
+     * Sets the target address uri for the channel. The target uri must be in the format:
+     * {@code schema:[//[authority]][/path]}. If nothing is configured then the name of the client will be used along
+     * with the default scheme. We recommend explicitly configuring the scheme used for the address resolutions such as
+     * {@code dns:/}.
+     *
+     * <p>
+     * <b>Examples</b>
+     * </p>
+     *
+     * <ul>
+     * <li>{@code static://localhost:9090} (refers to exactly one IPv4 or IPv6 address, dependent on the jre
+     * configuration, it does not check whether there is actually someone listening on that network interface)</li>
+     * <li>{@code static://10.0.0.10}</li>
+     * <li>{@code static://10.0.0.10,10.11.12.11}</li>
+     * <li>{@code static://10.0.0.10:9090,10.0.0.11:80,10.0.0.12:1234,[::1]:8080}</li>
+     * <li>{@code dns:/localhost (might refer to the IPv4 or the IPv6 address or both, dependent on the system
+     * configuration, it does not check whether there is actually someone listening on that network interface)}</li>
+     * <li>{@code dns:/example.com}</li>
+     * <li>{@code dns:/example.com:9090}</li>
+     * <li>{@code dns:///example.com:9090}</li>
+     * <li>{@code discovery:/foo-service}</li>
+     * <li>{@code discovery:///foo-service}</li>
+     * <li>{@code unix:<relative-path>} (Additional dependencies may be required)</li>
+     * <li>{@code unix://</absolute-path>} (Additional dependencies may be required)</li>
+     * </ul>
+     *
+     * @param address The string representation of an uri to use as target address or null to use a fallback.
+     *
+     * @see <a href="https://github.com/grpc/grpc/blob/master/doc/naming.md">gRPC Name Resolution</a>
+     * @see NameResolverProvider
+     */
+```

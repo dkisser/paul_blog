@@ -1,0 +1,56 @@
+# 构建并部署博客到服务器（rsync over SSH）
+#
+# 需要配置的 GitHub Secrets（Settings -> Secrets and variables -> Actions）：
+#   DEPLOY_SSH_KEY  部署用 SSH 私钥（对应公钥已加入服务器 DEPLOY_USER 的 authorized_keys）
+#   DEPLOY_HOST     服务器地址（IP 或域名）
+#   DEPLOY_USER     SSH 用户
+#   DEPLOY_PATH     服务器上的目标目录，如 /srv/paul_blog/public/（与 Caddy 挂载路径一致）
+#   DEPLOY_PORT     SSH 端口，如 22
+name: deploy
+
+on:
+  push:
+    branches: [main]
+  workflow_dispatch:
+
+jobs:
+  build-and-deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Setup Go
+        uses: actions/setup-go@v5
+        with:
+          go-version: "1.27"
+
+      - name: Setup Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: "22"
+          cache: npm
+
+      - name: Install Hugo extended 0.165.0
+        run: |
+          curl -fsSL "https://github.com/gohugoio/hugo/releases/download/v0.165.0/hugo_extended_0.165.0_linux-amd64.tar.gz" -o /tmp/hugo.tar.gz
+          sudo tar -C /usr/local/bin -xzf /tmp/hugo.tar.gz hugo
+          hugo version
+
+      - name: Install npm dependencies
+        run: npm ci
+
+      # 与本地 scripts/build.sh 完全同命令
+      - name: Build site
+        run: bash scripts/build.sh
+
+      - name: Setup SSH key
+        uses: webfactory/ssh-agent@v0.9.0
+        with:
+          ssh-private-key: ${{ secrets.DEPLOY_SSH_KEY }}
+
+      - name: rsync public/ to server
+        run: >-
+          rsync -az --delete
+          -e "ssh -p ${{ secrets.DEPLOY_PORT }} -o StrictHostKeyChecking=accept-new"
+          public/
+          "${{ secrets.DEPLOY_USER }}@${{ secrets.DEPLOY_HOST }}:${{ secrets.DEPLOY_PATH }}"

@@ -1,0 +1,9 @@
+# section information
+section:
+  name: 最新文章
+  id: recent-posts
+  enable: true
+  weight: 8
+  showOnNavbar: true
+
+# no additional configuration is required

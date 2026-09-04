@@ -1,0 +1,22 @@
+# TODO: 本 section 为占位内容，请填写真实工作经历后使用
+section:
+  name: 工作经历
+  id: experiences
+  enable: true
+  weight: 3
+  showOnNavbar: true
+
+# TODO: 替换为真实工作经历
+experiences:
+- company:
+    name: 某公司（占位，待补充）
+    url: "https://www.example.com" # TODO
+    location: TODO
+    overview: TODO —— 一句话介绍这家公司。
+  positions:
+  - designation: 后端工程师（占位，待补充）
+    start: TODO
+    # 在职则不填 end，会显示为 Present
+    # end: TODO
+    responsibilities:
+    - TODO —— 补充工作职责与产出

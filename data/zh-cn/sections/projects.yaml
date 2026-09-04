@@ -1,0 +1,30 @@
+# section information
+section:
+  name: 项目
+  id: projects
+  enable: true
+  weight: 5
+  showOnNavbar: true
+
+# filter buttons
+buttons:
+- name: 全部
+  filter: "all"
+- name: 个人项目
+  filter: "hobby"
+
+# TODO: 替换为真实项目卡片
+projects:
+- name: paul_blog
+  role: 作者
+  timeline: "2026 - 至今"
+  repo: https://github.com/dkisser # TODO: 替换为本博客仓库地址
+  summary: 基于 Hugo + Toha 主题的个人博客，从 Jekyll 迁移而来。
+  tags: ["hobby", "blog"]
+
+- name: 占位项目（待补充）
+  role: TODO
+  timeline: "TODO"
+  url: "https://www.example.com" # TODO: 替换为真实项目链接
+  summary: TODO —— 在这里补充一个真实项目的介绍。
+  tags: ["hobby"]

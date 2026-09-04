@@ -1,0 +1,21 @@
+# =============================================================================
+# Caddy 配置 —— 域名：dkisser.cn（主站）/ stats.dkisser.cn（umami 采集端点）
+# =============================================================================
+
+# (a) 博客主站：静态文件服务
+# root 路径 /srv/blog 对应 deploy/docker-compose.yml 中 Caddy 挂载的宿主机目录，
+# 也是 rsync 推送的目标（DEPLOY_PATH）
+dkisser.cn {
+	root * /srv/blog
+	encode zstd gzip
+	file_server
+}
+
+# (b) umami 统计：只放行采集所需的两个端点到公网，其余一律 404
+# umami 后台不暴露公网（容器端口只绑 127.0.0.1，经 SSH 隧道访问，见 deploy/README.md）
+stats.dkisser.cn {
+	@collect path /script.js /api/send
+	reverse_proxy @collect umami:3000
+
+	respond 404
+}

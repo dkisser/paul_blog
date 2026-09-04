@@ -1,0 +1,32 @@
+{
+  "name": "paul_blog",
+  "version": "0.1.0",
+  "private": true,
+  "dependencies": {},
+  "devDependencies": {
+    "@fontsource/mulish": "4.5.13",
+    "@fortawesome/fontawesome-free": "^6.6.0",
+    "bootstrap": "^5.3.3",
+    "feather-icons": "^4.29.1",
+    "filterizr": "^2.2.4",
+    "flag-icons": "^7.2.3",
+    "fuse.js": "^6.6.2",
+    "highlight.js": "^11.6.0",
+    "imagesloaded": "^5.0.0",
+    "include-media": "^1.4.10",
+    "katex": "^0.16.11",
+    "mark.js": "^8.11.1",
+    "mermaid": "^11.15.0",
+    "pagefind": "^1.1.0",
+    "plyr": "^3.7.2",
+    "popper.js": "^1.16.1",
+    "typeit": "^8.8.7"
+  },
+  "scripts": {
+    "dev": "hugo server",
+    "build": "bash scripts/build.sh",
+    "deploy": "bash scripts/deploy.sh",
+    "migrate": "node scripts/migrate.js",
+    "verify": "node scripts/verify_urls.js"
+  }
+}

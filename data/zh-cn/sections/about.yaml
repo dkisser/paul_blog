@@ -1,0 +1,29 @@
+# section information
+section:
+  name: 关于我
+  id: about
+  enable: true
+  weight: 1
+  showOnNavbar: true
+  template: sections/about.html
+
+# your designation
+designation: 后端工程师
+# your company information
+# TODO: 填写真实公司信息（或删除该字段）
+company:
+  name: Alibaba
+  url: "https://www.alibaba.com"
+
+# a summary about you
+summary: '一名后端工程师，关注 Java 生态、微服务与云原生技术，喜欢阅读源码和复盘线上问题。这个博客记录我的学习笔记与技术思考。'
+
+# your social links
+socialLinks:
+- name: Email
+  icon: "fas fa-envelope"
+  url: "mailto:437631891@qq.com"
+
+- name: Github
+  icon: "fab fa-github"
+  url: "https://github.com/dkisser"

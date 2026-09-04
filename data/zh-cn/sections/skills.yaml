@@ -1,0 +1,27 @@
+# TODO: 本 section 为占位内容，请填写真实技能后使用
+section:
+  name: 技能
+  id: skills
+  enable: true
+  weight: 2
+  showOnNavbar: true
+  filter: true
+
+# filter buttons
+buttons:
+- name: 全部
+  filter: "all"
+- name: 语言
+  filter: "language"
+- name: 框架
+  filter: "framework"
+
+# TODO: 替换为真实技能
+skills:
+- name: Java（占位，待补充）
+  summary: "TODO —— 补充技能描述。"
+  categories: ["language"]
+
+- name: Spring Boot（占位，待补充）
+  summary: "TODO —— 补充技能描述。"
+  categories: ["framework"]

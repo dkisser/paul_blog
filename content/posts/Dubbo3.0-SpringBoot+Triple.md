@@ -1,0 +1,116 @@
+---
+title: "Dubbo3.0-SpringBoot+Triple"
+date: 2022-08-03
+url: "/2022/08/03/Dubbo3.0-SpringBoot+Triple.html"
+categories: ["newest_tech"]
+---
+
+# 前言
+前面讲过使用Dubbo原生API的方式使用Triple，我们发现这个方式不太方便，实际开发中可能并不是很常见这种使用方式，今天我们讲讲在如何在日常项目中使用Triple协议。
+
+# 快速搭建
+
+## 环境准备
+* 操作系统：Windowns
+* JDK版本：1.8
+* 编辑工具：IntelliJ IDEA Community Edition 2021.1.2 x64
+* Zookeeper：3.5.6（3.4或3.5以上的版本都行）
+
+## 创建项目
+项目有三个模块，分别是api、consumer、provider。proto文件都放在api中，consumer放消费端的代码，provider放服务提供者的代码。
+
+### api
+#### 依赖
+```xml
+<dependencies>
+    <dependency>
+      <groupId>org.apache.dubbo</groupId>
+      <artifactId>dubbo</artifactId>
+      <version>3.0.9</version>
+    </dependency>
+    <dependency>
+      <groupId>io.grpc</groupId>
+      <artifactId>grpc-all</artifactId>
+      <version>1.44.1</version>
+    </dependency>
+</dependencies>
+```
+#### proto插件
+这里也是定义在pom中
+```xml
+<build>
+    <extensions>
+      <extension>
+        <groupId>kr.motd.maven</groupId>
+        <artifactId>os-maven-plugin</artifactId>
+        <version>1.6.1</version>
+      </extension>
+    </extensions>
+    <plugins>
+      <plugin>
+        <groupId>org.xolstice.maven.plugins</groupId>
+        <artifactId>protobuf-maven-plugin</artifactId>
+        <version>0.6.1</version>
+        <configuration>
+          <protocArtifact>com.google.protobuf:protoc:${protoc.version}:exe:${os.detected.classifier}
+          </protocArtifact>
+          <pluginId>grpc-java</pluginId>
+          <pluginArtifact>io.grpc:protoc-gen-grpc-java:${grpc.version}:exe:${os.detected.classifier}
+          </pluginArtifact>
+          <protocPlugins>
+            <protocPlugin>
+              <id>dubbo</id>
+              <groupId>org.apache.dubbo</groupId>
+              <artifactId>dubbo-compiler</artifactId>
+              <version>0.0.4.1</version>
+              <mainClass>org.apache.dubbo.gen.tri.Dubbo3TripleGenerator</mainClass>
+            </protocPlugin>
+          </protocPlugins>
+        </configuration>
+        <executions>
+          <execution>
+            <goals>
+              <goal>compile</goal>
+              <goal>test-compile</goal>
+              <goal>compile-custom</goal>
+              <goal>test-compile-custom</goal>
+            </goals>
+          </execution>
+        </executions>
+      </plugin>
+      <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-compiler-plugin</artifactId>
+        <version>${maven-compiler-plugin.version}</version>
+        <configuration>
+          <source>1.8</source>
+          <target>1.8</target>
+        </configuration>
+      </plugin>
+    </plugins>
+  </build>
+```
+#### proto文件
+地址：[看这里](https://github.com/dkisser/demo-dubbo/blob/master/demo-api/src/main/proto/greeter.proto)
+
+**proto文件和grpc的定义方式是一样的，这里就不多讲。**
+### Consumer
+地址：[看这里](https://github.com/dkisser/demo-dubbo/tree/master/demo-consumer)
+
+这里直接使用注解就好，**注意一定要用@DubboReference来声明Greeter。** 这个注解的作用是为Greeter生成代理类，如果不用就报错。
+
+### provider
+地址：[看这里](https://github.com/dkisser/demo-dubbo/tree/master/demo-provider)
+
+这个地方只需要在GreeterImpl上使用@DubboService标注下就好。
+
+### 启动顺序
+1. zookeeper启动
+2. provider启动
+3. consumer启动
+
+# 写在最后
+**应用级服务发现的数据结构与原有结构有很大区别（这里指注册中心的数据结构）**
+
+在应用级服务发现的场景下原有的RPC信息被拆分出来。在服务发现的过程中会先根据 应用名 -> IP 的映射关系拿到后端IP与应用的映射。但是我们在使用 Dubbo 时都是通过接口名来查询，为了解决这个问题 接口名 -> 应用 的映射关系有单独的地方存放。当然在使用 Dubbo 时要做的不仅仅是RPC调用，调用过程中涉及到的流量管理相关的功能需要用到RPC元数据，而这些信息又有单独的地方存放。**（在Zookeeper中应用和IP的映射关系存放在 /service/[APP NAME] 目录下，接口名和应用的映射关系存放在 /dubbo/mapping/[Interface Name] 目录下，而RPC元数据存放在 /dubbo/metadata/[Interface Name]/provider/[APP NAME] 目录下。）**
+

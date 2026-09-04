@@ -1,0 +1,8 @@
+node_modules
+public
+resources
+.git
+.hugo_build.lock
+Dockerfile
+docker-compose.yml
+.dockerignore

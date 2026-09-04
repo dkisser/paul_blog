@@ -1,0 +1,29 @@
+{{ define "navbar" }}
+{{ partial "navigators/navbar.html" . }}
+{{ end }}
+
+{{ define "content" }}
+<section class="content-section" id="content-section">
+  <div class="content">
+    <div class="container p-0 read-area">
+      <div class="page-content">
+        <div class="title">
+          <h1>{{ .Title }}</h1>
+        </div>
+        {{ $posts := where site.RegularPages "Type" "posts" }}
+        {{ range ($posts.ByDate.Reverse).GroupByDate "2006" }}
+        <h3>{{ .Key }}</h3>
+        <ul>
+          {{ range .Pages }}
+          <li>
+            <span class="text-muted">{{ .Date.Format "01-02" }}</span>
+            <a href="{{ .RelPermalink }}">{{ .Title }}</a>
+          </li>
+          {{ end }}
+        </ul>
+        {{ end }}
+      </div>
+    </div>
+  </div>
+</section>
+{{ end }}

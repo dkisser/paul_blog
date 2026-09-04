@@ -1,0 +1,17 @@
+# TODO: 本 section 为占位内容，请填写真实教育经历后使用
+section:
+  name: 教育经历
+  id: education
+  template: sections/education.html
+  enable: true
+  weight: 4
+  showOnNavbar: true
+
+# TODO: 替换为真实教育经历
+degrees:
+- name: 计算机科学（占位，待补充）
+  icon: fa-graduation-cap
+  timeframe: TODO - TODO
+  institution:
+    name: 某大学（占位，待补充）
+    url: "#" # TODO

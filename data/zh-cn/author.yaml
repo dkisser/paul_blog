@@ -1,0 +1,17 @@
+# some information about you
+name: "Paul"
+nickname: "Paul"
+# greeting message before your name. it will default to "Hi! I am" if not provided
+greeting: "你好，我是"
+# 头像文件位于 assets/images/author/paul.jpg（由旧站 screenshot.jpg 迁移而来）
+image: "images/author/paul.jpg"
+# give your some contact information. they will be used in the footer
+contactInfo:
+  email: "437631891@qq.com"
+  github: dkisser
+
+# some summary about what you do（打字机轮播，可后续修改）
+summary:
+  - 我是一名后端工程师
+  - 关注 Java / 微服务 / 云原生
+  - 喜欢源码阅读和问题复盘

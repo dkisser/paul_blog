@@ -1,0 +1,32 @@
+# Copyright Notice（页脚版权声明：CC-BY-NC-4.0）
+copyright: © 2026 Paul. 本站文章采用 [CC BY-NC 4.0](https://creativecommons.org/licenses/by-nc/4.0/deed.zh) 许可协议，转载请注明出处。
+
+# Meta description for your site.  This will help the search engines to find your site.
+description: Paul 的技术博客 — Java / 微服务 / 云原生技术分享。
+
+# 顶部导航自定义菜单
+customMenus:
+- name: 文章列表
+  url: /posts/
+  hideFromNavbar: false
+  showOnFooter: true
+- name: 归档
+  url: /archives/
+  hideFromNavbar: false
+  showOnFooter: true
+- name: 搜索
+  url: /search/
+  hideFromNavbar: false
+  showOnFooter: true
+- name: 关于
+  url: /about/
+  hideFromNavbar: false
+  showOnFooter: true
+
+# Specify OpenGraph Headers
+openGraph:
+  title: Paul的技术博客
+  type: website
+  description: Paul 的技术博客 — Java / 微服务 / 云原生技术分享。
+  image: images/author/paul.jpg
+  url: https://dkisser.cn/

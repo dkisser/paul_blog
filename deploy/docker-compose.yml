@@ -1,0 +1,57 @@
+# 服务器端编排：Caddy（博客 + umami 采集端点反代）+ umami（自建统计）+ PostgreSQL
+#
+# 使用前：
+#   1. cp .env.example .env 并填入真实值（数据库密码、APP_SECRET）
+#   2. 确认 Caddyfile 里的域名（dkisser.cn / stats.dkisser.cn）正确
+#   3. 确认下方 caddy 的宿主机挂载路径与本地 .env 的 DEPLOY_PATH 一致
+#
+# 启动：docker compose --env-file .env up -d
+
+services:
+  caddy:
+    image: caddy:2-alpine
+    restart: unless-stopped
+    ports:
+      - "80:80"
+      - "443:443"
+    volumes:
+      - ./Caddyfile:/etc/caddy/Caddyfile:ro
+      # 博客静态目录：宿主机路径即 rsync 推送目标（DEPLOY_PATH=/srv/paul_blog/public/）
+      - /srv/paul_blog/public:/srv/blog:ro
+      - caddy_data:/data
+      - caddy_config:/config
+    depends_on:
+      - umami
+
+  umami:
+    image: ghcr.io/umami/umami:postgresql-latest
+    restart: unless-stopped
+    env_file:
+      - path: .env
+        required: false
+    # 后台只绑回环地址，公网不可达；SSH 隧道访问: ssh -L 3000:localhost:3000 <user>@<server>
+    ports:
+      - "127.0.0.1:3000:3000"
+    depends_on:
+      db:
+        condition: service_healthy
+
+  db:
+    image: postgres:16-alpine
+    restart: unless-stopped
+    env_file:
+      - path: .env
+        required: false
+    volumes:
+      - pgdata:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U $${POSTGRES_USER} -d $${POSTGRES_DB}"]
+      interval: 5s
+      timeout: 3s
+      retries: 10
+    # 不暴露任何端口，仅容器网络内可达
+
+volumes:
+  caddy_data:
+  caddy_config:
+  pgdata:
