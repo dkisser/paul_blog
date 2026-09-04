@@ -2,6 +2,13 @@
 # Caddy 配置 —— 域名：dkisser.cn（主站）/ stats.dkisser.cn（umami 采集端点）
 # =============================================================================
 
+# (a0) 显式 HTTP -> HTTPS 重定向（301）
+# Caddy 的自动 HTTPS 默认也会把 80 端口请求 308 跳转到 https，
+# 这里显式声明，固定为 301 且两个域名都覆盖
+http://dkisser.cn, http://stats.dkisser.cn {
+	redir https://{host}{uri} permanent
+}
+
 # (a) 博客主站：静态文件服务
 # root 路径 /srv/blog 对应 deploy/docker-compose.yml 中 Caddy 挂载的宿主机目录
 # （/home/paul/blog/public，即 rsync 推送目标 DEPLOY_PATH），
