@@ -4,7 +4,7 @@
 #   DEPLOY_SSH_KEY  部署用 SSH 私钥（对应公钥已加入服务器 DEPLOY_USER 的 authorized_keys）
 #   DEPLOY_HOST     服务器地址（IP 或域名）
 #   DEPLOY_USER     SSH 用户
-#   DEPLOY_PATH     服务器上的目标目录，如 /srv/paul_blog/public/（与 Caddy 挂载路径一致）
+#   DEPLOY_PATH     服务器上的目标目录，如 /home/paul/blog/public（与 Caddy 挂载路径一致）
 #   DEPLOY_PORT     SSH 端口，如 22
 name: deploy
 

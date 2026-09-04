@@ -1,6 +1,6 @@
 # 服务器部署指南（国内 Linux 服务器，Docker + Caddy + umami）
 
-> 占位值：`your-server-ip-or-host.example.com`（服务器地址，仅示意后缀）、`/srv/paul_blog/public`（博客静态目录）。
+> 占位值：`your-server-ip-or-host.example.com`（服务器地址，仅示意后缀）。
 > 域名已确定为 `dkisser.cn`（主站）/ `stats.dkisser.cn`（umami 采集端点），Caddyfile 已配好。
 
 ## 架构
@@ -24,17 +24,15 @@ sudo usermod -aG docker $USER   # 重新登录后生效
 ### 2. 创建目录并拷贝部署件
 
 ```bash
-sudo mkdir -p /srv/paul_blog/public
-sudo chown -R $USER:$USER /srv/paul_blog
-mkdir -p ~/paul_blog
-# 把本目录（deploy/）下的 Caddyfile、docker-compose.yml、.env.example 拷到 ~/paul_blog/
-cd ~/paul_blog
+mkdir -p /home/paul/blog/public
+# 把本目录（deploy/）下的 Caddyfile、docker-compose.yml、.env.example 拷到 /home/paul/blog/
+cd /home/paul/blog
 cp .env.example .env   # 编辑 .env 填入真实密码与 APP_SECRET
 # Caddyfile 中的域名（dkisser.cn / stats.dkisser.cn）已配好，确认即可
 ```
 
-注意：**`/srv/paul_blog/public` 必须同时是**：
-- 本地/GitHub Actions rsync 推送的目标路径（`DEPLOY_PATH=/srv/paul_blog/public/`）
+注意：**`/home/paul/blog/public` 必须同时是**：
+- 本地/GitHub Actions rsync 推送的目标路径（`DEPLOY_PATH=/home/paul/blog/public`）
 - `docker-compose.yml` 中 Caddy 挂载的宿主机路径（容器内为 `/srv/blog`）
 
 ### 3. 启动
@@ -74,6 +72,33 @@ analytics:
 
 服务器备案接入变更完成前，80/443 可能被拦截或证书签发失败。届时现象为：
 Caddy 日志报证书申请超时。备案接入完成后重启 `docker compose restart caddy` 即可自动重试。
+
+### 6.5 国内服务器拉取镜像失败（error from registry: denied）
+
+国内服务器直连 Docker Hub / ghcr.io 会被拒。各镜像的可用拉取方式：
+
+- **caddy / postgres**（Docker Hub 官方仓库）：给 Docker 配镜像加速器即可
+- **umami**：官方镜像在 ghcr.io（`umami-software/umami`），compose 里已改用 DaoCloud 的
+  ghcr 代理前缀 `ghcr.m.daocloud.io`（代理域名直接写在 image 里，不依赖 daemon.json 配置）；
+  注意 DaoCloud 对 Docker Hub 的 `umamisoftware/umami` **不在白名单**，阿里云加速器对
+  该第三方仓库也可能同步滞后（not found）
+
+### 配置镜像加速器（caddy / postgres 用）
+
+1. 阿里云控制台 → 容器镜像服务 ACR → 镜像工具 → 镜像加速器，拿到专属地址
+   （形如 `https://xxxx.mirror.aliyuncs.com`），或直接用公共站 `https://docker.m.daocloud.io`
+2. 写入配置并重启 Docker：
+
+```bash
+sudo tee /etc/docker/daemon.json <<'EOF'
+{
+  "registry-mirrors": ["https://xxxx.mirror.aliyuncs.com"]
+}
+EOF
+sudo systemctl restart docker
+```
+
+3. 重新 `docker compose --env-file .env up -d`
 
 ### 7. 日常运维
 

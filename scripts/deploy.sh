@@ -10,6 +10,7 @@
 #   DEPLOY_USER       SSH 用户
 #   DEPLOY_PATH       服务器上的目标目录（即 Caddy 挂载的博客静态目录，见 deploy/README.md）
 #   DEPLOY_SSH_PORT   SSH 端口，默认 22
+#   DEPLOY_SSH_KEY    SSH 私钥文件路径（可选，用密钥文件登录时填，见 .env.example）
 set -euo pipefail
 cd "$(dirname "$0")/.."
 
@@ -37,7 +38,12 @@ DEPLOY_SSH_PORT="${DEPLOY_SSH_PORT:-22}"
 
 bash scripts/build.sh
 
-RSYNC_ARGS=(-az --delete -e "ssh -p ${DEPLOY_SSH_PORT}")
+SSH_CMD="ssh -p ${DEPLOY_SSH_PORT}"
+if [[ -n "${DEPLOY_SSH_KEY:-}" ]]; then
+  SSH_CMD+=" -i ${DEPLOY_SSH_KEY} -o IdentitiesOnly=yes"
+fi
+
+RSYNC_ARGS=(-az --delete -e "${SSH_CMD}")
 if [[ "$DRY_RUN" -eq 1 ]]; then
   RSYNC_ARGS+=(-n --itemize-changes)
   echo "[dry-run] 仅预览，不实际传输"

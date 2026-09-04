@@ -16,15 +16,19 @@ services:
       - "443:443"
     volumes:
       - ./Caddyfile:/etc/caddy/Caddyfile:ro
-      # 博客静态目录：宿主机路径即 rsync 推送目标（DEPLOY_PATH=/srv/paul_blog/public/）
-      - /srv/paul_blog/public:/srv/blog:ro
+      # 博客静态目录：宿主机路径即 rsync 推送目标（DEPLOY_PATH=/home/paul/blog/public/）
+      - /home/paul/blog/public:/srv/blog:ro
       - caddy_data:/data
       - caddy_config:/config
     depends_on:
       - umami
 
   umami:
-    image: ghcr.io/umami/umami:postgresql-latest
+    # 国内服务器拉取说明：
+    #   - ghcr.io 直连不可达；Docker Hub 的 umamisoftware/umami 在部分镜像站白名单外
+    #   - 下面用 DaoCloud 代理的 ghcr 镜像（ghcr.m.daocloud.io 前缀，免配 daemon.json）
+    #   - 网络环境变化后可改回官方源：ghcr.io/umami-software/umami:postgresql-latest
+    image: ghcr.m.daocloud.io/umami-software/umami:postgresql-latest
     restart: unless-stopped
     env_file:
       - path: .env

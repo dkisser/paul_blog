@@ -50,7 +50,7 @@ push 到 `main` 自动构建并 rsync 推送（`.github/workflows/deploy.yml`）
 | `DEPLOY_SSH_KEY` | 部署用 SSH 私钥（公钥已加入服务器部署用户的 authorized_keys） |
 | `DEPLOY_HOST` | 服务器地址（IP 或域名） |
 | `DEPLOY_USER` | SSH 用户 |
-| `DEPLOY_PATH` | 目标目录，如 `/srv/paul_blog/public/`（须与 Caddy 挂载的宿主机路径一致） |
+| `DEPLOY_PATH` | 目标目录，如 `/home/paul/blog/public`（须与 Caddy 挂载的宿主机路径一致） |
 | `DEPLOY_PORT` | SSH 端口，如 `22` |
 
 ### 方式二：本地一键部署（兜底，Actions 不可用时）

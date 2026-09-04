@@ -3,8 +3,8 @@
 # =============================================================================
 
 # (a) 博客主站：静态文件服务
-# root 路径 /srv/blog 对应 deploy/docker-compose.yml 中 Caddy 挂载的宿主机目录，
-# 也是 rsync 推送的目标（DEPLOY_PATH）
+# root 路径 /srv/blog 对应 deploy/docker-compose.yml 中 Caddy 挂载的宿主机目录
+# （/home/paul/blog/public，即 rsync 推送目标 DEPLOY_PATH），
 dkisser.cn {
 	root * /srv/blog
 	encode zstd gzip

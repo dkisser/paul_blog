@@ -88,7 +88,7 @@ npm run verify    # 必须输出 19/19 命中
 - 服务器侧：Docker + Caddy（根域名承载静态博客，自动签 Let's Encrypt 证书）+ 自建 umami 统计（仅 `/script.js`、`/api/send` 经 `stats.<域名>` 放行，后台走 SSH 隧道，不暴露公网）。详见 `deploy/README.md`。
 - 主路径：push 到 `main` 触发 GitHub Actions（`.github/workflows/deploy.yml`），构建后 `rsync -az --delete` 推到服务器。需要 5 个 Secrets：`DEPLOY_SSH_KEY`、`DEPLOY_HOST`、`DEPLOY_USER`、`DEPLOY_PATH`、`DEPLOY_PORT`。
 - 兜底路径：本地 `cp .env.example .env` 填值后 `npm run deploy`。
-- 服务器上 rsync 目标目录（`DEPLOY_PATH`，如 `/srv/paul_blog/public/`）必须与 `deploy/docker-compose.yml` 中 Caddy 挂载的宿主机路径一致。
+- 服务器上 rsync 目标目录（`DEPLOY_PATH`，即 `/home/paul/blog/public`）必须与 `deploy/docker-compose.yml` 中 Caddy 挂载的宿主机路径一致。服务器部署根目录为 `/home/paul/blog`（docker-compose、Caddyfile、.env 都放这里）。
 
 ## 部署前待办（当前状态）
 
