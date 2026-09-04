@@ -15,7 +15,12 @@ dkisser.cn {
 # umami 后台不暴露公网（容器端口只绑 127.0.0.1，经 SSH 隧道访问，见 deploy/README.md）
 stats.dkisser.cn {
 	@collect path /script.js /api/send
-	reverse_proxy @collect umami:3000
-
-	respond 404
+	# 注意：必须用 handle 分组——Caddyfile 适配器会按默认指令序重排，
+	# 裸写的 respond 排在 reverse_proxy 前面，会把所有请求都挡成 404
+	handle @collect {
+		reverse_proxy umami:3000
+	}
+	handle {
+		respond 404
+	}
 }

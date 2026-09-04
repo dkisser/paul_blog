@@ -116,7 +116,15 @@ params:
       enable: false
 
     analytics:
-      enable: false
+      enable: true
+      services:
+        # Toha v4.16.0 的 analytics.html 在 services 层还要求 enable 标记（新版主题已移除该判断）
+        enable: true
+        umami:
+          # 只走 Caddy 放行的采集端点；script.js 路径与 Caddyfile matcher 一致
+          scheme: https
+          instance: stats.dkisser.cn
+          id: 47d19573-f32e-46b1-8647-a73accac22e5
 
     support:
       enable: false
