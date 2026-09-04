@@ -1,6 +1,8 @@
 # 构建并部署博客到服务器（rsync over SSH）
 #
-# 需要配置的 GitHub Secrets（Settings -> Secrets and variables -> Actions）：
+# 需要配置的 GitHub Secrets（Settings -> Secrets and variables -> Actions -> Environments -> prod）：
+#   这些 Secrets 配置在名为 prod 的 Environment 下，仅 main 分支的部署任务可读取；
+#   如需改回仓库级 Secrets，删掉下面 job 的 environment: prod 即可。
 #   DEPLOY_SSH_KEY  部署用 SSH 私钥（对应公钥已加入服务器 DEPLOY_USER 的 authorized_keys）
 #   DEPLOY_HOST     服务器地址（IP 或域名）
 #   DEPLOY_USER     SSH 用户
@@ -16,6 +18,7 @@ on:
 jobs:
   build-and-deploy:
     runs-on: ubuntu-latest
+    environment: prod
     steps:
       - uses: actions/checkout@v4
 
