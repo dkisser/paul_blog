@@ -2,13 +2,12 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-{{/* 防主题闪烁：先读 localStorage('theme')，无则跟随系统（与 assets/js/main.js 逻辑对应） */}}
+{{/* 防主题闪烁：读 localStorage('theme')，默认浅色、仅 "dark" 时深色（与 assets/js/main.js 逻辑对应） */}}
 <script>
   (function () {
     var t = null;
     try { t = localStorage.getItem("theme"); } catch (e) {}
-    var dark = t === "dark" || (t !== "light" && window.matchMedia("(prefers-color-scheme: dark)").matches);
-    if (dark) document.documentElement.classList.add("dark");
+    if (t === "dark") document.documentElement.classList.add("dark");
   })();
 </script>
 

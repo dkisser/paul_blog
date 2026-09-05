@@ -1,15 +1,36 @@
-{{/* 分类/标签总览页：所有 term 以 chip 云展示 */}}
+{{/* 分类/标签总览页 + term 页。
+     注意：Hugo 0.146+ 新模板系统里 term 页（/tags/<名>/、/categories/<名>/）会命中本模板
+     （_default/taxonomy.html 优先级高于 _default/term.html），故按 .Kind 分流：
+     taxonomy = 所有 term 的 chip 云；term = 该 term 下的内容卡网格。
+     例外：/tags/ 总览页由 layouts/tags/taxonomy.html（拓扑页）接管。 */}}
 {{ define "main" }}
-<div class="mx-auto w-full max-w-3xl px-6 py-14">
-  <p class="section-label">// {{ .Data.Plural | humanize }}</p>
-  <h1 class="mt-3 text-3xl font-bold tracking-tight text-main sm:text-4xl">{{ .Title }}</h1>
-  <div class="mt-8 flex flex-wrap gap-3">
-    {{ range .Pages }}
-      <a href="{{ .RelPermalink }}" class="chip chip-neutral transition-colors hover:border-primary/60 hover:text-primary">
-        {{ .Title }}
-        <span class="text-subtle">{{ len .Pages }}</span>
+{{ if eq .Kind "term" }}
+  <div class="mx-auto w-full max-w-wide px-6 py-14 lg:px-12">
+    <header class="max-w-2xl">
+      <a href="{{ .Parent.RelPermalink }}" class="mb-4 inline-flex items-center gap-1 font-mono text-xs text-subtle transition-colors hover:text-primary">
+        <span class="material-symbols-outlined text-sm">arrow_back</span>
+        {{ cond (eq .Data.Plural "tags") "返回标签拓扑" "返回全部分类" }}
       </a>
-    {{ end }}
+      <h1 class="text-3xl font-bold tracking-tight text-main sm:text-4xl">{{ .Title }}</h1>
+      <p class="mt-3 text-sm text-muted">共 {{ len .Pages }} 篇。</p>
+    </header>
+    <div class="mt-10 grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3">
+      {{ range .Pages.ByDate.Reverse }}
+        {{ partial "post/card.html" . }}
+      {{ end }}
+    </div>
   </div>
-</div>
+{{ else }}
+  <div class="mx-auto w-full max-w-3xl px-6 py-14">
+    <h1 class="text-3xl font-bold tracking-tight text-main sm:text-4xl">{{ .Title }}</h1>
+    <div class="mt-8 flex flex-wrap gap-3">
+      {{ range .Pages }}
+        <a href="{{ .RelPermalink }}" class="chip chip-neutral transition-colors hover:border-primary/60 hover:text-primary">
+          {{ .Title }}
+          <span class="text-subtle">{{ len .Pages }}</span>
+        </a>
+      {{ end }}
+    </div>
+  </div>
+{{ end }}
 {{ end }}

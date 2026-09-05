@@ -1,4 +1,4 @@
-{{/* 全局页脚：版权 + 链接 + mono meta 行（参照 Glacial Synapse footer 规范） */}}
+{{/* 全局页脚：版权 + 链接（参照 Glacial Synapse footer 规范） */}}
 {{ $siteData := hugo.Data.site }}
 <footer class="border-t border-border">
   <div class="mx-auto flex w-full max-w-prose48 flex-col items-center gap-6 px-6 pb-12 pt-16 text-center">
@@ -11,12 +11,5 @@
       </a>
     </nav>
     <p class="max-w-xl text-xs leading-relaxed text-subtle">{{ $siteData.copyright | markdownify }}</p>
-    <p class="flex items-center gap-2 font-mono text-xs text-subtle">
-      <span class="relative flex h-2 w-2">
-        <span class="absolute inline-flex h-full w-full animate-ping rounded-full bg-emerald-400 opacity-60"></span>
-        <span class="relative inline-flex h-2 w-2 rounded-full bg-emerald-500"></span>
-      </span>
-      Powered by Hugo &amp; Tailwind CSS · 统计由自建 umami 提供
-    </p>
   </div>
 </footer>

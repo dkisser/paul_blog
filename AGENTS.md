@@ -75,9 +75,11 @@ bash scripts/deploy.sh --dry-run   # 只预览 rsync 变更
 
 ```
 hugo.yaml            # 站点配置（单文件注释分区：站点级/markup/输出/taxonomy/related/mounts/params）
-layouts/             # 主题层（模板）：_default/（baseof、about/archives/search、taxonomy/term/list 兜底、
+layouts/             # 主题层（模板）：_default/（baseof、about/archives/search、list 兜底、
+                     #   taxonomy.html 按 .Kind 分流：taxonomy=chip 云 / term=内容卡网格——
+                     #   Hugo 0.146+ term 页会命中 taxonomy.html，_default/term.html 无效勿重建、
                      #   _markup/render-codeblock 代码块钩子）、posts/（single/list）、notes/（花园 list/笔记 single）、
-                     #   tags/list.html（标签拓扑页）、index.html、404.html、
+                     #   tags/taxonomy.html（标签拓扑页，仅接管 /tags/ 总览）、index.html、404.html、
                      #   partials/（head/site-header/site-footer/vendor-assets/back-to-top/pagination +
                      #   home/ 首页七段 + post/ 文章卡、作者卡、TOC、推荐阅读 + garden/ 笔记卡、stage 徽章、拓扑图）
 assets/              # 主题层（要 Hugo Pipes 处理的资源）：css/main.src.css（Tailwind 源）、
@@ -121,7 +123,7 @@ npm run build     # 含 Tailwind 编译
 npm run verify    # 必须输出 19/19 命中
 ```
 
-提交涉及配置、模板或文章的改动前，应至少跑通上述两条。视觉验证用 `hugo server` 人工检查双主题（主题切换按钮循环 自动→浅色→深色）。
+提交涉及配置、模板或文章的改动前，应至少跑通上述两条。视觉验证用 `hugo server` 人工检查双主题（主题切换按钮在 浅色⇄深色 两态间切换，默认浅色、不跟随系统）。
 
 ## 部署架构
 

@@ -1,5 +1,5 @@
 {{/* 全局导航：fixed 毛玻璃。首页显示页内锚点（还原设计稿），子页面显示真实路由。
-     右侧：搜索入口 + 主题三态切换（自动/浅色/深色） + 移动端汉堡。 */}}
+     右侧：搜索入口 + 主题两态切换（浅色/深色，默认浅色） + 移动端汉堡。 */}}
 {{ $siteData := hugo.Data.site }}
 <header class="glass fixed top-0 z-50 h-16 w-full">
   <div class="mx-auto flex h-full w-full max-w-wide items-center justify-between px-6 lg:px-12">
@@ -20,7 +20,7 @@
       {{ if .IsHome }}
         {{ range $siteData.homeAnchors }}
           <a href="{{ .url }}" class="rounded-lg px-3 py-2 font-medium text-muted transition-colors hover:bg-primary-soft/50 hover:text-primary">
-            {{ .name }} <span class="text-subtle">({{ .en }})</span>
+            {{ .name }}
           </a>
         {{ end }}
       {{ else }}
@@ -40,9 +40,9 @@
       <a href="/search/" class="rounded-lg p-2 text-muted transition-colors hover:text-primary" title="搜索" aria-label="搜索">
         <span class="material-symbols-outlined">search</span>
       </a>
-      {{/* 主题三态切换：自动 → 浅色 → 深色（main.js 实现） */}}
-      <button id="theme-toggle" type="button" class="rounded-lg p-2 text-muted transition-colors hover:text-primary" title="主题：跟随系统" aria-label="切换主题">
-        <span class="material-symbols-outlined" data-theme-icon>routine</span>
+      {{/* 主题两态切换：浅色 ⇄ 深色，默认浅色（main.js 实现） */}}
+      <button id="theme-toggle" type="button" class="rounded-lg p-2 text-muted transition-colors hover:text-primary" title="主题：浅色" aria-label="切换主题">
+        <span class="material-symbols-outlined" data-theme-icon>light_mode</span>
       </button>
       {{/* 移动端汉堡 */}}
       <button id="nav-toggle" type="button" class="rounded-lg p-2 text-muted transition-colors hover:text-primary lg:hidden" aria-label="打开导航" aria-expanded="false">

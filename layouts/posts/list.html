@@ -1,16 +1,32 @@
 {{ define "main" }}
 <div class="mx-auto w-full max-w-wide px-6 py-14 lg:px-12">
   <header class="max-w-2xl">
-    <p class="section-label">// Posts</p>
-    <h1 class="mt-3 text-3xl font-bold tracking-tight text-main sm:text-4xl">全部文章</h1>
+    <h1 class="text-3xl font-bold tracking-tight text-main sm:text-4xl">全部文章</h1>
     <p class="mt-3 text-sm text-muted">共 {{ len .RegularPages }} 篇，按发布时间倒序。</p>
   </header>
   {{ $paginator := .Paginate .RegularPages }}
-  <div class="mt-10 grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3">
-    {{ range $paginator.Pages }}
-      {{ partial "post/card.html" . }}
-    {{ end }}
+  <div class="mt-10 grid grid-cols-1 items-start gap-8 lg:grid-cols-12">
+    <div class="lg:col-span-8">
+      <div class="grid grid-cols-1 gap-6 sm:grid-cols-2">
+        {{ range $paginator.Pages }}
+          {{ partial "post/card.html" . }}
+        {{ end }}
+      </div>
+      {{ partial "pagination.html" $paginator }}
+    </div>
+    <aside class="flex flex-col gap-6 lg:col-span-4 lg:sticky lg:top-20">
+      <div class="card p-5">
+        <div class="mb-3 flex items-center justify-between">
+          <h3 class="flex items-center gap-2 text-sm font-bold text-main">
+            <span class="material-symbols-outlined text-lg text-primary">hub</span>
+            标签关联拓扑图
+          </h3>
+          <span class="rounded border border-border bg-surface px-2 py-0.5 font-mono text-[10px] text-muted">动态关联</span>
+        </div>
+        <p class="mb-3.5 text-xs leading-relaxed text-muted">展示核心标签与内容的互联拓扑。悬停查看交叉关联，点击节点跳标签页。</p>
+        {{ partial "garden/tag-graph.html" . }}
+      </div>
+    </aside>
   </div>
-  {{ partial "pagination.html" $paginator }}
 </div>
 {{ end }}

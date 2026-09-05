@@ -1,13 +1,12 @@
-/* 全站交互：主题三态切换 / 移动导航 / 回到顶部 / 复制委托 / TL;DR 折叠 /
+/* 全站交互：主题两态切换 / 移动导航 / 回到顶部 / 复制委托 / TL;DR 折叠 /
  * TOC scrollspy / mermaid 双主题重渲染 / 首页 typeit 打字机。
  * 注意：本文件里的 class 切换一律使用完整类名（Tailwind v4 自动扫描本目录）。
  * 组件态样式（如 .toc-link.is-active）定义在 assets/css/main.src.css。 */
 (function () {
   "use strict";
 
-  /* ── 主题：自动（跟随系统）/ 浅色 / 深色 三态 ─────────────────────── */
+  /* ── 主题：浅色 ⇄ 深色 两态（默认浅色，不跟随系统） ────────────────── */
   var STORE_KEY = "theme";
-  var media = window.matchMedia("(prefers-color-scheme: dark)");
   var themeListeners = [];
 
   function storedTheme() {
@@ -18,11 +17,10 @@
     }
   }
   function isDark() {
-    var t = storedTheme();
-    return t === "dark" || (t !== "light" && media.matches);
+    return storedTheme() === "dark";
   }
   function currentMode() {
-    return storedTheme() || "auto";
+    return isDark() ? "dark" : "light";
   }
   function applyDom() {
     document.documentElement.classList.toggle("dark", isDark());
@@ -31,32 +29,27 @@
       var mode = currentMode();
       var icon = btn.querySelector("[data-theme-icon]");
       if (icon) {
-        icon.textContent = mode === "auto" ? "routine" : mode === "light" ? "light_mode" : "dark_mode";
+        icon.textContent = mode === "light" ? "light_mode" : "dark_mode";
       }
-      btn.title = "主题：" + (mode === "auto" ? "跟随系统" : mode === "light" ? "浅色" : "深色");
+      btn.title = "主题：" + (mode === "light" ? "浅色" : "深色");
     }
     themeListeners.forEach(function (fn) {
       fn(isDark());
     });
   }
-  function cycleTheme() {
-    var next = { auto: "light", light: "dark", dark: "auto" }[currentMode()];
+  function toggleTheme() {
     try {
-      if (next === "auto") localStorage.removeItem(STORE_KEY);
-      else localStorage.setItem(STORE_KEY, next);
+      localStorage.setItem(STORE_KEY, isDark() ? "light" : "dark");
     } catch (e) {}
     applyDom();
   }
-  media.addEventListener("change", function () {
-    if (!storedTheme()) applyDom();
-  });
 
   /* ── 点击委托：主题切换 / 移动导航 / 复制 / TL;DR 折叠 ────────────── */
   document.addEventListener("click", function (e) {
     var target = e.target;
 
     if (target.closest("#theme-toggle")) {
-      cycleTheme();
+      toggleTheme();
       return;
     }
 

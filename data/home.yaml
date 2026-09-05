@@ -25,7 +25,7 @@ hero:
       label: 持续写作始于
 
 about:
-  sectionLabel: "// 01. Profile & Mindset"
+  sectionLabel: "Profile & Mindset"
   # TODO: 城市与远程状态
   photoBadge: 中国 · 远程协作
   timezoneBadge: UTC+8
@@ -52,7 +52,7 @@ about:
     text: 角色设定：务实严谨的后端工程师。强调先理解问题再动手、用证据说话；写作偏好源码佐证与复盘视角，优先以最小复杂度解决真实问题。
 
 experience:
-  sectionLabel: "// 02. Track Record & Trajectory"
+  sectionLabel: "Track Record & Trajectory"
   title: 经历
   # TODO: 替换为真实经历。每条：period / role / org / desc / highlights(2 条) / tech(标签)
   items:
@@ -66,7 +66,7 @@ experience:
       tech: [Java, Spring, Kubernetes]
 
 skills:
-  sectionLabel: "// 03. Engineering Capabilities"
+  sectionLabel: "Engineering Capabilities"
   title: 工程能力
   # TODO: 按实际情况调整分组与条目
   groups:
@@ -84,7 +84,7 @@ skills:
       items: [源码阅读, 技术复盘, 知识管理, 博客写作]
 
 contact:
-  sectionLabel: "// 06. Initiate Connection"
+  sectionLabel: "Initiate Connection"
   title: 保持联系。
   subtitle: 无论是技术交流还是问题讨论，都欢迎写信给我。
   email: "437631891@qq.com"

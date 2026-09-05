@@ -2,8 +2,10 @@
 {{ $skills := hugo.Data.home.skills }}
 <section id="skills" class="w-full scroll-mt-20">
   <div class="mx-auto w-full max-w-wide px-6 py-16 sm:py-20 lg:px-12">
-    <p class="section-label">{{ $skills.sectionLabel }}</p>
-    <h2 class="mt-4 text-2xl font-bold tracking-tight text-main sm:text-3xl">{{ $skills.title }}</h2>
+    <div class="flex flex-wrap items-baseline gap-x-4 gap-y-1">
+      <h2 class="text-2xl font-bold tracking-tight text-main sm:text-3xl">{{ $skills.title }}</h2>
+      <p class="section-label min-w-40 flex-1">{{ $skills.sectionLabel }}</p>
+    </div>
     <div class="mt-10 grid grid-cols-1 gap-6 md:grid-cols-2">
       {{ range $skills.groups }}
         <div class="card card-hover p-6">

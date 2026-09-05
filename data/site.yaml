@@ -21,26 +21,20 @@ menus:
   - name: 关于
     url: /about/
 
-# 首页页内锚点导航（还原设计稿；编号对应各段 sectionLabel）
+# 首页页内锚点导航（还原设计稿）
 homeAnchors:
-  - name: 关于
+  - name: 关于我
     url: "#about"
-    en: About
-  - name: 经历
+  - name: 工作经历
     url: "#experience"
-    en: Experience
   - name: 技术栈
     url: "#skills"
-    en: Skills
   - name: 精选文章
     url: "#articles"
-    en: Articles
   - name: 数字花园
     url: "#garden"
-    en: Garden
-  - name: 联系
+  - name: 联系方式
     url: "#contact"
-    en: Contact
 
 # 页脚链接（含搜索）
 footerMenus:

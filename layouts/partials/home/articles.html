@@ -2,9 +2,11 @@
 {{ $posts := first 3 (where site.RegularPages "Type" "posts").ByDate.Reverse }}
 <section id="articles" class="w-full scroll-mt-20">
   <div class="mx-auto w-full max-w-wide px-6 py-16 sm:py-20 lg:px-12">
-    <p class="section-label">// 04. Selected Publications</p>
-    <div class="mt-4 flex flex-wrap items-end justify-between gap-4">
+    <div class="flex flex-wrap items-baseline gap-x-4 gap-y-1">
       <h2 class="text-2xl font-bold tracking-tight text-main sm:text-3xl">近期文章</h2>
+      <p class="section-label min-w-40 flex-1">Selected Publications</p>
+    </div>
+    <div class="mt-4 flex justify-end">
       <a href="/posts/" class="chip transition-colors hover:border-primary/60">
         查看全部 {{ len (where site.RegularPages "Type" "posts") }} 篇
         <span class="material-symbols-outlined text-sm">arrow_forward</span>
