@@ -379,7 +379,8 @@ html.dark {
     line-height: 1.8;
     color: var(--color-prose);
   }
-  .article-content > p:first-of-type::first-letter {
+  /* 首字下沉仅文章详情页启用（.dropcap 标记，见 posts/single.html） */
+  .article-content.dropcap > p:first-of-type::first-letter {
     float: left;
     font-size: 3rem;
     font-weight: 700;
@@ -654,5 +655,45 @@ html.dark {
   }
   .toc a.is-active::after {
     opacity: 1;
+  }
+}
+
+/* ── 标签拓扑图（P2 数字花园/拓扑页）：节点配色板 + 边样式 ── */
+:root {
+  --color-graph-2: #0d9488;
+  --color-graph-3: #d97706;
+  --color-graph-4: #059669;
+  --color-graph-5: #e11d48;
+  --color-graph-6: #7c3aed;
+}
+html.dark {
+  --color-graph-2: #2dd4bf;
+  --color-graph-3: #fbbf24;
+  --color-graph-4: #34d399;
+  --color-graph-5: #fb7185;
+  --color-graph-6: #a78bfa;
+}
+@layer components {
+  .topo-edge {
+    stroke: var(--color-border-strong);
+    stroke-width: 1.5;
+    transition: stroke 150ms, stroke-width 150ms;
+  }
+  .topo-edge-dashed {
+    stroke-dasharray: 3 3;
+    stroke-width: 1.2;
+  }
+  .topo-edge.is-active {
+    stroke: var(--color-primary);
+    stroke-width: 2.25;
+    stroke-dasharray: none;
+  }
+  .topo-node circle {
+    transform-box: fill-box;
+    transform-origin: center;
+    transition: transform 150ms;
+  }
+  .topo-node:hover circle {
+    transform: scale(1.12);
   }
 }

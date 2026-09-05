@@ -1,0 +1,19 @@
+{{/* 园丁法则（数据见 data/garden.yaml rules） */}}
+{{ $rules := hugo.Data.garden.rules }}
+{{ with $rules }}
+  <div class="card p-5">
+    <h3 class="mb-3 flex items-center gap-2 text-sm font-bold text-main">
+      <span class="material-symbols-outlined text-base text-emerald-500">eco</span>
+      数字花园的园丁法则
+    </h3>
+    <ul class="space-y-2.5 text-xs text-muted">
+      {{ range . }}
+        <li class="flex items-start gap-2">
+          {{ $dot := cond (eq .dot "amber") "bg-amber-400" (cond (eq .dot "emerald") "bg-emerald-400" "bg-primary") }}
+          <span class="mt-1.5 h-1.5 w-1.5 shrink-0 rounded-full {{ $dot }}"></span>
+          <span><strong class="font-medium text-main">{{ .title }}:</strong> {{ .desc }}</span>
+        </li>
+      {{ end }}
+    </ul>
+  </div>
+{{ end }}

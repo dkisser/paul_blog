@@ -1,0 +1,13 @@
+{{/* 生长阶段徽章：seedling 萌芽(amber) / budding 生长(lime) / evergreen 常青(emerald)。
+     完整类名必须出现在本文件（Tailwind 扫描），文案查表 data/stages.yaml */}}
+{{ $stage := . | default "seedling" }}
+{{ $meta := index hugo.Data.stages $stage | default (index hugo.Data.stages "seedling") }}
+{{ $cls := "border-amber-500/30 bg-amber-500/10 text-amber-700 dark:text-amber-400" }}
+{{ if eq $stage "budding" }}
+  {{ $cls = "border-lime-500/30 bg-lime-500/10 text-lime-700 dark:text-lime-400" }}
+{{ else if eq $stage "evergreen" }}
+  {{ $cls = "border-emerald-500/30 bg-emerald-500/10 text-emerald-700 dark:text-emerald-400" }}
+{{ end }}
+<span class="inline-flex items-center gap-1 rounded-full border px-2 py-0.5 text-[11px] font-medium {{ $cls }}">
+  {{ $meta.emoji }} {{ $meta.label }} <span class="font-mono text-[10px] opacity-60">{{ $meta.en }}</span>
+</span>

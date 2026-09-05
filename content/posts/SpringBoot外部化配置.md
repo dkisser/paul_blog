@@ -2,6 +2,7 @@
 title: "SpringBoot外部化配置"
 date: 2022-03-20
 url: "/2022/03/20/SpringBoot外部化配置.html"
+tags: ["springboot", "配置"]
 ---
 
 # 前言

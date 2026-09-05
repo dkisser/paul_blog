@@ -3,6 +3,7 @@ title: "Nacos-Naming模块源码讲解"
 date: 2022-08-18
 url: "/2022/08/18/Nacos-Naming模块源码讲解.html"
 categories: ["newest_tech"]
+tags: ["nacos", "服务发现", "源码解析"]
 ---
 
 # 前言

@@ -265,4 +265,60 @@
 
   /* 初始化主题图标（防闪烁脚本已设置 class，此处同步按钮态） */
   applyDom();
+
+  /* ── 数字花园：笔记流搜索 + 标签筛选（#notes-search / [data-tag-filter]） ── */
+  var noteCards = Array.prototype.slice.call(document.querySelectorAll("[data-note-card]"));
+  if (noteCards.length) {
+    var searchInput = document.getElementById("notes-search");
+    var emptyHint = document.querySelector("[data-notes-empty]");
+    var filterState = { q: "", tag: "" };
+    var PILL_ON = "chip shrink-0 cursor-pointer border-primary/40 bg-primary-soft text-primary";
+    var PILL_OFF = "chip chip-neutral shrink-0 cursor-pointer transition-colors hover:border-primary/60 hover:text-primary";
+    var applyNoteFilter = function () {
+      var shown = 0;
+      noteCards.forEach(function (card) {
+        var hay = card.getAttribute("data-title") + " " + card.getAttribute("data-tags");
+        var tags = (card.getAttribute("data-tags") || "").split(",");
+        var ok = (!filterState.q || hay.indexOf(filterState.q) !== -1) &&
+                 (!filterState.tag || tags.indexOf(filterState.tag) !== -1);
+        card.classList.toggle("hidden", !ok);
+        if (!ok) return;
+        shown++;
+      });
+      if (emptyHint) emptyHint.classList.toggle("hidden", shown > 0);
+    };
+    if (searchInput) {
+      searchInput.addEventListener("input", function () {
+        filterState.q = searchInput.value.trim().toLowerCase();
+        applyNoteFilter();
+      });
+    }
+    document.addEventListener("click", function (e) {
+      var pill = e.target.closest("[data-tag-filter]");
+      if (!pill) return;
+      filterState.tag = pill.getAttribute("data-tag-filter");
+      document.querySelectorAll("[data-tag-filter]").forEach(function (p) {
+        p.setAttribute("class", p === pill ? PILL_ON : PILL_OFF);
+      });
+      applyNoteFilter();
+    });
+  }
+
+  /* ── 标签拓扑图：hover 节点高亮相关边（[data-topo-node] / [data-topo-edge]） ── */
+  if (document.querySelector("[data-topo-node]")) {
+    var setTopoActive = function (name, on) {
+      document.querySelectorAll("[data-topo-edge]").forEach(function (edge) {
+        var tags = (edge.getAttribute("data-tags") || "").split(" ");
+        if (tags.indexOf(name) !== -1) edge.classList.toggle("is-active", on);
+      });
+    };
+    document.addEventListener("mouseover", function (e) {
+      var node = e.target.closest("[data-topo-node]");
+      if (node) setTopoActive(node.getAttribute("data-topo-node"), true);
+    });
+    document.addEventListener("mouseout", function (e) {
+      var node = e.target.closest("[data-topo-node]");
+      if (node) setTopoActive(node.getAttribute("data-topo-node"), false);
+    });
+  }
 })();

@@ -1,0 +1,69 @@
+{{/* 数字花园列表页（/notes/）：宣言 + 搜索/标签过滤条 + 笔记流 + 侧栏（拓扑图/Sparks/园丁法则）。
+     过滤交互在 main.js（#notes-search 输入 + [data-tag-filter] 点击，过滤 [data-note-card]）。 */}}
+{{ define "main" }}
+{{ $notes := (where site.RegularPages "Type" "notes").ByDate.Reverse }}
+{{/* 标签横滚条：仅统计 notes 维度 */}}
+{{ $noteTagCount := dict }}
+{{ range $notes }}
+  {{ range .Params.tags | default slice }}
+    {{ $noteTagCount = merge $noteTagCount (dict . (add (index $noteTagCount . | default 0) 1)) }}
+  {{ end }}
+{{ end }}
+<div class="mx-auto w-full max-w-wide px-6 py-10 lg:px-12">
+  <div class="mb-8 border-b border-border pb-6">
+    <div class="mb-6 flex flex-col justify-between gap-4 md:flex-row md:items-end">
+      <div>
+        <div class="mb-1 flex items-center gap-2">
+          <h1 class="font-headline text-2xl font-bold tracking-tight text-main sm:text-3xl">思维笔记</h1>
+          <span class="rounded border border-primary/25 bg-primary-soft px-2 py-0.5 font-mono text-[11px] font-semibold text-primary">Digital Garden</span>
+        </div>
+        <div class="mt-1 max-w-2xl text-sm leading-relaxed text-muted">
+          {{ .Content }}
+        </div>
+      </div>
+      <div class="relative shrink-0">
+        <span class="material-symbols-outlined absolute left-3 top-1/2 -translate-y-1/2 text-base text-subtle">search</span>
+        <input id="notes-search" type="text" placeholder="检索笔记、代码或意图…"
+          class="w-56 rounded-lg border border-border bg-card py-1.5 pl-9 pr-3 text-xs text-main transition-all placeholder:text-subtle focus:border-primary focus:outline-none focus:ring-2 focus:ring-primary/15 sm:w-64">
+      </div>
+    </div>
+    {{ if gt (len $noteTagCount) 0 }}
+      <div class="no-scrollbar flex items-center gap-2 overflow-x-auto pb-1 font-mono text-xs">
+        <span class="mr-1 shrink-0 text-[11px] text-subtle">标签筛选:</span>
+        <button type="button" data-tag-filter="" class="chip shrink-0 cursor-pointer border-primary/40 bg-primary-soft text-primary">
+          #全部 <span class="text-[11px] opacity-70">({{ len $notes }})</span>
+        </button>
+        {{ range $name, $count := $noteTagCount }}
+          <button type="button" data-tag-filter="{{ lower $name }}" class="chip chip-neutral shrink-0 cursor-pointer transition-colors hover:border-primary/60 hover:text-primary">
+            #{{ $name }} <span class="text-[11px] text-subtle">({{ $count }})</span>
+          </button>
+        {{ end }}
+      </div>
+    {{ end }}
+  </div>
+
+  <div class="grid grid-cols-1 items-start gap-8 lg:grid-cols-12">
+    <div class="flex flex-col gap-6 lg:col-span-8" id="notes-stream">
+      {{ range $notes }}
+        {{ partial "garden/note-card.html" (dict "page" . "mode" "stage") }}
+      {{ end }}
+      <p class="hidden py-10 text-center text-sm text-subtle" data-notes-empty>没有匹配的笔记。</p>
+    </div>
+    <aside class="flex flex-col gap-6 lg:col-span-4 lg:sticky lg:top-20">
+      <div class="card p-5">
+        <div class="mb-3 flex items-center justify-between">
+          <h3 class="flex items-center gap-2 text-sm font-bold text-main">
+            <span class="material-symbols-outlined text-lg text-primary">hub</span>
+            标签关联拓扑图
+          </h3>
+          <span class="rounded border border-border bg-surface px-2 py-0.5 font-mono text-[10px] text-muted">动态关联</span>
+        </div>
+        <p class="mb-3.5 text-xs leading-relaxed text-muted">展示核心标签与内容的互联拓扑。悬停查看交叉关联，点击节点跳标签页。</p>
+        {{ partial "garden/tag-graph.html" . }}
+      </div>
+      {{ partial "garden/sparks.html" . }}
+      {{ partial "garden/rules.html" . }}
+    </aside>
+  </div>
+</div>
+{{ end }}

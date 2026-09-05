@@ -4,7 +4,7 @@
 
 ## 项目概述
 
-**Paul的技术博客** —— 基于 [Hugo](https://gohugo.io/)（extended 版）+ **自研主题**的简体中文个人静态博客。内容从旧 Jekyll 博客（dkisser.github.io）迁移而来，共 19 篇文章。
+**Paul的技术博客** —— 基于 [Hugo](https://gohugo.io/)（extended 版）+ **自研主题**的简体中文个人静态博客。内容从旧 Jekyll 博客（dkisser.github.io）迁移而来，共 19 篇文章 + `content/notes/` 数字花园笔记体系（stage/version/related 字段，双向引用）。
 
 - 站点配置：`hugo.yaml`（单语言 zh-cn，`baseURL` 为 `https://dkisser.cn/`；单文件 + 注释分区组织）
 - 主题自研、全部入库：2026-09 起弃用 Toha v4 / Hugo Modules，`layouts/` + `assets/` 即主题层，无外部主题依赖，**不再需要 Go**
@@ -76,14 +76,17 @@ bash scripts/deploy.sh --dry-run   # 只预览 rsync 变更
 ```
 hugo.yaml            # 站点配置（单文件注释分区：站点级/markup/输出/taxonomy/related/mounts/params）
 layouts/             # 主题层（模板）：_default/（baseof、about/archives/search、taxonomy/term/list 兜底、
-                     #   _markup/render-codeblock 代码块钩子）、posts/（single/list）、index.html、404.html、
+                     #   _markup/render-codeblock 代码块钩子）、posts/（single/list）、notes/（花园 list/笔记 single）、
+                     #   tags/list.html（标签拓扑页）、index.html、404.html、
                      #   partials/（head/site-header/site-footer/vendor-assets/back-to-top/pagination +
-                     #   home/ 首页六段 + post/ 文章卡、作者卡、TOC、推荐阅读等）
+                     #   home/ 首页七段 + post/ 文章卡、作者卡、TOC、推荐阅读 + garden/ 笔记卡、stage 徽章、拓扑图）
 assets/              # 主题层（要 Hugo Pipes 处理的资源）：css/main.src.css（Tailwind 源）、
                      #   js/main.js（主题切换/复制/scrollspy/mermaid/typeit）、images/（头像、favicon）
 data/                # 内容层数据：site.yaml（菜单/页脚/openGraph/umami）、author.yaml（作者简介/打字机文案）、
-                     #   home.yaml（首页五段文案；experience/skills 是 TODO 占位）
+                     #   home.yaml（首页五段文案；experience/skills 是 TODO 占位）、
+                     #   stages.yaml（笔记生长阶段查表）、garden.yaml（宣言/园丁法则/Quick Sparks）
 content/posts/       # 19 篇迁移文章（front matter 用 url: 固定旧 Jekyll URL，形如 /YYYY/MM/DD/<slug>.html）
+content/notes/       # 数字花园笔记（front matter：stage/version/tags/related，见「代码与内容约定」）
 content/about.md     # 关于页（layouts/_default/about.html）
 content/archives.md  # 归档页（layouts/_default/archives.html 按年份分组）
 content/search.md    # 搜索页（layouts/_default/search.html，Pagefind UI 中文界面）
@@ -101,6 +104,8 @@ deploy/              # 服务器部署件：Caddyfile、docker-compose.yml（cad
 - `assets/`（要 Pipes 处理：指纹、压缩、图片缩放）与 `static/`（原样直出）双轨：文章配图放 `static/assets/images/`（正文引用 `/assets/images/...` 不变）；字体走 mounts 到 `static/fonts/`。
 - 文章 front matter 用 `url: "/YYYY/MM/DD/<slug>.html"` 固定旧站 URL（slug 规则与旧 Jekyll pretty slugify 一致）。**迁移后不得改动这些 URL**——旧站（dkisser.github.io）已部署同路径 301 跳转页指向新站；改动会导致外链与跳转失效。新增文章不在此约束内。
 - 文章 front matter 开关：`math: true`（KaTeX）、`mermaid: true`（图表，代码块语言标 `mermaid`）按需开启；代码块支持 ` ```java {file="Demo.java"} ` 在头部显示文件名。
+- 笔记（`content/notes/`）front matter：`stage: seedling|budding|evergreen`（萌芽/生长/常青，emoji 与文案查表 `data/stages.yaml`，配色在 `partials/garden/stage-badge.html`）、`version: "v0.x"`、`tags`、`related: [<笔记文件 slug>...]`（双向引用 = related 正向 + 反查 backlinks，模板自动互链）。
+- 标签拓扑图（`/notes/` 侧栏与 `/tags/`）由 `partials/garden/tag-graph.html` 在**构建期**生成环形布局 SVG：节点为内容数前 8 的标签（半径 ∝ 数量），实线连中心最大标签，虚线为标签共现；不引入前端力学库。
 - 旧文章正文以 `#`（h1）作章节标题：TOC（`markup.tableOfContents` 收 h1+h2 两级）与 "SECTION 0N" 徽章（仅 h1，CSS counter）都以此为准，新文章沿用此结构。
 - 构建脚本 `scripts/build.sh` 与 CI（`.github/workflows/deploy.yml`）必须使用完全相同的命令，改动构建流程时两边同步。
 - 模板里的动态 class 必须写完整类名（Tailwind v4 自动内容扫描 `layouts/`、`assets/js/`）；`stitch/` 已 gitignore 不参与扫描。
@@ -133,7 +138,7 @@ npm run verify    # 必须输出 19/19 命中
 - `data/home.yaml` 中 experience / skills 段是 TODO 占位，待填真实履历
 - 服务器 `deploy/.env`；GitHub Secrets 5 项
 - 正文 `content/about.md` 的自我介绍
-- P2 规划（未开始）：数字花园（`content/notes/`）+ 标签拓扑页（参考 `stitch/02`、`03`、`07`、`09` 设计稿）；为文章补 tags front matter
+- 19 篇文章的 tags 为批量代拟（2026-09），待作者逐篇审阅校准；笔记体系已有 3 篇示例（`content/notes/`），按需替换为真实笔记
 
 ## 安全注意事项
 

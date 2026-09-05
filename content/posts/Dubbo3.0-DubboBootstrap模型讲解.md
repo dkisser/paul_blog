@@ -3,6 +3,7 @@ title: "Dubbo3.0-DubboBootstrap模型讲解"
 date: 2022-08-07
 url: "/2022/08/07/Dubbo3.0-DubboBootstrap模型讲解.html"
 categories: ["newest_tech"]
+tags: ["dubbo", "微服务", "源码解析"]
 ---
 
 # 前言

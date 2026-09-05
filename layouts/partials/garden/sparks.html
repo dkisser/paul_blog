@@ -1,0 +1,24 @@
+{{/* Quick Sparks 即时闪光碎片（数据见 data/garden.yaml sparks） */}}
+{{ $sparks := hugo.Data.garden.sparks }}
+{{ with $sparks }}
+  <div class="card p-5">
+    <div class="mb-3 flex items-center justify-between">
+      <h3 class="flex items-center gap-2 text-sm font-bold text-main">
+        <span class="material-symbols-outlined text-base text-amber-500">bolt</span>
+        即时闪光
+      </h3>
+      <span class="rounded border border-border bg-surface px-1.5 py-0.5 font-mono text-[10px] text-subtle">未成型碎片</span>
+    </div>
+    <div class="flex flex-col gap-3">
+      {{ range sort $sparks "date" "desc" }}
+        <div class="rounded-xl border border-border bg-bg p-3 text-xs transition-colors hover:border-border-strong">
+          <div class="mb-1.5 flex items-center justify-between font-mono text-[10px] text-subtle">
+            <span>{{ .date }}</span>
+            <span class="font-medium text-primary">#{{ .tag }}</span>
+          </div>
+          <p class="leading-relaxed text-prose">{{ .text }}</p>
+        </div>
+      {{ end }}
+    </div>
+  </div>
+{{ end }}

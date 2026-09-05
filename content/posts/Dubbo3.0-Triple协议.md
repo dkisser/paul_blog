@@ -3,6 +3,7 @@ title: "Dubbo3.0-Triple协议"
 date: 2022-07-25
 url: "/2022/07/25/Dubbo3.0-Triple协议.html"
 categories: ["newest_tech"]
+tags: ["dubbo", "网络协议"]
 ---
 
 # 前言

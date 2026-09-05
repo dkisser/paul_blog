@@ -3,6 +3,7 @@ title: "Nacos-Config模块源码讲解"
 date: 2022-08-22
 url: "/2022/08/22/Nacos-Config模块源码讲解.html"
 categories: ["newest_tech"]
+tags: ["nacos", "配置中心", "源码解析"]
 ---
 
 # 前言

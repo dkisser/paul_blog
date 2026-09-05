@@ -3,6 +3,7 @@ title: "Dubbo3.0-服务自省"
 date: 2022-08-06
 url: "/2022/08/06/Dubbo3.0-服务自省.html"
 categories: ["newest_tech"]
+tags: ["dubbo", "微服务", "服务发现"]
 ---
 
 # 前言

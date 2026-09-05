@@ -2,6 +2,7 @@
 title: "SpringBoot可执行jar原理"
 date: 2022-03-20
 url: "/2022/03/20/SpringBoot可执行jar原理.html"
+tags: ["springboot", "源码解析"]
 ---
 
 # 前言

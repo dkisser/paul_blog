@@ -12,12 +12,16 @@ menus:
     url: /
   - name: 文章
     url: /posts/
+  - name: 笔记
+    url: /notes/
+  - name: 标签
+    url: /tags/
   - name: 归档
     url: /archives/
   - name: 关于
     url: /about/
 
-# 首页页内锚点导航（还原设计稿；P2 接入 notes 段落后追加对应项）
+# 首页页内锚点导航（还原设计稿；编号对应各段 sectionLabel）
 homeAnchors:
   - name: 关于
     url: "#about"
@@ -31,6 +35,9 @@ homeAnchors:
   - name: 精选文章
     url: "#articles"
     en: Articles
+  - name: 数字花园
+    url: "#garden"
+    en: Garden
   - name: 联系
     url: "#contact"
     en: Contact
@@ -39,6 +46,10 @@ homeAnchors:
 footerMenus:
   - name: 文章列表
     url: /posts/
+  - name: 思维笔记
+    url: /notes/
+  - name: 标签拓扑
+    url: /tags/
   - name: 归档
     url: /archives/
   - name: 搜索

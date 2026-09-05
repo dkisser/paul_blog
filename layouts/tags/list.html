@@ -1,0 +1,58 @@
+{{/* 标签拓扑页（/tags/）：左 = 全部带标签内容流（文章卡 + 笔记卡按时间倒序混排），
+     右 = 标签关联拓扑图（构建期环形 SVG）+ 标签速览。 */}}
+{{ define "main" }}
+{{ $tagged := slice }}
+{{ range site.RegularPages }}
+  {{ if .Params.tags }}{{ $tagged = $tagged | append . }}{{ end }}
+{{ end }}
+{{ $tagged = sort $tagged "Date" "desc" }}
+<div class="mx-auto w-full max-w-wide px-6 py-10 lg:px-12">
+  <div class="mb-8 border-b border-border pb-6">
+    <p class="section-label">// Tag Topology</p>
+    <h1 class="mt-3 font-headline text-2xl font-bold tracking-tight text-main sm:text-3xl">标签拓扑</h1>
+    <p class="mt-2 text-sm text-muted">共 {{ len site.Taxonomies.tags }} 个标签、{{ len $tagged }} 篇带标签内容。节点大小 ∝ 内容数，虚线为标签共现关系。</p>
+  </div>
+  <div class="grid grid-cols-1 items-start gap-8 lg:grid-cols-12">
+    <div class="flex flex-col gap-6 lg:col-span-8">
+      {{ range $tagged }}
+        {{ if eq .Type "notes" }}
+          {{ partial "garden/note-card.html" (dict "page" . "mode" "type") }}
+        {{ else }}
+          {{ partial "post/card.html" . }}
+        {{ end }}
+      {{ end }}
+    </div>
+    <aside class="flex flex-col gap-6 lg:col-span-4 lg:sticky lg:top-20">
+      <div class="card p-5">
+        <div class="mb-3 flex items-center gap-2">
+          <span class="material-symbols-outlined text-lg text-primary">hub</span>
+          <h3 class="text-sm font-bold text-main">标签关联拓扑图</h3>
+        </div>
+        {{ partial "garden/tag-graph.html" . }}
+      </div>
+      <div class="card p-5">
+        <h4 class="mb-3 flex items-center justify-between font-mono text-xs font-semibold uppercase tracking-wider text-muted">
+          <span class="flex items-center gap-1.5">
+            <span class="material-symbols-outlined text-sm text-primary">label</span>按标签速览
+          </span>
+          <span class="text-[10px] normal-case text-subtle">共 {{ len site.Taxonomies.tags }} 个</span>
+        </h4>
+        <div class="flex flex-col gap-1 text-xs">
+          {{ $terms := slice }}
+          {{ range $name, $weighted := site.Taxonomies.tags }}
+            {{ $terms = $terms | append (dict "name" $name "count" (len $weighted) "slug" (urlize $name)) }}
+          {{ end }}
+          {{ range sort $terms "count" "desc" }}
+            <a href="{{ "tags/" | relURL }}{{ .slug }}/" class="flex items-center justify-between rounded-lg border border-transparent p-2 transition-colors hover:border-border hover:bg-surface">
+              <span class="flex items-center gap-1.5 font-medium text-main">
+                <span class="inline-block h-2 w-2 rounded-full bg-primary"></span>#{{ .name }}
+              </span>
+              <span class="font-mono text-subtle">{{ .count }} 篇</span>
+            </a>
+          {{ end }}
+        </div>
+      </div>
+    </aside>
+  </div>
+</div>
+{{ end }}

@@ -1,0 +1,106 @@
+{{/* 标签关联拓扑图：构建期环形布局直接生成 SVG（不引力学库）。
+     节点 = 文章数最多的前 8 个标签，半径 ∝ 内容数；中心为最大标签，其余环形分布；
+     实线边 = 与中心关联，虚线边 = 标签共现（同一页面同时携带两标签）。
+     hover 高亮由 main.js 给 [data-topo-edge] 切 .is-active；点击节点跳 term 页。 */}}
+{{ $terms := slice }}
+{{ range $name, $weighted := site.Taxonomies.tags }}
+  {{ $terms = $terms | append (dict "name" $name "count" (len $weighted) "slug" (urlize $name)) }}
+{{ end }}
+{{ $terms = sort $terms "count" "desc" }}
+{{ $top := first 8 $terms }}
+{{ if ge (len $top) 2 }}
+  {{ $pi := 3.141592653589793 }}
+  {{ $cx := 160.0 }}
+  {{ $cy := 125.0 }}
+  {{ $rx := 102.0 }}
+  {{ $ry := 86.0 }}
+  {{ $center := index $top 0 }}
+  {{ $ring := after 1 $top }}
+  {{ $rn := len $ring }}
+  {{ $ringNames := slice }}
+  {{ range $ring }}{{ $ringNames = $ringNames | append .name }}{{ end }}
+  {{/* 环节点坐标：name → dict */}}
+  {{ $pos := dict }}
+  {{ range $i, $t := $ring }}
+    {{ $theta := sub (mul 2.0 $pi (div (float $i) (float $rn))) (div $pi 2.0) }}
+    {{ $x := add $cx (mul $rx (math.Cos $theta)) }}
+    {{ $y := add $cy (mul $ry (math.Sin $theta)) }}
+    {{ $r := math.Min 20.0 (add 11.0 (mul 1.5 (float $t.count))) }}
+    {{ $pos = merge $pos (dict $t.name (dict "x" $x "y" $y "r" $r "ci" (add 2 (mod $i 5)))) }}
+  {{ end }}
+  {{/* 共现边：遍历所有页面，收集环节签两两组合 */}}
+  {{ $edges := dict }}
+  {{ range site.RegularPages }}
+    {{ $pt := slice }}
+    {{ range .Params.tags | default slice }}
+      {{ if in $ringNames . }}{{ $pt = $pt | append . }}{{ end }}
+    {{ end }}
+    {{ if ge (len $pt) 2 }}
+      {{ range $i, $a := $pt }}
+        {{ range $j, $b := $pt }}
+          {{ if and (gt $j $i) (ne $a $b) }}
+            {{ $edges = merge $edges (dict (printf "%s|%s" $a $b) true) }}
+          {{ end }}
+        {{ end }}
+      {{ end }}
+    {{ end }}
+  {{ end }}
+  <div class="relative h-64 w-full overflow-hidden rounded-lg border border-border bg-bg">
+    <svg class="h-full w-full" viewBox="0 0 320 250" xmlns="http://www.w3.org/2000/svg">
+      <defs>
+        <pattern id="topo-dots" width="16" height="16" patternUnits="userSpaceOnUse">
+          <circle cx="2" cy="2" r="1" style="fill: var(--color-border-strong)"></circle>
+        </pattern>
+      </defs>
+      <rect width="100%" height="100%" fill="url(#topo-dots)"></rect>
+      {{/* 共现虚线边 */}}
+      {{ range $k, $_ := $edges }}
+        {{ $pair := split $k "|" }}
+        {{ $a := index $pos (index $pair 0) }}
+        {{ $b := index $pos (index $pair 1) }}
+        {{ if and $a $b }}
+          <line class="topo-edge topo-edge-dashed" data-topo-edge data-tags="{{ $k | replaceRE `\|` ` ` }}"
+            x1="{{ printf "%.1f" $a.x }}" y1="{{ printf "%.1f" $a.y }}"
+            x2="{{ printf "%.1f" $b.x }}" y2="{{ printf "%.1f" $b.y }}"></line>
+        {{ end }}
+      {{ end }}
+      {{/* 中心实线边 */}}
+      {{ range $ring }}
+        {{ $t := . }}
+        {{ with index $pos $t.name }}
+          <line class="topo-edge" data-topo-edge data-tags="{{ $center.name }} {{ $t.name }}" x1="{{ $cx }}" y1="{{ $cy }}"
+            x2="{{ printf "%.1f" .x }}" y2="{{ printf "%.1f" .y }}"></line>
+        {{ end }}
+      {{ end }}
+      {{/* 环节点（标签文字置于节点下方，避免中文名超出小圆） */}}
+      {{ range $ring }}
+        {{ $t := . }}
+        {{ with index $pos $t.name }}
+          <a href="{{ "tags/" | relURL }}{{ $t.slug }}/" class="topo-node" data-topo-node="{{ $t.name }}">
+            <g class="cursor-pointer">
+              <circle cx="{{ printf "%.1f" .x }}" cy="{{ printf "%.1f" .y }}" r="{{ printf "%.1f" .r }}"
+                style="stroke: var(--color-graph-{{ .ci }}); fill: color-mix(in srgb, var(--color-graph-{{ .ci }}) 14%, var(--color-card)); stroke-width: 1.75;"></circle>
+              <text x="{{ printf "%.1f" .x }}" y="{{ printf "%.1f" (add .y (add .r 10.0)) }}" text-anchor="middle" font-size="8" font-weight="600"
+                style="fill: var(--color-graph-{{ .ci }});">#{{ $t.name }}</text>
+            </g>
+          </a>
+        {{ end }}
+      {{ end }}
+      {{/* 中心节点（最大标签） */}}
+      <a href="{{ "tags/" | relURL }}{{ $center.slug }}/" class="topo-node" data-topo-node="{{ $center.name }}">
+        <g class="cursor-pointer">
+          <circle cx="{{ $cx }}" cy="{{ $cy }}" r="24"
+            style="stroke: var(--color-primary); fill: color-mix(in srgb, var(--color-primary) 16%, var(--color-card)); stroke-width: 2.5;"></circle>
+          <text x="{{ $cx }}" y="{{ add $cy 38 }}" text-anchor="middle" font-size="9" font-weight="700"
+            style="fill: var(--color-primary);">#{{ $center.name }}</text>
+        </g>
+      </a>
+    </svg>
+    <div class="absolute bottom-2 right-2.5 flex items-center gap-1 rounded border border-border bg-card/90 px-2 py-0.5 font-mono text-[10px] text-muted">
+      <span class="inline-block h-1.5 w-1.5 rounded-full bg-primary"></span>
+      #{{ $center.name }} · {{ $center.count }} 篇内容
+    </div>
+  </div>
+{{ else }}
+  <p class="text-xs text-subtle">标签数据不足，拓扑图待生成。</p>
+{{ end }}

@@ -3,6 +3,7 @@ title: "从零开始学gRPC（二）"
 date: 2022-06-19
 url: "/2022/06/19/从零开始学gRPC-二.html"
 categories: ["newest_tech"]
+tags: ["grpc", "微服务"]
 ---
 
 # 前言

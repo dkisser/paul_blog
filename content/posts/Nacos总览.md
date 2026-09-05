@@ -3,6 +3,7 @@ title: "Nacos总览"
 date: 2022-08-20
 url: "/2022/08/20/Nacos总览.html"
 categories: ["newest_tech"]
+tags: ["nacos", "微服务"]
 ---
 
 # 前言

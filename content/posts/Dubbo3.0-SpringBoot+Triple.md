@@ -3,6 +3,7 @@ title: "Dubbo3.0-SpringBoot+Triple"
 date: 2022-08-03
 url: "/2022/08/03/Dubbo3.0-SpringBoot+Triple.html"
 categories: ["newest_tech"]
+tags: ["dubbo", "springboot", "微服务"]
 ---
 
 # 前言

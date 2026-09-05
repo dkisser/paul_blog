@@ -1,0 +1,62 @@
+{{/* 笔记卡：花园页（mode=stage）与标签拓扑页（mode=type）共用。
+     入参 dict：page（笔记页面对象）、mode（stage=生长阶段徽章 / type=类型徽章）。
+     双向引用 = related 正向链接 + 反查 backlinks（他笔记 related 指向本笔记）。 */}}
+{{ $p := .page }}
+{{ $mode := .mode | default "stage" }}
+{{ $slug := $p.File.BaseFileName }}
+<article class="card card-hover flex flex-col p-5 sm:p-6" data-note-card
+  data-title="{{ lower $p.Title }}" data-tags="{{ delimit ($p.Params.tags | default slice) "," | lower }}">
+  <div class="mb-3 flex flex-wrap items-center justify-between gap-2 text-xs">
+    <div class="flex flex-wrap items-center gap-2">
+      {{ if eq $mode "type" }}
+        <span class="rounded border border-primary/25 bg-primary-soft px-2 py-0.5 font-mono text-[11px] font-medium text-primary">{{ $p.Params.badge | default "笔记" }}</span>
+      {{ else }}
+        {{ partial "garden/stage-badge.html" ($p.Params.stage | default "seedling") }}
+      {{ end }}
+      {{ with $p.Params.version }}<span class="font-mono text-subtle">{{ . }}</span><span class="text-border">•</span>{{ end }}
+      <span class="font-mono text-subtle">{{ $p.Date.Format "2006-01-02" }}</span>
+    </div>
+    {{ with index $p.Params.tags 0 }}
+      <span class="rounded border border-border bg-surface px-2 py-0.5 font-mono text-[11px] text-muted">#{{ . }}</span>
+    {{ end }}
+  </div>
+  <h2 class="mb-3 text-base font-bold text-main transition-colors hover:text-primary sm:text-lg">
+    <a href="{{ $p.RelPermalink }}">{{ $p.Title }}</a>
+  </h2>
+  <div class="article-content note-body text-sm">
+    {{ $p.Content }}
+  </div>
+  {{ $related := $p.Params.related | default slice }}
+  {{ $backlinks := slice }}
+  {{ range site.RegularPages }}
+    {{ if and (eq .Type "notes") (ne .File.BaseFileName $slug) (in (.Params.related | default slice) $slug) }}
+      {{ $backlinks = $backlinks | append . }}
+    {{ end }}
+  {{ end }}
+  <div class="mt-4 flex flex-wrap items-center justify-between gap-3 border-t border-border pt-3">
+    <div class="flex flex-wrap items-center gap-1.5">
+      {{ range $p.Params.tags | default slice }}
+        <a href="{{ "tags/" | relURL }}{{ . | urlize }}/" class="chip chip-neutral !h-7 !px-3 !text-xs transition-colors hover:border-primary/60 hover:text-primary">
+          <span class="material-symbols-outlined text-sm">tag</span>{{ . }}
+        </a>
+      {{ end }}
+    </div>
+    <div class="flex flex-wrap items-center gap-2 font-mono text-xs text-subtle">
+      {{ if or $related $backlinks }}
+        <span>双向引用:</span>
+        {{ range $related }}
+          {{ with site.GetPage (printf "/notes/%s" .) }}
+            <a href="{{ .RelPermalink }}" class="text-primary hover:underline">[[{{ .Title }}]]</a>
+          {{ end }}
+        {{ end }}
+        {{ range $backlinks }}
+          <a href="{{ .RelPermalink }}" class="text-primary hover:underline">[[{{ .Title }}]]</a>
+        {{ end }}
+      {{ end }}
+      <button type="button" class="btn-ghost !h-7 !px-2.5 !text-xs" data-copy-text="{{ $p.Permalink }}" title="复制笔记链接">
+        <span class="material-symbols-outlined text-sm">link</span>
+        <span data-copy-label>引用</span>
+      </button>
+    </div>
+  </div>
+</article>

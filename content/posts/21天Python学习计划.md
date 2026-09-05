@@ -3,6 +3,7 @@ title: "21天Python学习计划"
 date: 2022-09-04
 url: "/2022/09/04/21天Python学习计划.html"
 categories: ["21study"]
+tags: ["python", "学习方法"]
 ---
 
 # 前言

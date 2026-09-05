@@ -1,0 +1,31 @@
+{{/* #garden：数字花园入口段，最新 4 篇笔记小卡 */}}
+{{ $notes := first 4 (where site.RegularPages "Type" "notes").ByDate.Reverse }}
+{{ if $notes }}
+<section id="garden" class="w-full scroll-mt-20">
+  <div class="mx-auto w-full max-w-wide px-6 py-16 sm:py-20 lg:px-12">
+    <p class="section-label">// 05. Digital Garden</p>
+    <div class="mt-4 flex flex-wrap items-end justify-between gap-4">
+      <div>
+        <h2 class="text-2xl font-bold tracking-tight text-main sm:text-3xl">数字花园</h2>
+        <p class="mt-2 max-w-xl text-sm text-muted">{{ hugo.Data.garden.manifesto }}</p>
+      </div>
+      <a href="/notes/" class="chip transition-colors hover:border-primary/60">
+        进入花园
+        <span class="material-symbols-outlined text-sm">arrow_forward</span>
+      </a>
+    </div>
+    <div class="mt-10 grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-4">
+      {{ range $notes }}
+        <a href="{{ .RelPermalink }}" class="card card-hover group flex flex-col gap-3 p-5">
+          {{ partial "garden/stage-badge.html" (.Params.stage | default "seedling") }}
+          <h3 class="line-clamp-2 text-sm font-bold leading-snug text-main transition-colors group-hover:text-primary">{{ .Title }}</h3>
+          <div class="mt-auto flex items-center gap-2 font-mono text-[11px] text-subtle">
+            <span>{{ .Date.Format "2006-01-02" }}</span>
+            {{ with index .Params.tags 0 }}<span>·</span><span>#{{ . }}</span>{{ end }}
+          </div>
+        </a>
+      {{ end }}
+    </div>
+  </div>
+</section>
+{{ end }}

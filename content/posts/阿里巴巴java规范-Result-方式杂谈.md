@@ -2,6 +2,7 @@
 title: "《阿里巴巴java规范》 Result 方式杂谈"
 date: 2022-05-10
 url: "/2022/05/10/阿里巴巴java规范-Result-方式杂谈.html"
+tags: ["java", "编码规范"]
 ---
 
 # 前言

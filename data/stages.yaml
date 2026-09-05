@@ -1,0 +1,13 @@
+# 笔记生长阶段（stage）查表：emoji / 中英文案；配色在 layouts/partials/garden/stage-badge.html（Tailwind 需扫到完整类名）
+seedling:
+  emoji: 🌱
+  label: 萌芽
+  en: Seedling
+budding:
+  emoji: 🌿
+  label: 生长
+  en: Budding
+evergreen:
+  emoji: 🌲
+  label: 常青
+  en: Evergreen

@@ -2,6 +2,7 @@
 title: "避坑：@Around与@Transactional混用导致事务不回滚"
 date: 2022-07-02
 url: "/2022/07/02/避坑-@Around与@Transactional混用导致事务不回滚.html"
+tags: ["java", "spring", "事务"]
 ---
 
 # 前言
