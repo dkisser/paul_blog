@@ -1,0 +1,32 @@
+{{/* 作者名片：头像 + 名称/头衔 + 简介 + GitHub/RSS 入口（数据见 data/author.yaml） */}}
+{{ $author := hugo.Data.author }}
+<div class="card flex flex-col gap-4 p-5">
+  <div class="flex items-center gap-3">
+    {{ with resources.Get $author.image }}
+      {{ $avatar := .Resize "96x96" }}
+      <img src="{{ $avatar.RelPermalink }}" alt="{{ $author.name }}" width="48" height="48"
+        class="h-12 w-12 rounded-full object-cover ring-2 ring-primary/20" loading="lazy">
+    {{ end }}
+    <div class="flex min-w-0 flex-col">
+      <div class="flex items-center gap-1.5">
+        <span class="truncate text-sm font-bold text-main">{{ $author.name }}</span>
+        <span class="material-symbols-outlined text-sm text-primary" title="作者">verified</span>
+      </div>
+      <span class="truncate font-mono text-[11px] text-subtle">{{ $author.designation }}</span>
+    </div>
+  </div>
+  <p class="text-xs leading-relaxed text-muted">{{ $author.bio }}</p>
+  <div class="flex items-center gap-2">
+    {{ with $author.contactInfo.github }}
+      <a href="https://github.com/{{ . }}" target="_blank" rel="noopener"
+        class="inline-flex h-9 flex-1 items-center justify-center gap-2 rounded-lg border border-primary/25 bg-primary-soft text-center font-mono text-xs font-medium text-primary transition-colors hover:bg-primary hover:text-primary-contrast">
+        <span class="material-symbols-outlined text-sm leading-none">person_add</span>
+        <span class="leading-none">在 GitHub 上关注</span>
+      </a>
+    {{ end }}
+    <a href="{{ "index.xml" | absURL }}" title="RSS 订阅"
+      class="inline-flex h-9 w-9 shrink-0 items-center justify-center rounded-lg border border-border bg-surface text-muted transition-colors hover:text-primary">
+      <span class="material-symbols-outlined text-base leading-none">rss_feed</span>
+    </a>
+  </div>
+</div>

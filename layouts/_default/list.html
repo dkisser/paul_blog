@@ -1,0 +1,15 @@
+{{/* 通用列表兜底（其他 section 列表页） */}}
+{{ define "main" }}
+<div class="mx-auto w-full max-w-wide px-6 py-14 lg:px-12">
+  <header class="max-w-2xl">
+    <h1 class="text-3xl font-bold tracking-tight text-main sm:text-4xl">{{ .Title }}</h1>
+  </header>
+  {{ $paginator := .Paginate .RegularPages }}
+  <div class="mt-10 grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3">
+    {{ range $paginator.Pages }}
+      {{ partial "post/card.html" . }}
+    {{ end }}
+  </div>
+  {{ partial "pagination.html" $paginator }}
+</div>
+{{ end }}

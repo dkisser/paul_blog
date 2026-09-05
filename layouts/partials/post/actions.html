@@ -1,0 +1,12 @@
+{{/* 文章操作栏：复制链接 / 复制 Markdown 原文 */}}
+<div class="mt-12 flex flex-wrap items-center gap-3 border-t border-border pt-6">
+  <button type="button" class="btn-ghost !h-9 !px-4 !text-xs" data-copy-link>
+    <span class="material-symbols-outlined text-sm">link</span>
+    <span data-copy-label>复制链接</span>
+  </button>
+  <button type="button" class="btn-ghost !h-9 !px-4 !text-xs" data-copy-md>
+    <span class="material-symbols-outlined text-sm">markdown</span>
+    <span data-copy-label>复制 Markdown</span>
+  </button>
+  <template id="raw-md">{{ .RawContent }}</template>
+</div>

@@ -4,3 +4,6 @@ resources/
 .hugo_build.lock
 .env
 redirect_dist/
+stitch/
+# Tailwind 生成物（npm run css / css:watch 产出，构建链保证生成）
+assets/css/main.css

@@ -1,0 +1,21 @@
+{{/* 内容能力按需加载（不自 Toha）：math / mermaid 由文章 front matter 开启，typeit 仅首页 */}}
+{{ if .Params.math }}
+  <link rel="stylesheet" href="/katex/katex.min.css">
+  <script defer src="/katex/katex.min.js"></script>
+  <script defer src="/katex/contrib/auto-render.min.js"
+          onload="renderMathInElement(document.body, {delimiters: [{left: '$$', right: '$$', display: true}, {left: '\\[', right: '\\]', display: true}, {left: '$', right: '$', display: false}, {left: '\\(', right: '\\)', display: false}]});"></script>
+{{ end }}
+
+{{ if .Params.mermaid }}
+  {{ with resources.Get "js/vendor/mermaid.min.js" }}
+    {{ $m := . | fingerprint }}
+    <script defer src="{{ $m.RelPermalink }}" {{ if hugo.IsProduction }}integrity="{{ $m.Data.Integrity }}"{{ end }}></script>
+  {{ end }}
+{{ end }}
+
+{{ if .IsHome }}
+  {{ with resources.Get "js/vendor/typeit.umd.js" }}
+    {{ $t := . | fingerprint }}
+    <script defer src="{{ $t.RelPermalink }}" {{ if hugo.IsProduction }}integrity="{{ $t.Data.Integrity }}"{{ end }}></script>
+  {{ end }}
+{{ end }}

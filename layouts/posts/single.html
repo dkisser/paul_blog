@@ -1,0 +1,23 @@
+{{ define "main" }}
+<div class="mx-auto w-full max-w-wide px-6 lg:px-12">
+  {{ partial "post/breadcrumb.html" . }}
+  {{ partial "post/article-header.html" . }}
+  <div class="grid grid-cols-1 gap-10 pb-20 lg:grid-cols-12">
+    <article class="min-w-0 lg:col-span-8 xl:col-span-9">
+      {{ partial "post/tldr.html" . }}
+      <div class="article-content mt-8">
+        {{ .Content }}
+      </div>
+      {{ partial "post/actions.html" . }}
+      {{ partial "post/prev-next.html" . }}
+    </article>
+    <aside class="min-w-0 lg:col-span-4 xl:col-span-3">
+      <div class="flex flex-col gap-6 lg:sticky lg:top-20">
+        {{ partial "post/author-card.html" . }}
+        {{ partial "post/toc.html" . }}
+        {{ partial "post/related.html" . }}
+      </div>
+    </aside>
+  </div>
+</div>
+{{ end }}

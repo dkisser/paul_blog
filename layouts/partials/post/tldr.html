@@ -1,0 +1,18 @@
+{{/* TL;DR 速读框：front matter tldr 数组存在时渲染，可折叠（main.js） */}}
+{{ with .Params.tldr }}
+  <div class="card overflow-hidden !rounded-2xl bg-primary-soft/40">
+    <button type="button" class="flex w-full items-center gap-2 px-5 py-4 text-left" data-tldr-toggle aria-expanded="true">
+      <span class="material-symbols-outlined text-lg text-primary">bolt</span>
+      <span class="text-sm font-bold text-main">TL;DR 速读</span>
+      <span class="material-symbols-outlined ml-auto text-subtle transition-transform" data-tldr-arrow>expand_less</span>
+    </button>
+    <ol id="tldr-content" class="space-y-2 px-5 pb-5">
+      {{ range $i, $point := . }}
+        <li class="flex gap-3 text-sm leading-relaxed text-muted">
+          <span class="shrink-0 font-mono text-xs font-bold text-primary">{{ printf "%02d" (add $i 1) }} /</span>
+          <span>{{ $point }}</span>
+        </li>
+      {{ end }}
+    </ol>
+  </div>
+{{ end }}

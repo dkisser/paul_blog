@@ -6,3 +6,4 @@ resources
 Dockerfile
 docker-compose.yml
 .dockerignore
+stitch/

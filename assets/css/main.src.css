@@ -1,0 +1,658 @@
+/* =============================================================================
+ * 主样式源文件（Tailwind v4 CLI 入口，CSS-first 配置，无 tailwind.config.js）
+ * 构建：npm run css → assets/css/main.css（生成物，不入库）
+ * 色系规范：docs/style-guide-light.md（Architectural Light）
+ *           docs/style-guide-dark.md（Glacial Synapse）
+ * 双主题：运行期 CSS 变量（:root 浅色 / html.dark 深色），
+ *         @theme inline 把工具类映射到运行期变量；透明度用 color-mix。
+ * 注意：JS 里切换的 class 必须写完整类名（v4 自动扫描 layouts/** 与 assets/js/**）。
+ * ========================================================================== */
+
+@import "tailwindcss";
+
+/* class 版暗色变体（供少数需要 dark: 的场景；双主题主通道是 CSS 变量） */
+@custom-variant dark (&:where(.dark, .dark *));
+
+/* ───────────── 工具类 → 运行期 CSS 变量映射（双主题核心） ───────────── */
+@theme inline {
+  --color-bg: var(--color-bg);
+  --color-card: var(--color-card);
+  --color-elevated: var(--color-elevated);
+  --color-border: var(--color-border);
+  --color-border-strong: var(--color-border-strong);
+  --color-main: var(--color-text);
+  --color-muted: var(--color-muted);
+  --color-subtle: var(--color-subtle);
+  --color-prose: var(--color-prose);
+  --color-primary: var(--color-primary);
+  --color-primary-strong: var(--color-primary-strong);
+  --color-primary-soft: var(--color-primary-soft);
+  --color-accent: var(--color-accent);
+  --color-accent-soft: var(--color-accent-soft);
+  --color-codebg: var(--color-code-bg);
+  --color-codeheader: var(--color-code-header);
+  --color-codetext: var(--color-code-text);
+  --font-sans: "Inter", "PingFang SC", "Microsoft YaHei", sans-serif;
+  --font-body: "Inter", "PingFang SC", "Microsoft YaHei", sans-serif;
+  --font-headline: "Inter", "PingFang SC", "Microsoft YaHei", sans-serif;
+  --font-mono: "JetBrains Mono", Menlo, Consolas, monospace;
+  /* 容器宽度（max-w-prose45 / max-w-prose48 / max-w-wide） */
+  --container-prose45: 45rem; /* container-prose（Architectural Light） */
+  --container-prose48: 48rem; /* container-prose（Glacial Synapse） */
+  --container-wide: 72rem;    /* container-wide */
+}
+
+/* ─────────────────────── 语义 token：浅色（默认，Architectural Light） ─────────────────────── */
+:root {
+  --color-bg: #f8fafc;                    /* 页面画布 */
+  --color-card: #ffffff;                  /* 卡片 */
+  --color-elevated: rgb(255 255 255 / 0.8); /* 浮层（粘性导航等，配 backdrop blur） */
+  --color-border: #e2e8f0;                /* hairline */
+  --color-border-strong: #cbd5e1;         /* hover / 强边 */
+  --color-text: #0f172a;                  /* 主文字 */
+  --color-muted: #475569;                 /* 次文字 */
+  --color-subtle: #94a3b8;                /* 弱文字 / 占位 */
+  --color-prose: #475569;                 /* 正文长文 */
+  --color-primary: #0284c7;               /* 主强调 */
+  --color-primary-strong: #0369a1;        /* hover 加深 */
+  --color-primary-soft: #e0f2fe;          /* 主色软底 */
+  --color-accent: #6366f1;                /* 次强调 */
+  --color-accent-soft: #e0e7ff;           /* 次强调软底 */
+  /* 代码块（Terminal Execution Block：深浅主题统一深底，见 style-guide-light.md） */
+  --color-code-bg: #090d16;
+  --color-code-header: #0f172a;
+  --color-code-text: #e2e8f0;
+  /* 组件级变量 */
+  --ambient-alpha: 5%;
+  --inline-code-bg: #f1f5f9;
+  --btn-primary-bg: #0284c7;
+  --btn-primary-hover-bg: #0369a1;
+  --btn-primary-fg: #ffffff;
+  --btn-primary-glow: 0 0 16px rgba(2, 132, 199, 0.3);
+  color-scheme: light;
+}
+
+/* ─────────────────────── 语义 token：深色（Glacial Synapse） ─────────────────────── */
+html.dark {
+  --color-bg: #0b0f17;                          /* 画布（Level 0） */
+  --color-card: rgb(15 23 42 / 0.65);           /* L1：65% 玻璃 + blur12 */
+  --color-elevated: rgb(11 15 23 / 0.82);       /* L3 粘性导航：82% + blur20 */
+  --color-border: rgb(51 65 85 / 0.45);         /* slate-700 hairline */
+  --color-border-strong: rgb(56 189 248 / 0.45);/* L2 hover cyan 发光边 */
+  --color-text: #f8fafc;
+  --color-muted: #94a3b8;                       /* slate-400 */
+  --color-subtle: #64748b;                      /* slate-500 */
+  --color-prose: #cbd5e1;                       /* slate-300 正文 */
+  --color-primary: #38bdf8;
+  --color-primary-strong: #7dd3fc;
+  --color-primary-soft: rgb(56 189 248 / 0.12);
+  --color-accent: #818cf8;
+  --color-accent-soft: rgb(99 102 241 / 0.12);
+  --color-code-bg: #090d16;
+  --color-code-header: #0f172a;
+  --color-code-text: #e2e8f0;
+  --ambient-alpha: 8%;
+  --inline-code-bg: rgb(15 23 42 / 0.9);
+  --btn-primary-bg: linear-gradient(135deg, #0ea5e9 0%, #6366f1 100%);
+  --btn-primary-hover-bg: linear-gradient(135deg, #0ea5e9 0%, #6366f1 100%);
+  --btn-primary-fg: #ffffff;
+  --btn-primary-glow: 0 0 16px rgba(56, 189, 248, 0.4);
+  color-scheme: dark;
+}
+
+/* ─────────────────────────── 字体自托管 ─────────────────────────── */
+/* Inter / JetBrains Mono：@fontsource，经 hugo.yaml mounts 挂到 /fonts/ */
+@font-face {
+  font-family: "Inter"; font-style: normal; font-weight: 400; font-display: swap;
+  src: url("/fonts/inter/inter-latin-400-normal.woff2") format("woff2");
+}
+@font-face {
+  font-family: "Inter"; font-style: normal; font-weight: 500; font-display: swap;
+  src: url("/fonts/inter/inter-latin-500-normal.woff2") format("woff2");
+}
+@font-face {
+  font-family: "Inter"; font-style: normal; font-weight: 600; font-display: swap;
+  src: url("/fonts/inter/inter-latin-600-normal.woff2") format("woff2");
+}
+@font-face {
+  font-family: "Inter"; font-style: normal; font-weight: 700; font-display: swap;
+  src: url("/fonts/inter/inter-latin-700-normal.woff2") format("woff2");
+}
+@font-face {
+  font-family: "Inter"; font-style: normal; font-weight: 800; font-display: swap;
+  src: url("/fonts/inter/inter-latin-800-normal.woff2") format("woff2");
+}
+@font-face {
+  font-family: "JetBrains Mono"; font-style: normal; font-weight: 400; font-display: swap;
+  src: url("/fonts/jetbrains-mono/jetbrains-mono-latin-400-normal.woff2") format("woff2");
+}
+@font-face {
+  font-family: "JetBrains Mono"; font-style: normal; font-weight: 500; font-display: swap;
+  src: url("/fonts/jetbrains-mono/jetbrains-mono-latin-500-normal.woff2") format("woff2");
+}
+/* Material Symbols Outlined（variable，自托管 static/fonts/material-symbols.woff2） */
+@font-face {
+  font-family: "Material Symbols Outlined"; font-style: normal; font-weight: 100 700;
+  font-display: block;
+  src: url("/fonts/material-symbols.woff2") format("woff2");
+}
+
+/* ─────────────────────────── base ─────────────────────────── */
+@layer base {
+  html {
+    scroll-behavior: smooth;
+  }
+  body {
+    @apply bg-bg font-body text-main antialiased;
+    overscroll-behavior: none;
+  }
+  /* 画布氛围：顶部径向光晕（Glacial Synapse Level 0） */
+  body::before {
+    content: "";
+    position: fixed;
+    inset: 0;
+    z-index: -1;
+    pointer-events: none;
+    background: radial-gradient(
+      ellipse 80% 50% at 50% -20%,
+      color-mix(in srgb, var(--color-primary) var(--ambient-alpha), transparent),
+      transparent 70%
+    );
+  }
+  ::selection {
+    background: color-mix(in srgb, var(--color-primary) 20%, transparent);
+    color: var(--color-primary-strong);
+  }
+  /* 细滚动条（参照 03-garden-dark 设计稿） */
+  ::-webkit-scrollbar {
+    width: 6px;
+    height: 6px;
+  }
+  ::-webkit-scrollbar-thumb {
+    background: var(--color-border-strong);
+    border-radius: 9999px;
+  }
+  ::-webkit-scrollbar-thumb:hover {
+    background: color-mix(in srgb, var(--color-primary) 60%, transparent);
+  }
+  ::-webkit-scrollbar-track {
+    background: transparent;
+  }
+  :focus-visible {
+    outline: 2px solid var(--color-primary);
+    outline-offset: 2px;
+  }
+}
+
+/* ─────────────────────────── components ─────────────────────────── */
+@layer components {
+  /* 玻璃浮层（粘性导航、命令条） */
+  .glass {
+    background-color: var(--color-elevated);
+    backdrop-filter: blur(16px);
+    -webkit-backdrop-filter: blur(16px);
+    border-bottom: 1px solid var(--color-border);
+  }
+
+  /* 卡片（L1：浅色纯白 hairline / 深色 65% 玻璃） */
+  .card {
+    background-color: var(--color-card);
+    border: 1px solid var(--color-border);
+    border-radius: 1rem;
+    box-shadow: 0 1px 3px rgba(15, 23, 42, 0.03);
+  }
+  html.dark .card {
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+    box-shadow: none;
+  }
+  .card-hover {
+    transition:
+      transform 200ms cubic-bezier(0.16, 1, 0.3, 1),
+      border-color 200ms,
+      box-shadow 200ms;
+  }
+  .card-hover:hover {
+    transform: translateY(-2px);
+    border-color: var(--color-border-strong);
+    box-shadow: 0 8px 30px -4px rgba(15, 23, 42, 0.08);
+  }
+  html.dark .card-hover:hover {
+    border-color: var(--color-border-strong);
+    box-shadow: 0 8px 32px -4px rgba(0, 0, 0, 0.6);
+  }
+
+  /* 按钮（深浅主题差异在 --btn-primary-* 变量里） */
+  .btn-primary {
+    @apply inline-flex h-10 items-center justify-center gap-2 rounded-lg px-5 text-sm font-semibold transition-all;
+    background: var(--btn-primary-bg);
+    color: var(--btn-primary-fg);
+  }
+  .btn-primary:hover {
+    background: var(--btn-primary-hover-bg);
+    box-shadow: var(--btn-primary-glow);
+    transform: translateY(-1px);
+    filter: brightness(1.05);
+  }
+  .btn-ghost {
+    @apply inline-flex h-10 items-center justify-center gap-2 rounded-lg border px-5 text-sm font-semibold transition-all;
+    background-color: var(--color-card);
+    border-color: var(--color-border);
+    color: var(--color-text);
+  }
+  .btn-ghost:hover {
+    border-color: color-mix(in srgb, var(--color-primary) 60%, transparent);
+    color: var(--color-primary);
+  }
+  html.dark .btn-ghost {
+    backdrop-filter: blur(12px);
+  }
+
+  /* 徽章 / chips */
+  .chip {
+    @apply inline-flex h-6 items-center gap-1 rounded-md border px-2.5 font-mono text-[11px] font-medium;
+    background-color: var(--color-primary-soft);
+    border-color: color-mix(in srgb, var(--color-primary) 25%, transparent);
+    color: var(--color-primary);
+  }
+  .chip-neutral {
+    background-color: color-mix(in srgb, var(--color-border) 30%, transparent);
+    border-color: var(--color-border);
+    color: var(--color-muted);
+  }
+
+  /* 键盘键帽 */
+  .kbd {
+    @apply inline-flex h-5 items-center rounded border px-1.5 font-mono text-[10px];
+    background-color: var(--color-card);
+    border-color: var(--color-border);
+    color: var(--color-subtle);
+  }
+
+  /* section 头部标签：// 01. XXX 等宽小字 + 分割线 */
+  .section-label {
+    @apply flex items-center gap-3 font-mono text-xs font-semibold tracking-wider;
+    color: var(--color-primary);
+  }
+  .section-label::after {
+    content: "";
+    height: 1px;
+    flex: 1;
+    background: var(--color-border);
+  }
+
+  /* Material Symbols 图标字体 */
+  .material-symbols-outlined {
+    font-family: "Material Symbols Outlined";
+    font-weight: normal;
+    font-style: normal;
+    font-size: 1.25em;
+    line-height: 1;
+    letter-spacing: normal;
+    text-transform: none;
+    display: inline-block;
+    white-space: nowrap;
+    direction: ltr;
+    font-feature-settings: "liga";
+    -webkit-font-feature-settings: "liga";
+    -webkit-font-smoothing: antialiased;
+    font-variation-settings: "FILL" 0, "wght" 400, "GRAD" 0, "opsz" 24;
+  }
+
+  /* ── 代码块窗口（mac 三色点 header strip + Chroma 高亮，深浅主题统一深底） ── */
+  .code-window {
+    margin: 1.5rem 0;
+    overflow: hidden;
+    border-radius: 0.75rem;
+    border: 1px solid rgba(51, 65, 85, 0.6);
+    background: var(--color-code-bg);
+    box-shadow: 0 10px 30px -10px rgba(0, 0, 0, 0.35);
+  }
+  .code-window-header {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    height: 2.25rem;
+    padding: 0 0.875rem;
+    background: var(--color-code-header);
+    border-bottom: 1px solid rgba(51, 65, 85, 0.6);
+  }
+  .code-window-dot {
+    width: 0.625rem;
+    height: 0.625rem;
+    border-radius: 9999px;
+  }
+  .code-window-filename {
+    margin-left: 0.5rem;
+    font-family: "JetBrains Mono", Menlo, monospace;
+    font-size: 0.75rem;
+    color: #94a3b8;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+  }
+  .code-window-lang {
+    margin-left: auto;
+    font-family: "JetBrains Mono", Menlo, monospace;
+    font-size: 0.6875rem;
+    color: #64748b;
+    text-transform: lowercase;
+  }
+  .code-copy-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.25rem;
+    font-family: "JetBrains Mono", Menlo, monospace;
+    font-size: 0.6875rem;
+    color: #94a3b8;
+    transition: color 150ms;
+    cursor: pointer;
+  }
+  .code-copy-btn:hover {
+    color: #38bdf8;
+  }
+  .code-window .highlight {
+    margin: 0;
+  }
+  .code-window pre.chroma,
+  .code-window .highlight > pre {
+    margin: 0;
+    padding: 1rem 1.25rem;
+    overflow-x: auto;
+    background: transparent !important;
+    font-family: "JetBrains Mono", Menlo, monospace;
+    font-size: 0.8125rem;
+    line-height: 1.6;
+    color: var(--color-code-text);
+  }
+  .code-window .highlight > pre > code {
+    font-family: inherit;
+    background: transparent;
+    border: 0;
+    padding: 0;
+  }
+
+  /* ── 文章正文排版（markdown 渲染无 class，用元素选择器；组件缺口按 style-guide 语感） ── */
+  .article-content {
+    counter-reset: section;
+    font-size: 1rem;
+    line-height: 1.8;
+    color: var(--color-prose);
+  }
+  .article-content > p:first-of-type::first-letter {
+    float: left;
+    font-size: 3rem;
+    font-weight: 700;
+    line-height: 1;
+    padding-right: 0.75rem;
+    padding-top: 0.25rem;
+    color: var(--color-primary);
+  }
+  .article-content p {
+    margin: 1.25rem 0;
+  }
+  /* 旧文章以 h1 作章节标题：h1 带 "SECTION 01" 徽章（自动编号） */
+  .article-content h1 {
+    counter-increment: section;
+    scroll-margin-top: 6rem;
+    margin: 3rem 0 1.25rem;
+    font-size: 1.5rem;
+    font-weight: 700;
+    letter-spacing: -0.02em;
+    color: var(--color-text);
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+  }
+  .article-content h1::before {
+    content: "SECTION " counter(section, decimal-leading-zero);
+    flex-shrink: 0;
+    padding: 0.25rem 0.5rem;
+    border-radius: 0.375rem;
+    font-family: "JetBrains Mono", Menlo, monospace;
+    font-size: 0.6875rem;
+    font-weight: 700;
+    letter-spacing: 0.05em;
+    background: var(--color-primary-soft);
+    color: var(--color-primary);
+  }
+  /* h2 作小节：无徽章，左侧色条 */
+  .article-content h2 {
+    scroll-margin-top: 6rem;
+    margin: 2.25rem 0 1rem;
+    padding-left: 0.75rem;
+    border-left: 3px solid var(--color-primary);
+    font-size: 1.2rem;
+    font-weight: 600;
+    letter-spacing: -0.01em;
+    color: var(--color-text);
+  }
+  .article-content h3 {
+    scroll-margin-top: 6rem;
+    margin: 2rem 0 0.75rem;
+    font-size: 1.25rem;
+    font-weight: 600;
+    color: var(--color-text);
+  }
+  .article-content h4 {
+    margin: 1.5rem 0 0.5rem;
+    font-size: 1.0625rem;
+    font-weight: 600;
+    color: var(--color-text);
+  }
+  .article-content a {
+    color: var(--color-primary);
+    text-decoration: underline;
+    text-decoration-color: color-mix(in srgb, var(--color-primary) 30%, transparent);
+    text-underline-offset: 3px;
+    transition: text-decoration-color 150ms;
+  }
+  .article-content a:hover {
+    text-decoration-color: var(--color-primary);
+  }
+  .article-content strong {
+    color: var(--color-text);
+    font-weight: 600;
+  }
+  .article-content ul,
+  .article-content ol {
+    margin: 1.25rem 0;
+    padding-left: 1.5rem;
+  }
+  .article-content ul {
+    list-style: disc;
+  }
+  .article-content ol {
+    list-style: decimal;
+  }
+  .article-content li {
+    margin: 0.375rem 0;
+  }
+  .article-content li::marker {
+    color: var(--color-primary);
+  }
+  .article-content blockquote {
+    margin: 1.5rem 0;
+    padding: 0.875rem 1.25rem;
+    border-left: 3px solid color-mix(in srgb, var(--color-primary) 60%, transparent);
+    border-radius: 0 0.5rem 0.5rem 0;
+    background: color-mix(in srgb, var(--color-primary-soft) 40%, transparent);
+    color: var(--color-muted);
+  }
+  .article-content blockquote p {
+    margin: 0.25rem 0;
+  }
+  .article-content :not(pre) > code {
+    padding: 0.125rem 0.375rem;
+    border-radius: 0.375rem;
+    border: 1px solid var(--color-border);
+    background: var(--inline-code-bg);
+    color: var(--color-primary);
+    font-family: "JetBrains Mono", Menlo, monospace;
+    font-size: 0.8125em;
+  }
+  .article-content img {
+    margin: 1.5rem auto;
+    border-radius: 1rem;
+    border: 1px solid var(--color-border);
+  }
+  .article-content hr {
+    margin: 3rem 0;
+    border-color: var(--color-border);
+  }
+  .article-content table {
+    width: 100%;
+    margin: 1.5rem 0;
+    font-size: 0.875rem;
+    border-collapse: collapse;
+    display: block;
+    overflow-x: auto;
+  }
+  .article-content thead {
+    border-bottom: 1px solid var(--color-border-strong);
+  }
+  .article-content th {
+    padding: 0.5rem 0.75rem;
+    text-align: left;
+    font-family: "JetBrains Mono", Menlo, monospace;
+    font-size: 0.75rem;
+    font-weight: 500;
+    letter-spacing: 0.04em;
+    color: var(--color-muted);
+    white-space: nowrap;
+  }
+  .article-content td {
+    padding: 0.625rem 0.75rem;
+    border-bottom: 1px solid var(--color-border);
+  }
+}
+
+/* ─────────────────────────── utilities ─────────────────────────── */
+@utility no-scrollbar {
+  &::-webkit-scrollbar {
+    display: none;
+  }
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}
+
+/* ─────────────────────── Chroma 语法高亮（Glacial Synapse 冰蓝配色） ───────────────────────
+ * 代码块深浅主题统一深底（style-guide-light.md "Terminal Execution Block"），故本表不分主题。
+ * 基色 slate-300；冰蓝 #38bdf8 / 鼠尾草绿 #34d399 / 霓虹紫 #c084fc / 昏灰 #64748b。
+ * 生成自 `hugo gen chromastyles --style=github-dark` 后按色系规范改色。 */
+.chroma {
+  background: transparent !important;
+  color: #cbd5e1;
+}
+.chroma .err { color: #f87171; }
+.chroma .lnlinks { outline: none; text-decoration: none; color: inherit; }
+.chroma .lntd { vertical-align: top; padding: 0; margin: 0; border: 0; }
+.chroma .lntable { border-spacing: 0; padding: 0; margin: 0; border: 0; }
+.chroma .hl { background-color: rgba(56, 189, 248, 0.12); }
+.chroma .lnt,
+.chroma .ln {
+  white-space: pre;
+  -webkit-user-select: none;
+  user-select: none;
+  margin-right: 0.4em;
+  padding: 0 0.4em;
+  color: #475569;
+}
+.chroma .line { display: flex; }
+/* 关键字：霓虹紫 */
+.chroma .k, .chroma .kd, .chroma .kn, .chroma .kr { color: #c084fc; }
+.chroma .kc, .chroma .kp { color: #38bdf8; }
+/* 类型 / 类名 / 命名空间：冰蓝 */
+.chroma .kt, .chroma .nc, .chroma .nn { color: #38bdf8; }
+.chroma .nc { font-weight: 600; }
+/* 函数：浅冰蓝 */
+.chroma .nf, .chroma .fm { color: #7dd3fc; }
+/* 名称 / 变量 / 属性 */
+.chroma .no, .chroma .nv, .chroma .vc, .chroma .vg, .chroma .vi, .chroma .vm,
+.chroma .py, .chroma .nl { color: #7dd3fc; }
+.chroma .nd { color: #c084fc; }
+.chroma .ni { color: #fbbf24; }
+.chroma .ne { color: #f87171; }
+.chroma .nt { color: #34d399; }
+.chroma .nx { color: #cbd5e1; }
+/* 字符串 / 字面值：鼠尾草绿 */
+.chroma .l, .chroma .ld, .chroma .s, .chroma .sa, .chroma .sb, .chroma .sc,
+.chroma .dl, .chroma .sd, .chroma .s2, .chroma .se, .chroma .sh, .chroma .si,
+.chroma .sx, .chroma .sr, .chroma .s1, .chroma .ss { color: #34d399; }
+/* 数字：琥珀 */
+.chroma .m, .chroma .mb, .chroma .mf, .chroma .mh, .chroma .mi, .chroma .il, .chroma .mo { color: #fbbf24; }
+/* 操作符：昏灰 */
+.chroma .o, .chroma .ow, .chroma .or { color: #94a3b8; }
+/* 注释：昏灰斜体 */
+.chroma .c, .chroma .ch, .chroma .cm, .chroma .c1, .chroma .cs,
+.chroma .cp, .chroma .cpf { color: #64748b; font-style: italic; }
+/* diff 等 generic */
+.chroma .gd { color: #fca5a5; background-color: rgba(248, 113, 113, 0.12); }
+.chroma .ge { font-style: italic; }
+.chroma .gr { color: #fca5a5; }
+.chroma .gh { color: #38bdf8; font-weight: 600; }
+.chroma .gi { color: #6ee7b7; background-color: rgba(52, 211, 153, 0.12); }
+.chroma .go, .chroma .gp { color: #64748b; }
+.chroma .gs { font-weight: 600; }
+.chroma .gu { color: #7dd3fc; }
+.chroma .gt { color: #f87171; }
+.chroma .gl { text-decoration: underline; }
+.chroma .w { color: #475569; }
+
+/* ── TOC 侧栏（Hugo 原生 TableOfContents 输出 nav>ul>li>a，markup 配置收 h1+h2 两级；
+      scrollspy 由 main.js 给 a 切 .is-active；仅顶层条目用 CSS counter 编号） ── */
+@layer components {
+  .toc ul {
+    @apply m-0 flex list-none flex-col gap-1 p-0;
+  }
+  .toc nav > ul {
+    counter-reset: toc-item;
+  }
+  .toc nav > ul > li {
+    counter-increment: toc-item;
+  }
+  .toc li > ul {
+    @apply mt-1 pl-3;
+  }
+  .toc a {
+    @apply flex items-center justify-between gap-2 rounded-lg border border-transparent px-2.5 py-1.5 font-mono text-xs no-underline transition-colors;
+    color: var(--color-muted);
+  }
+  .toc nav > ul > li > a::before {
+    content: counter(toc-item, decimal-leading-zero);
+    @apply shrink-0 text-[10px];
+    color: var(--color-subtle);
+  }
+  .toc li li a::before {
+    content: "–";
+    @apply shrink-0;
+    color: var(--color-subtle);
+  }
+  .toc a:hover {
+    color: var(--color-primary);
+  }
+  .toc a::after {
+    content: "chevron_right";
+    font-family: "Material Symbols Outlined";
+    font-weight: normal;
+    font-style: normal;
+    font-size: 14px;
+    line-height: 1;
+    letter-spacing: normal;
+    text-transform: none;
+    white-space: nowrap;
+    direction: ltr;
+    -webkit-font-smoothing: antialiased;
+    color: var(--color-primary);
+    opacity: 0;
+    transition: opacity 150ms;
+  }
+  .toc a.is-active {
+    background: var(--color-primary-soft);
+    border-color: color-mix(in srgb, var(--color-primary) 25%, transparent);
+    color: var(--color-primary);
+  }
+  .toc a.is-active::after {
+    opacity: 1;
+  }
+}

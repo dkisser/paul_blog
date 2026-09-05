@@ -1,0 +1,180 @@
+{
+  "displayName": "Glacial Synapse",
+  "styleGuidelines": "## Brand & Style\nThe design system reflects the intellectual precision of high-performance computing, neural networks, and glacial serenity. Designed specifically for an elite AI software architect’s personal blog and digital garden, the aesthetic merges technical rigor with an ethereal, crystalline atmosphere.\n\nThe style fuses **Neural Glassmorphism** with **Minimalist Technical Futurism**:\n- **Atmosphere:** Deep abyssal depths illuminated by faint neural luminescence, evocative of sub-zero data centers, silicon, and arctic ice sheets.\n- **Audience:** Senior software engineers, AI researchers, systems architects, and engineering leaders seeking deep technical signal without visual noise.\n- **Emotional Response:** Clarity, mastery, high cognitive bandwidth, and aesthetic composure.\n\n## Layout & Spacing\nThe layout leverages a centered 12-column architectural grid with adaptive constrained reading lanes.\n\n- **Content Constraints:**\n  - Long-form essays and garden notes are restricted to `container-prose` (768px / 48rem) for optimal line-length and zero reading fatigue.\n  - Interactive tools, multi-column dashboard views, code showcases, and index listings expand to `container-wide` (1152px / 72rem).\n- **Responsive Adaptations:**\n  - **Mobile (< 768px):** Single-column stack, `1rem` screen margin gutters, full-bleed code blocks with horizontal touch scrolling.\n  - **Tablet (768px – 1024px):** 6-column structure, `1.5rem` gutters, sticky micro-navigation bar.\n  - **Desktop (> 1024px):** 12-column grid with `2rem` gutters, side-pinned metadata tables of contents, and floating action panels.\n- **Grid Rhythms:** Vertical margins on sections follow multiples of `2rem` (`space-xl` through `space-4xl`), creating airy, monastic breathing room between dense technical concepts.\n\n## Elevation & Depth\nElevation is achieved purely through translucent neural layering, selective diffusion, and edge light reflection rather than conventional drop shadows.\n\n- **Surface Level 0 (Canvas):** Pure `#0B0F17` base layer with an optional radial gradient background wash centered at top: `radial-gradient(ellipse 80% 50% at 50% -20%, rgba(56, 189, 248, 0.08), transparent 70%)`.\n- **Surface Level 1 (Static Cards & Containers):**\n  - Background: `rgba(15, 23, 42, 0.65)`\n  - Backdrop Blur: `12px`\n  - Border: 1px hairline solid `rgba(51, 65, 85, 0.45)` (Slate 700 tone).\n- **Surface Level 2 (Floating Glass, Hover States & Code Blocks):**\n  - Background: `rgba(30, 41, 59, 0.60)`\n  - Backdrop Blur: `16px`\n  - Border: 1px hairline solid `rgba(56, 189, 248, 0.25)` (Cyan glow boundary).\n  - Shadow: `0 8px 32px -4px rgba(0, 0, 0, 0.6), inset 0 1px 0 0 rgba(255, 255, 255, 0.08)`.\n- **Surface Level 3 (Sticky Nav & Modals):**\n  - Background: `rgba(11, 15, 23, 0.82)`\n  - Backdrop Blur: `20px`\n  - Border: 1px hairline border bottom `rgba(56, 189, 248, 0.15)`.\n  - Ambient Glow: Faint bottom drop shadow `0 4px 20px -2px rgba(14, 165, 233, 0.05)`.\n\n## Components\n\n### Buttons\nAll buttons strictly employ flexbox centering (`inline-flex items-center justify-center gap-2`), fixed height tokens, and `rounded-lg` geometry.\n- **Primary Action:**\n  - Height: `2.5rem` (40px) | Horizontal Padding: `1.25rem`.\n  - Background: Linear gradient `135deg, #0EA5E9 0%, #6366F1 100%`.\n  - Typography: `Inter`, 0.875rem, font-weight 600, color `#FFFFFF`.\n  - Hover: Subtle brightness boost (`1.08`) and delicate outer glow `0 0 16px rgba(56, 189, 248, 0.4)`.\n- **Secondary (Glass):**\n  - Background: `rgba(30, 41, 59, 0.5)`.\n  - Border: 1px hairline `rgba(56, 189, 248, 0.2)`.\n  - Text: `#F8FAFC`.\n  - Hover: Background shifts to `rgba(30, 41, 59, 0.8)`, border to `rgba(56, 189, 248, 0.5)`.\n\n### Code Blocks & Architecture Windows\n- **Frame Styling:** Dual-tier container featuring a terminal title header (`h-9`, flex items-center, border-b hairline) housing language badges and copy-to-clipboard trigger.\n- **Syntax Aesthetics:** Deep carbon background `rgba(15, 23, 42, 0.95)`, `rounded-lg`, border 1px `rgba(51, 65, 85, 0.6)`. Syntax highlighting leans into ice blues (`#38BDF8`), muted sage (`#34D399`), neon purple (`#C084FC`), and dusk gray (`#64748B`).\n- **Line Numbers:** Right-aligned with fixed gutter width, rendered in `#475569`, non-selectable.\n\n### Chips & Garden Tags\n- **Appearance:** Inline-flex, height `1.5rem` (24px), font `JetBrains Mono` at `0.75rem`.\n- **Palette:** Translucent pill base `rgba(99, 102, 241, 0.12)` with hairline border `rgba(99, 102, 241, 0.3)`. Text tinted in `#818CF8` for speculative thoughts, or cyan-tinted `rgba(56, 189, 248, 0.12)` for stable/evergreen architectural notes.\n\n### Cards & Garden Nodes\n- **Structure:** Translucent panel, `rounded-lg`, backdrop-blur-md, inner padding `1.5rem`.\n- **Hover Micro-interaction:** Smooth transition (`200ms cubic-bezier(0.16, 1, 0.3, 1)`) with subtle vertical lift (`translate-y-[-2px]`), border color shifting from neutral slate to active cyan (`rgba(56, 189, 248, 0.45)`).\n\n### Input Fields & Search Bars\n- **Style:** Flex items-center, background `rgba(15, 23, 42, 0.8)`, hairline border `rgba(71, 85, 105, 0.6)`, text `#F8FAFC`, placeholder `#64748B`.\n- **Focus State:** 1px ring and border in `#38BDF8` alongside a gentle `0 0 12px rgba(56, 189, 248, 0.25)` outer aura.\n\n### Checkboxes & Radios\n- **Design:** Geometric squares/circles (`1rem` diameter) with `rgba(30, 41, 59, 0.8)` background, 1px border in `#475569`.\n- **Active:** Filled with `#0EA5E9`, centered white check mark, subtle cyan drop shadow.\n\n### Sticky Navigation Header\n- **Layout:** Fixed top-0, width 100%, height `4rem` (64px).\n- **Surface:** Glassmorphic background `rgba(11, 15, 23, 0.8)` with backdrop-filter blur `16px` and border-b hairline `rgba(56, 189, 248, 0.12)`.\n- **Contents:** Logo/monogram pinned left, centered link group with subtle underline indicators, right-aligned status indicator (e.g., green pulsating dot next to \"Systems Operational\" in JetBrains Mono).\n\n### Footer\n- **Layout:** Perfectly centered vertical column stack, maximum width `48rem`, padding `4rem 0 3rem`.\n- **Content:** Minimalist architectural signature, GPG fingerprint key indicator in `label-code` typography, and muted social link list with cyan hover transitions.",
+  "theme": {
+    "bodyFont": "INTER",
+    "bodyFontFamily": "Inter",
+    "colorMode": "DARK",
+    "colorVariant": "FIDELITY",
+    "customColor": "#38bdf8",
+    "designMd": "---\nname: Glacial Synapse\ncolors:\n  surface: '#0f131c'\n  surface-dim: '#0f131c'\n  surface-bright: '#353942'\n  surface-container-lowest: '#0a0e16'\n  surface-container-low: '#181c24'\n  surface-container: '#1c2028'\n  surface-container-high: '#262a33'\n  surface-container-highest: '#31353e'\n  on-surface: '#dfe2ee'\n  on-surface-variant: '#bdc8d1'\n  inverse-surface: '#dfe2ee'\n  inverse-on-surface: '#2c3039'\n  outline: '#87929a'\n  outline-variant: '#3e484f'\n  surface-tint: '#7bd0ff'\n  primary: '#8ed5ff'\n  on-primary: '#00354a'\n  primary-container: '#38bdf8'\n  on-primary-container: '#004965'\n  inverse-primary: '#00668a'\n  secondary: '#c0c1ff'\n  on-secondary: '#1000a9'\n  secondary-container: '#3131c0'\n  on-secondary-container: '#b0b2ff'\n  tertiary: '#98d3ff'\n  on-tertiary: '#00344d'\n  tertiary-container: '#43bbff'\n  on-tertiary-container: '#00486a'\n  error: '#ffb4ab'\n  on-error: '#690005'\n  error-container: '#93000a'\n  on-error-container: '#ffdad6'\n  primary-fixed: '#c4e7ff'\n  primary-fixed-dim: '#7bd0ff'\n  on-primary-fixed: '#001e2c'\n  on-primary-fixed-variant: '#004c69'\n  secondary-fixed: '#e1e0ff'\n  secondary-fixed-dim: '#c0c1ff'\n  on-secondary-fixed: '#07006c'\n  on-secondary-fixed-variant: '#2f2ebe'\n  tertiary-fixed: '#c9e6ff'\n  tertiary-fixed-dim: '#89ceff'\n  on-tertiary-fixed: '#001e2f'\n  on-tertiary-fixed-variant: '#004c6e'\n  background: '#0f131c'\n  on-background: '#dfe2ee'\n  surface-variant: '#31353e'\ntypography:\n  display-hero:\n    fontFamily: Inter\n    fontSize: 3.5rem\n    fontWeight: '800'\n    lineHeight: '1.1'\n    letterSpacing: -0.035em\n  display-hero-mobile:\n    fontFamily: Inter\n    fontSize: 2.25rem\n    fontWeight: '800'\n    lineHeight: '1.15'\n    letterSpacing: -0.025em\n  headline-xl:\n    fontFamily: Inter\n    fontSize: 2.25rem\n    fontWeight: '700'\n    lineHeight: '1.2'\n    letterSpacing: -0.025em\n  headline-xl-mobile:\n    fontFamily: Inter\n    fontSize: 1.75rem\n    fontWeight: '700'\n    lineHeight: '1.25'\n    letterSpacing: -0.02em\n  headline-lg:\n    fontFamily: Inter\n    fontSize: 1.75rem\n    fontWeight: '600'\n    lineHeight: '1.3'\n    letterSpacing: -0.02em\n  headline-md:\n    fontFamily: Inter\n    fontSize: 1.25rem\n    fontWeight: '600'\n    lineHeight: '1.4'\n    letterSpacing: -0.015em\n  body-lg:\n    fontFamily: Inter\n    fontSize: 1.125rem\n    fontWeight: '400'\n    lineHeight: '1.7'\n    letterSpacing: -0.005em\n  body-md:\n    fontFamily: Inter\n    fontSize: 1rem\n    fontWeight: '400'\n    lineHeight: '1.65'\n    letterSpacing: 0em\n  body-sm:\n    fontFamily: Inter\n    fontSize: 0.875rem\n    fontWeight: '400'\n    lineHeight: '1.5'\n    letterSpacing: 0.005em\n  code-inline:\n    fontFamily: JetBrains Mono\n    fontSize: 0.875rem\n    fontWeight: '400'\n    lineHeight: '1.4'\n    letterSpacing: -0.01em\n  code-block:\n    fontFamily: JetBrains Mono\n    fontSize: 0.8125rem\n    fontWeight: '400'\n    lineHeight: '1.6'\n    letterSpacing: 0em\n  label-code:\n    fontFamily: JetBrains Mono\n    fontSize: 0.75rem\n    fontWeight: '500'\n    lineHeight: '1.2'\n    letterSpacing: 0.04em\n  label-nav:\n    fontFamily: Inter\n    fontSize: 0.875rem\n    fontWeight: '500'\n    lineHeight: '1'\n    letterSpacing: -0.01em\nrounded:\n  sm: 0.125rem\n  DEFAULT: 0.25rem\n  md: 0.375rem\n  lg: 0.5rem\n  xl: 0.75rem\n  full: 9999px\nspacing:\n  space-2xs: 0.25rem\n  space-xs: 0.5rem\n  space-sm: 0.75rem\n  space-md: 1rem\n  space-lg: 1.5rem\n  space-xl: 2rem\n  space-2xl: 3rem\n  space-3xl: 4rem\n  space-4xl: 6rem\n  container-prose: 48rem\n  container-wide: 72rem\n  gutter-mobile: 1rem\n  gutter-desktop: 2rem\n---\n\n## Brand & Style\nThe design system reflects the intellectual precision of high-performance computing, neural networks, and glacial serenity. Designed specifically for an elite AI software architect’s personal blog and digital garden, the aesthetic merges technical rigor with an ethereal, crystalline atmosphere.\n\nThe style fuses **Neural Glassmorphism** with **Minimalist Technical Futurism**:\n- **Atmosphere:** Deep abyssal depths illuminated by faint neural luminescence, evocative of sub-zero data centers, silicon, and arctic ice sheets.\n- **Audience:** Senior software engineers, AI researchers, systems architects, and engineering leaders seeking deep technical signal without visual noise.\n- **Emotional Response:** Clarity, mastery, high cognitive bandwidth, and aesthetic composure.\n\n## Colors\nThe palette is rooted in cold atmospheric abyssal darks punctuated by luminous cyan and spectral indigo accents.\n\n- **Foundational Darks:**\n  - Base Canvas: `#0B0F17` (Deep Obsidian Void)\n  - Surface Mid: `#0F172A` (Abyssal Slate)\n  - Surface Elevated: `#111827` (Charcoal Tint)\n- **Glass Overlays:**\n  - Panel Base: `rgba(15, 23, 42, 0.75)` with backdrop-filter blur.\n  - Floating Card / Interactive: `rgba(30, 41, 59, 0.55)` with backdrop-filter blur.\n- **Accents & Luminescence:**\n  - Primary (Glacial Cyan): `#38BDF8` — Used for active states, link emphasis, key interactive highlights, and terminal success cues.\n  - Secondary (Deep Neural Violet/Indigo): `#6366F1` — Used for conceptual tags, metadata chips, and secondary gradients.\n  - Tertiary (Ice Blue Focus): `#0EA5E9` — Pinned to precise interactive borders and glowing indicators.\n- **Text & Content Tiers:**\n  - Primary Typography: `#F8FAFC` (Pure Ice White, 98% contrast against canvas).\n  - Body & Secondary: `#94A3B8` (Refined Slate Grey, optimized for long-form reading comfort).\n  - Muted & Metadata: `#64748B` (Deep Mist Slate, reserved for low-priority timestamps, dividers, and annotations).\n\n## Typography\nTypography balances high editorial readability with a developer-first technical cadence:\n\n- **Primary Typeface (Inter):** Applied across all headings and editorial body copy. Tight negative tracking on headings imparts modern precision and commanding scale. Body copy maintains generous vertical rhythm (`1.65`–`1.7`) for dense architectural breakdowns and essay length consumption.\n- **Monospaced Technical Font (JetBrains Mono):** Deployed for all code snippets, technical tags, breadcrumb paths, metrics, and terminal elements. Ligatures are enabled by default for technical syntax symbols.\n- **Hierarchy Rules:**\n  - Titles must never be pure gray; reserve `#F8FAFC` exclusively for headers and prominent link states.\n  - Inline code tags take a padded background container (`rgba(255, 255, 255, 0.06)`) with a subtle `#38BDF8` tint on font color.\n\n## Layout & Spacing\nThe layout leverages a centered 12-column architectural grid with adaptive constrained reading lanes.\n\n- **Content Constraints:**\n  - Long-form essays and garden notes are restricted to `container-prose` (768px / 48rem) for optimal line-length and zero reading fatigue.\n  - Interactive tools, multi-column dashboard views, code showcases, and index listings expand to `container-wide` (1152px / 72rem).\n- **Responsive Adaptations:**\n  - **Mobile (< 768px):** Single-column stack, `1rem` screen margin gutters, full-bleed code blocks with horizontal touch scrolling.\n  - **Tablet (768px – 1024px):** 6-column structure, `1.5rem` gutters, sticky micro-navigation bar.\n  - **Desktop (> 1024px):** 12-column grid with `2rem` gutters, side-pinned metadata tables of contents, and floating action panels.\n- **Grid Rhythms:** Vertical margins on sections follow multiples of `2rem` (`space-xl` through `space-4xl`), creating airy, monastic breathing room between dense technical concepts.\n\n## Elevation & Depth\nElevation is achieved purely through translucent neural layering, selective diffusion, and edge light reflection rather than conventional drop shadows.\n\n- **Surface Level 0 (Canvas):** Pure `#0B0F17` base layer with an optional radial gradient background wash centered at top: `radial-gradient(ellipse 80% 50% at 50% -20%, rgba(56, 189, 248, 0.08), transparent 70%)`.\n- **Surface Level 1 (Static Cards & Containers):**\n  - Background: `rgba(15, 23, 42, 0.65)`\n  - Backdrop Blur: `12px`\n  - Border: 1px hairline solid `rgba(51, 65, 85, 0.45)` (Slate 700 tone).\n- **Surface Level 2 (Floating Glass, Hover States & Code Blocks):**\n  - Background: `rgba(30, 41, 59, 0.60)`\n  - Backdrop Blur: `16px`\n  - Border: 1px hairline solid `rgba(56, 189, 248, 0.25)` (Cyan glow boundary).\n  - Shadow: `0 8px 32px -4px rgba(0, 0, 0, 0.6), inset 0 1px 0 0 rgba(255, 255, 255, 0.08)`.\n- **Surface Level 3 (Sticky Nav & Modals):**\n  - Background: `rgba(11, 15, 23, 0.82)`\n  - Backdrop Blur: `20px`\n  - Border: 1px hairline border bottom `rgba(56, 189, 248, 0.15)`.\n  - Ambient Glow: Faint bottom drop shadow `0 4px 20px -2px rgba(14, 165, 233, 0.05)`.\n\n## Shapes\nThe shape language favors a sleek, modern architectural feel with controlled curvature:\n\n- **Tokens:** Base radius is `0.25rem` (soft), cards and modals scale to `0.5rem` (`rounded-lg`), and feature containers use `0.75rem` (`rounded-xl`).\n- **Precision Corners:** Crisp, restrained corners match the code-editor paradigm, preventing over-rounded, consumer-app playfulness.\n- **Internal Nesting:** Nested elements respect concentric geometry—inner interactive tags and code blocks utilize `0.25rem` (`rounded-sm`), housed strictly inside `0.5rem` cards.\n\n## Components\n\n### Buttons\nAll buttons strictly employ flexbox centering (`inline-flex items-center justify-center gap-2`), fixed height tokens, and `rounded-lg` geometry.\n- **Primary Action:**\n  - Height: `2.5rem` (40px) | Horizontal Padding: `1.25rem`.\n  - Background: Linear gradient `135deg, #0EA5E9 0%, #6366F1 100%`.\n  - Typography: `Inter`, 0.875rem, font-weight 600, color `#FFFFFF`.\n  - Hover: Subtle brightness boost (`1.08`) and delicate outer glow `0 0 16px rgba(56, 189, 248, 0.4)`.\n- **Secondary (Glass):**\n  - Background: `rgba(30, 41, 59, 0.5)`.\n  - Border: 1px hairline `rgba(56, 189, 248, 0.2)`.\n  - Text: `#F8FAFC`.\n  - Hover: Background shifts to `rgba(30, 41, 59, 0.8)`, border to `rgba(56, 189, 248, 0.5)`.\n\n### Code Blocks & Architecture Windows\n- **Frame Styling:** Dual-tier container featuring a terminal title header (`h-9`, flex items-center, border-b hairline) housing language badges and copy-to-clipboard trigger.\n- **Syntax Aesthetics:** Deep carbon background `rgba(15, 23, 42, 0.95)`, `rounded-lg`, border 1px `rgba(51, 65, 85, 0.6)`. Syntax highlighting leans into ice blues (`#38BDF8`), muted sage (`#34D399`), neon purple (`#C084FC`), and dusk gray (`#64748B`).\n- **Line Numbers:** Right-aligned with fixed gutter width, rendered in `#475569`, non-selectable.\n\n### Chips & Garden Tags\n- **Appearance:** Inline-flex, height `1.5rem` (24px), font `JetBrains Mono` at `0.75rem`.\n- **Palette:** Translucent pill base `rgba(99, 102, 241, 0.12)` with hairline border `rgba(99, 102, 241, 0.3)`. Text tinted in `#818CF8` for speculative thoughts, or cyan-tinted `rgba(56, 189, 248, 0.12)` for stable/evergreen architectural notes.\n\n### Cards & Garden Nodes\n- **Structure:** Translucent panel, `rounded-lg`, backdrop-blur-md, inner padding `1.5rem`.\n- **Hover Micro-interaction:** Smooth transition (`200ms cubic-bezier(0.16, 1, 0.3, 1)`) with subtle vertical lift (`translate-y-[-2px]`), border color shifting from neutral slate to active cyan (`rgba(56, 189, 248, 0.45)`).\n\n### Input Fields & Search Bars\n- **Style:** Flex items-center, background `rgba(15, 23, 42, 0.8)`, hairline border `rgba(71, 85, 105, 0.6)`, text `#F8FAFC`, placeholder `#64748B`.\n- **Focus State:** 1px ring and border in `#38BDF8` alongside a gentle `0 0 12px rgba(56, 189, 248, 0.25)` outer aura.\n\n### Checkboxes & Radios\n- **Design:** Geometric squares/circles (`1rem` diameter) with `rgba(30, 41, 59, 0.8)` background, 1px border in `#475569`.\n- **Active:** Filled with `#0EA5E9`, centered white check mark, subtle cyan drop shadow.\n\n### Sticky Navigation Header\n- **Layout:** Fixed top-0, width 100%, height `4rem` (64px).\n- **Surface:** Glassmorphic background `rgba(11, 15, 23, 0.8)` with backdrop-filter blur `16px` and border-b hairline `rgba(56, 189, 248, 0.12)`.\n- **Contents:** Logo/monogram pinned left, centered link group with subtle underline indicators, right-aligned status indicator (e.g., green pulsating dot next to \"Systems Operational\" in JetBrains Mono).\n\n### Footer\n- **Layout:** Perfectly centered vertical column stack, maximum width `48rem`, padding `4rem 0 3rem`.\n- **Content:** Minimalist architectural signature, GPG fingerprint key indicator in `label-code` typography, and muted social link list with cyan hover transitions.",
+    "font": "INTER",
+    "headlineFont": "INTER",
+    "headlineFontFamily": "Inter",
+    "labelFont": "JETBRAINS_MONO",
+    "labelFontFamily": "JetBrains Mono",
+    "namedColors": {
+      "background": "#0f131c",
+      "error": "#ffb4ab",
+      "error_container": "#93000a",
+      "inverse_on_surface": "#2c3039",
+      "inverse_primary": "#00668a",
+      "inverse_surface": "#dfe2ee",
+      "on_background": "#dfe2ee",
+      "on_error": "#690005",
+      "on_error_container": "#ffdad6",
+      "on_primary": "#00354a",
+      "on_primary_container": "#004965",
+      "on_primary_fixed": "#001e2c",
+      "on_primary_fixed_variant": "#004c69",
+      "on_secondary": "#1000a9",
+      "on_secondary_container": "#b0b2ff",
+      "on_secondary_fixed": "#07006c",
+      "on_secondary_fixed_variant": "#2f2ebe",
+      "on_surface": "#dfe2ee",
+      "on_surface_variant": "#bdc8d1",
+      "on_tertiary": "#00344d",
+      "on_tertiary_container": "#00486a",
+      "on_tertiary_fixed": "#001e2f",
+      "on_tertiary_fixed_variant": "#004c6e",
+      "outline": "#87929a",
+      "outline_variant": "#3e484f",
+      "primary": "#8ed5ff",
+      "primary_container": "#38bdf8",
+      "primary_fixed": "#c4e7ff",
+      "primary_fixed_dim": "#7bd0ff",
+      "secondary": "#c0c1ff",
+      "secondary_container": "#3131c0",
+      "secondary_fixed": "#e1e0ff",
+      "secondary_fixed_dim": "#c0c1ff",
+      "surface": "#0f131c",
+      "surface_bright": "#353942",
+      "surface_container": "#1c2028",
+      "surface_container_high": "#262a33",
+      "surface_container_highest": "#31353e",
+      "surface_container_low": "#181c24",
+      "surface_container_lowest": "#0a0e16",
+      "surface_dim": "#0f131c",
+      "surface_tint": "#7bd0ff",
+      "surface_variant": "#31353e",
+      "tertiary": "#98d3ff",
+      "tertiary_container": "#43bbff",
+      "tertiary_fixed": "#c9e6ff",
+      "tertiary_fixed_dim": "#89ceff"
+    },
+    "overrideNeutralColor": "#0b0f17",
+    "overridePrimaryColor": "#38bdf8",
+    "overrideSecondaryColor": "#6366f1",
+    "overrideTertiaryColor": "#0ea5e9",
+    "roundness": "ROUND_FOUR",
+    "spacing": {
+      "container-prose": "48rem",
+      "container-wide": "72rem",
+      "gutter-desktop": "2rem",
+      "gutter-mobile": "1rem",
+      "space-2xl": "3rem",
+      "space-2xs": "0.25rem",
+      "space-3xl": "4rem",
+      "space-4xl": "6rem",
+      "space-lg": "1.5rem",
+      "space-md": "1rem",
+      "space-sm": "0.75rem",
+      "space-xl": "2rem",
+      "space-xs": "0.5rem"
+    },
+    "spacingScale": 2,
+    "typography": {
+      "body-lg": {
+        "fontFamily": "Inter",
+        "fontSize": "1.125rem",
+        "fontWeight": "400",
+        "letterSpacing": "-0.005em",
+        "lineHeight": "1.7"
+      },
+      "body-md": {
+        "fontFamily": "Inter",
+        "fontSize": "1rem",
+        "fontWeight": "400",
+        "letterSpacing": "0em",
+        "lineHeight": "1.65"
+      },
+      "body-sm": {
+        "fontFamily": "Inter",
+        "fontSize": "0.875rem",
+        "fontWeight": "400",
+        "letterSpacing": "0.005em",
+        "lineHeight": "1.5"
+      },
+      "code-block": {
+        "fontFamily": "JetBrains Mono",
+        "fontSize": "0.8125rem",
+        "fontWeight": "400",
+        "letterSpacing": "0em",
+        "lineHeight": "1.6"
+      },
+      "code-inline": {
+        "fontFamily": "JetBrains Mono",
+        "fontSize": "0.875rem",
+        "fontWeight": "400",
+        "letterSpacing": "-0.01em",
+        "lineHeight": "1.4"
+      },
+      "display-hero": {
+        "fontFamily": "Inter",
+        "fontSize": "3.5rem",
+        "fontWeight": "800",
+        "letterSpacing": "-0.035em",
+        "lineHeight": "1.1"
+      },
+      "display-hero-mobile": {
+        "fontFamily": "Inter",
+        "fontSize": "2.25rem",
+        "fontWeight": "800",
+        "letterSpacing": "-0.025em",
+        "lineHeight": "1.15"
+      },
+      "headline-lg": {
+        "fontFamily": "Inter",
+        "fontSize": "1.75rem",
+        "fontWeight": "600",
+        "letterSpacing": "-0.02em",
+        "lineHeight": "1.3"
+      },
+      "headline-md": {
+        "fontFamily": "Inter",
+        "fontSize": "1.25rem",
+        "fontWeight": "600",
+        "letterSpacing": "-0.015em",
+        "lineHeight": "1.4"
+      },
+      "headline-xl": {
+        "fontFamily": "Inter",
+        "fontSize": "2.25rem",
+        "fontWeight": "700",
+        "letterSpacing": "-0.025em",
+        "lineHeight": "1.2"
+      },
+      "headline-xl-mobile": {
+        "fontFamily": "Inter",
+        "fontSize": "1.75rem",
+        "fontWeight": "700",
+        "letterSpacing": "-0.02em",
+        "lineHeight": "1.25"
+      },
+      "label-code": {
+        "fontFamily": "JetBrains Mono",
+        "fontSize": "0.75rem",
+        "fontWeight": "500",
+        "letterSpacing": "0.04em",
+        "lineHeight": "1.2"
+      },
+      "label-nav": {
+        "fontFamily": "Inter",
+        "fontSize": "0.875rem",
+        "fontWeight": "500",
+        "letterSpacing": "-0.01em",
+        "lineHeight": "1"
+      }
+    }
+  }
+}

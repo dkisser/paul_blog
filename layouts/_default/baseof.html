@@ -1,0 +1,20 @@
+<!doctype html>
+<html lang="zh-CN">
+  <head>
+    {{ partial "head.html" . }}
+  </head>
+  <body class="flex min-h-screen flex-col">
+    {{ partial "site-header.html" . }}
+    <main id="main" class="flex-1 pt-16">
+      {{ block "main" . }}{{ end }}
+    </main>
+    {{ partial "site-footer.html" . }}
+    {{ partial "back-to-top.html" . }}
+    {{ partial "vendor-assets.html" . }}
+    {{ $js := resources.Get "js/main.js" }}
+    {{ with $js }}
+      {{ $js = $js | minify | fingerprint }}
+      <script src="{{ $js.RelPermalink }}" {{ if hugo.IsProduction }}integrity="{{ $js.Data.Integrity }}"{{ end }} defer></script>
+    {{ end }}
+  </body>
+</html>

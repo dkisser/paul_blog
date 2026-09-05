@@ -1,0 +1,19 @@
+{{/* #articles：最新 3 篇文章卡（卡片 partial 与列表页共用） */}}
+{{ $posts := first 3 (where site.RegularPages "Type" "posts").ByDate.Reverse }}
+<section id="articles" class="w-full scroll-mt-20">
+  <div class="mx-auto w-full max-w-wide px-6 py-16 sm:py-20 lg:px-12">
+    <p class="section-label">// 04. Selected Publications</p>
+    <div class="mt-4 flex flex-wrap items-end justify-between gap-4">
+      <h2 class="text-2xl font-bold tracking-tight text-main sm:text-3xl">近期文章</h2>
+      <a href="/posts/" class="chip transition-colors hover:border-primary/60">
+        查看全部 {{ len (where site.RegularPages "Type" "posts") }} 篇
+        <span class="material-symbols-outlined text-sm">arrow_forward</span>
+      </a>
+    </div>
+    <div class="mt-10 grid grid-cols-1 gap-6 lg:grid-cols-3">
+      {{ range $posts }}
+        {{ partial "post/card.html" . }}
+      {{ end }}
+    </div>
+  </div>
+</section>

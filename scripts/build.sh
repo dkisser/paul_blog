@@ -3,6 +3,7 @@
 set -euo pipefail
 cd "$(dirname "$0")/.."
 
+npm run css
 hugo --minify --cleanDestinationDir
 npx pagefind --site public
 

@@ -1,49 +1,44 @@
-{{/* Pagefind 搜索页（替代 Toha 内置 Fuse.js 搜索） */}}
-{{ define "navbar" }}
-{{ partial "navigators/navbar.html" . }}
-{{ end }}
-
-{{ define "content" }}
-<section class="content-section" id="content-section">
-  <div class="content">
-    <div class="container p-0 read-area">
-      <div class="page-content">
-        <div class="title">
-          <h1>{{ .Title }}</h1>
-        </div>
-        <link href="{{ "/pagefind/pagefind-ui.css" | relURL }}" rel="stylesheet">
-        <script src="{{ "/pagefind/pagefind-ui.js" | relURL }}"></script>
-        <div id="pagefind-search"></div>
-        <script>
-          window.addEventListener('DOMContentLoaded', function () {
-            var ui = new PagefindUI({
-              element: '#pagefind-search',
-              showSubResults: true,
-              showImages: false,
-              resetStyles: false,
-              translations: {
-                placeholder: '搜索文章…',
-                clear_search: '清除',
-                load_more: '加载更多结果',
-                search_label: '搜索本站',
-                filters_heading: '筛选',
-                zero_results: '没有找到与「[SEARCH_TERM]」相关的结果',
-                many_results: '找到 [COUNT] 条与「[SEARCH_TERM]」相关的结果',
-                one_result: '找到 [COUNT] 条与「[SEARCH_TERM]」相关的结果',
-                alt_search: '没有找到与「[SEARCH_TERM]」相关的结果。试试「[DIFFERENT_TERM]」',
-                search_suggestion: '没有找到与「[SEARCH_TERM]」相关的结果。试试以下搜索：',
-                searching: '正在搜索「[SEARCH_TERM]」…'
-              }
-            });
-            // 兼容文章页侧边栏搜索框跳转过来到 /search/?keyword=xxx
-            var keyword = new URLSearchParams(window.location.search).get('keyword');
-            if (keyword) {
-              ui.triggerSearch(keyword);
-            }
-          });
-        </script>
-      </div>
-    </div>
-  </div>
-</section>
+{{/* Pagefind 搜索页：索引由 scripts/build.sh 里的 pagefind --site public 生成 */}}
+{{ define "main" }}
+<div class="mx-auto w-full max-w-3xl px-6 py-14">
+  <p class="section-label">// Search</p>
+  <h1 class="mt-3 text-3xl font-bold tracking-tight text-main sm:text-4xl">{{ .Title }}</h1>
+  <link href="{{ "/pagefind/pagefind-ui.css" | relURL }}" rel="stylesheet">
+  <div id="pagefind-search" class="mt-8"></div>
+  <script src="{{ "/pagefind/pagefind-ui.js" | relURL }}"></script>
+  <script>
+    window.addEventListener('DOMContentLoaded', function () {
+      // 开发模式（hugo server 内存构建）下没有 pagefind 索引，给出提示而非报错
+      if (typeof PagefindUI === 'undefined') {
+        document.getElementById('pagefind-search').innerHTML =
+          '<p class="text-sm text-muted">搜索索引尚未生成：请先运行 <code class="kbd">npm run build</code> 生成 Pagefind 索引，再访问构建产物。</p>';
+        return;
+      }
+      var ui = new PagefindUI({
+        element: '#pagefind-search',
+        showSubResults: true,
+        showImages: false,
+        resetStyles: false,
+        translations: {
+          placeholder: '搜索文章…',
+          clear_search: '清除',
+          load_more: '加载更多结果',
+          search_label: '搜索本站',
+          filters_heading: '筛选',
+          zero_results: '没有找到与「[SEARCH_TERM]」相关的结果',
+          many_results: '找到 [COUNT] 条与「[SEARCH_TERM]」相关的结果',
+          one_result: '找到 [COUNT] 条与「[SEARCH_TERM]」相关的结果',
+          alt_search: '没有找到与「[SEARCH_TERM]」相关的结果。试试「[DIFFERENT_TERM]」',
+          search_suggestion: '没有找到与「[SEARCH_TERM]」相关的结果。试试以下搜索：',
+          searching: '正在搜索「[SEARCH_TERM]」…'
+        }
+      });
+      // 兼容带关键词跳转：/search/?keyword=xxx
+      var keyword = new URLSearchParams(window.location.search).get('keyword');
+      if (keyword) {
+        ui.triggerSearch(keyword);
+      }
+    });
+  </script>
+</div>
 {{ end }}

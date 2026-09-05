@@ -1,0 +1,16 @@
+# 作者信息（内容层数据；主题层模板见 layouts/）
+name: "Paul"
+nickname: "Paul"
+greeting: "你好，我是"
+# 头像文件位于 assets/images/author/paul.jpg（经 Hugo Pipes 处理）
+image: "images/author/paul.jpg"
+designation: 后端工程师
+bio: 一名后端工程师，关注 Java 生态、微服务与云原生技术，喜欢阅读源码和复盘线上问题。这个博客记录我的学习笔记与技术思考。
+contactInfo:
+  email: "437631891@qq.com"
+  github: dkisser
+# 首页 hero 打字机轮播文案（typeit）
+summary:
+  - 我是一名后端工程师
+  - 关注 Java / 微服务 / 云原生
+  - 喜欢源码阅读和问题复盘

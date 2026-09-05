@@ -1,0 +1,48 @@
+{{/* 全局 <head>：meta / openGraph / 字体 CSS / 防主题闪烁 / umami */}}
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+{{/* 防主题闪烁：先读 localStorage('theme')，无则跟随系统（与 assets/js/main.js 逻辑对应） */}}
+<script>
+  (function () {
+    var t = null;
+    try { t = localStorage.getItem("theme"); } catch (e) {}
+    var dark = t === "dark" || (t !== "light" && window.matchMedia("(prefers-color-scheme: dark)").matches);
+    if (dark) document.documentElement.classList.add("dark");
+  })();
+</script>
+
+{{ $siteData := hugo.Data.site }}
+{{ $desc := .Params.description | default (.Summary | plainify | truncate 120) | default site.Params.description }}
+<title>{{ if .IsHome }}{{ site.Title }}{{ else }}{{ .Title }} | {{ site.Title }}{{ end }}</title>
+<meta name="description" content="{{ $desc }}">
+<link rel="canonical" href="{{ .Permalink }}">
+<link rel="alternate" type="application/rss+xml" title="{{ site.Title }}" href="{{ site.Home.RelPermalink }}index.xml">
+
+{{/* openGraph */}}
+<meta property="og:title" content="{{ if .IsHome }}{{ $siteData.openGraph.title }}{{ else }}{{ .Title }} | {{ site.Title }}{{ end }}">
+<meta property="og:type" content="{{ if .IsHome }}{{ $siteData.openGraph.type }}{{ else }}article{{ end }}">
+<meta property="og:description" content="{{ $desc }}">
+<meta property="og:url" content="{{ .Permalink }}">
+{{ with resources.Get "images/author/paul.jpg" }}
+  {{ $og := .Resize "600x" }}
+  <meta property="og:image" content="{{ $og.Permalink }}">
+{{ end }}
+<meta name="twitter:card" content="summary">
+
+{{/* favicon */}}
+{{ with resources.Get "images/site/favicon.png" }}
+  <link rel="icon" type="image/png" href="{{ .RelPermalink }}">
+{{ end }}
+
+{{/* 主样式（Tailwind v4 生成物，Hugo Pipes 指纹化） */}}
+{{ $css := resources.Get "css/main.css" }}
+{{ with $css }}
+  {{ $css = $css | fingerprint }}
+  <link rel="stylesheet" href="{{ $css.RelPermalink }}" {{ if hugo.IsProduction }}integrity="{{ $css.Data.Integrity }}"{{ end }}>
+{{ end }}
+
+{{/* umami 统计（自建，stats.dkisser.cn 仅放行 /script.js 与 /api/send） */}}
+{{ with $siteData.umami }}
+  <script defer src="{{ .script }}" data-website-id="{{ .websiteId }}"></script>
+{{ end }}

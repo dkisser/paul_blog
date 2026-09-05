@@ -1,0 +1,25 @@
+{{/* 代码块渲染钩子：mermaid 原样输出给前端 JS；其余包成 mac 风 code-window 外壳 + Chroma 高亮。
+     支持的 markdown 属性：` ```go {file="main.go"}` 会在头部显示文件名 */}}
+{{ if eq .Type "mermaid" }}
+  <pre class="mermaid">{{ .Inner }}</pre>
+{{ else }}
+  <div class="code-window">
+    <div class="code-window-header">
+      <span class="code-window-dot" style="background:#f87171"></span>
+      <span class="code-window-dot" style="background:#fbbf24"></span>
+      <span class="code-window-dot" style="background:#34d399"></span>
+      {{ with .Attributes.file }}
+        <span class="code-window-filename">{{ . }}</span>
+      {{ end }}
+      {{ with .Type }}
+        <span class="code-window-lang">{{ . }}</span>
+      {{ end }}
+      <button type="button" class="code-copy-btn" title="复制代码">
+        <span class="material-symbols-outlined text-sm leading-none">content_copy</span>
+        <span data-copy-label class="sr-only">复制代码</span>
+      </button>
+    </div>
+    {{ $result := transform.HighlightCodeBlock . }}
+    {{ $result.Wrapped }}
+  </div>
+{{ end }}

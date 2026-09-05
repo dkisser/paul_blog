@@ -1,0 +1,25 @@
+{{/* #skills：bento 四卡，数据见 data/home.yaml */}}
+{{ $skills := hugo.Data.home.skills }}
+<section id="skills" class="w-full scroll-mt-20">
+  <div class="mx-auto w-full max-w-wide px-6 py-16 sm:py-20 lg:px-12">
+    <p class="section-label">{{ $skills.sectionLabel }}</p>
+    <h2 class="mt-4 text-2xl font-bold tracking-tight text-main sm:text-3xl">{{ $skills.title }}</h2>
+    <div class="mt-10 grid grid-cols-1 gap-6 md:grid-cols-2">
+      {{ range $skills.groups }}
+        <div class="card card-hover p-6">
+          <div class="flex items-center gap-3">
+            <span class="flex h-10 w-10 items-center justify-center rounded-xl bg-primary-soft/60 text-primary">
+              <span class="material-symbols-outlined">{{ .icon }}</span>
+            </span>
+            <h3 class="text-base font-bold text-main">{{ .title }}</h3>
+          </div>
+          <div class="mt-4 flex flex-wrap gap-2">
+            {{ range .items }}
+              <span class="chip chip-neutral">{{ . }}</span>
+            {{ end }}
+          </div>
+        </div>
+      {{ end }}
+    </div>
+  </div>
+</section>

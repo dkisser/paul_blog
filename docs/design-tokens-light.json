@@ -1,0 +1,165 @@
+{
+  "displayName": "Architectural Light",
+  "styleGuidelines": "## Brand & Style\n\nThis design system expresses the discipline, analytical rigor, and clarity of modern cloud architecture and AI systems. It merges the deliberate pacing of an intellectual editorial journal with the engineering precision of high-performance developer tooling.\n\nThe aesthetic philosophy centers on:\n- **Restrained Modernism:** Intentional white space, crisp structural lines, and absence of visual clutter.\n- **Micro-Atmospherics:** Translucent frosted surfaces, fine 1px hairline dividers, and precision glow indicators that signal vitality without cognitive noise.\n- **Intellectual Directness:** High-contrast slate typography that values long-form readability, technical diagrams, and computational literacy.\n\n## Layout & Spacing\n\nThe spatial architecture balances centered long-form reading chambers with expansive technical canvases for architecture diagrams and multidimensional garden graphs.\n\n### Spatial Rhythm\n- **The Core Garden Track:** Deep reading pages utilize `container-prose` (45rem / 720px) centered to eliminate scanning fatigue.\n- **Split Architectural Canvas:** Interactive multi-pane views (e.g., interactive system designs, reference tables) scale up to `container-wide` (72rem / 1152px).\n- **8pt Base Grid:** All margins, paddings, and component bounds align strictly to multiples of 4px and 8px to enforce modular engineering consistency.\n\n### Breakpoints\n- **Mobile (< 768px):** Single-column stack, edge margins of `gutter-mobile`, pinned top compact nav, code blocks overflow horizontally with custom minimal scroll rails.\n- **Tablet (768px – 1024px):** Single-column layout with expanded `gutter-desktop`, contextual floating table of contents collapsed to bottom sheet.\n- **Desktop (> 1024px):** Asymmetric 3-column arrangement: Persistent left identity & garden index (240px), primary reading stream (720px), and dynamic right metadata/TOC rail (220px).\n\n## Elevation & Depth\n\nVisual depth is achieved through optical filtration rather than dark Drop Shadows. Surfaces feel like finely milled architectural acrylic sheets resting upon clean industrial paper.\n\n### Depth Hierarchy\n1. **Base Plate (0dp):** Solid `#f8fafc` background. Flat, static, structural.\n2. **Surface Layer (1dp):** `#ffffff` with a subtle hairline perimeter (`1px solid #e2e8f0`). Shadow: `0 1px 3px rgba(15, 23, 42, 0.03)`. Used for article cards, list items, and standard panels.\n3. **Glass Flight Layer (2dp):** Translucent white (`rgba(255, 255, 255, 0.80)`) with backdrop blur (`backdrop-filter: blur(12px)`), hairline stroke (`rgba(255, 255, 255, 0.9)` top/left, `rgba(226, 232, 240, 0.6)` bottom/right), and an ambient drop shadow (`0 8px 30px -4px rgba(15, 23, 42, 0.05)`). Used for sticky navigation headers, command bars, floating palettes, and garden node cards.\n4. **Active Focus Layer (3dp):** Elevated tooltips and modal dialogs. Supported by a dual-stage shadow (`0 20px 40px -8px rgba(15, 23, 42, 0.08)`) and a subtle cerulean glow rim (`box-shadow: 0 0 0 1px rgba(2, 132, 199, 0.25)`).\n\n## Components\n\n### Buttons\n- **Primary Action:** Solid deep slate fill (`#0f172a`), crisp white text, `8px` corner radius. On hover: shifts smoothly to `#1e293b` with a subtle elevation shift.\n- **Secondary Ghost:** Frosted glass surface (`rgba(255, 255, 255, 0.8)`), subtle 1px border (`#e2e8f0`), `#0f172a` label. Hover activates subtle blue outline (`#0284c7`).\n- **Accent Action:** Cerulean cyan fill (`#0284c7`), white text, faint matching glow (`0 0 16px rgba(2, 132, 199, 0.3)` on hover).\n\n### Code Blocks & Architecture Modules\n- **Terminal Execution Block:** Deep slate obsidian body (`#090d16`), soft white code typography (`#e2e8f0`), syntax tokens rendered in cerulean, steel, and mint. \n- **Header Strip:** Clean top meta-strip displaying language runtime (`JetBrains Mono`, 12px), active copy glyph, and an optional mock terminal dot matrix.\n- **Inline Code:** Recessed slate pill (`#f1f5f9`), 1px border (`#e2e8f0`), `#0369a1` ink tone.\n\n### Digital Garden Taxonomy Chips\n- **Status Pills:** Pill-shaped (`rounded-full`), micro typography (`JetBrains Mono`, 11px), 1px border.\n  - *Seedling:* Subdued slate dot with `#64748b` text.\n  - *Cultivated:* Cerulean dot with pulsing micro-beacon (`#0284c7`).\n  - *Evergreen:* Crisp deep teal indicator.\n\n### Article & Thought Stream Cards\n- **Card Anatomy:** Pure white frosted surface, 1px perimeter boundary (`#e2e8f0`), 16px corner radius, internal padding of 24px.\n- **Hover Micro-interaction:** Subtle vertical lift (-2px), boundary illuminates to `#cbd5e1`, title transitions to `#0284c7`.\n\n### Inputs & Command Palette\n- **Omnibox / Search:** Translucent white input panel, inset placeholder in `#94a3b8`, keyboard navigation shortcuts styled with tactile mono badges (`⌘K`). Focus state invokes `2px` focus ring in `#0284c7` with zero offset blur.",
+  "theme": {
+    "bodyFont": "INTER",
+    "bodyFontFamily": "Inter",
+    "colorMode": "LIGHT",
+    "colorVariant": "FIDELITY",
+    "customColor": "#0284c7",
+    "designMd": "---\nname: Architectural Light\ncolors:\n  surface: '#f8f9ff'\n  surface-dim: '#cbdbf5'\n  surface-bright: '#f8f9ff'\n  surface-container-lowest: '#ffffff'\n  surface-container-low: '#eff4ff'\n  surface-container: '#e5eeff'\n  surface-container-high: '#dce9ff'\n  surface-container-highest: '#d3e4fe'\n  on-surface: '#0b1c30'\n  on-surface-variant: '#3f4850'\n  inverse-surface: '#213145'\n  inverse-on-surface: '#eaf1ff'\n  outline: '#707881'\n  outline-variant: '#bfc7d2'\n  surface-tint: '#006398'\n  primary: '#006194'\n  on-primary: '#ffffff'\n  primary-container: '#007bb9'\n  on-primary-container: '#fdfcff'\n  inverse-primary: '#93ccff'\n  secondary: '#565e74'\n  on-secondary: '#ffffff'\n  secondary-container: '#dae2fd'\n  on-secondary-container: '#5c647a'\n  tertiary: '#00628d'\n  on-tertiary: '#ffffff'\n  tertiary-container: '#007cb1'\n  on-tertiary-container: '#fcfcff'\n  error: '#ba1a1a'\n  on-error: '#ffffff'\n  error-container: '#ffdad6'\n  on-error-container: '#93000a'\n  primary-fixed: '#cce5ff'\n  primary-fixed-dim: '#93ccff'\n  on-primary-fixed: '#001d31'\n  on-primary-fixed-variant: '#004b73'\n  secondary-fixed: '#dae2fd'\n  secondary-fixed-dim: '#bec6e0'\n  on-secondary-fixed: '#131b2e'\n  on-secondary-fixed-variant: '#3f465c'\n  tertiary-fixed: '#c9e6ff'\n  tertiary-fixed-dim: '#89ceff'\n  on-tertiary-fixed: '#001e2f'\n  on-tertiary-fixed-variant: '#004c6e'\n  background: '#f8f9ff'\n  on-background: '#0b1c30'\n  surface-variant: '#d3e4fe'\ntypography:\n  display:\n    fontFamily: Inter\n    fontSize: 3.5rem\n    fontWeight: '700'\n    lineHeight: '1.1'\n    letterSpacing: -0.035em\n  display-mobile:\n    fontFamily: Inter\n    fontSize: 2.25rem\n    fontWeight: '700'\n    lineHeight: '1.15'\n    letterSpacing: -0.025em\n  headline-lg:\n    fontFamily: Inter\n    fontSize: 2.25rem\n    fontWeight: '600'\n    lineHeight: '1.2'\n    letterSpacing: -0.03em\n  headline-lg-mobile:\n    fontFamily: Inter\n    fontSize: 1.75rem\n    fontWeight: '600'\n    lineHeight: '1.25'\n    letterSpacing: -0.02em\n  headline-md:\n    fontFamily: Inter\n    fontSize: 1.5rem\n    fontWeight: '600'\n    lineHeight: '1.3'\n    letterSpacing: -0.02em\n  headline-sm:\n    fontFamily: Inter\n    fontSize: 1.25rem\n    fontWeight: '600'\n    lineHeight: '1.4'\n    letterSpacing: -0.015em\n  body-lg:\n    fontFamily: Inter\n    fontSize: 1.125rem\n    fontWeight: '400'\n    lineHeight: '1.75'\n    letterSpacing: -0.01em\n  body-md:\n    fontFamily: Inter\n    fontSize: 1rem\n    fontWeight: '400'\n    lineHeight: '1.65'\n    letterSpacing: -0.005em\n  body-sm:\n    fontFamily: Inter\n    fontSize: 0.875rem\n    fontWeight: '400'\n    lineHeight: '1.5'\n    letterSpacing: '0'\n  label-code:\n    fontFamily: JetBrains Mono\n    fontSize: 0.875rem\n    fontWeight: '400'\n    lineHeight: '1.6'\n    letterSpacing: -0.01em\n  label-meta:\n    fontFamily: JetBrains Mono\n    fontSize: 0.75rem\n    fontWeight: '500'\n    lineHeight: '1.4'\n    letterSpacing: 0.04em\nrounded:\n  sm: 0.25rem\n  DEFAULT: 0.5rem\n  md: 0.75rem\n  lg: 1rem\n  xl: 1.5rem\n  full: 9999px\nspacing:\n  space-2xs: 0.25rem\n  space-xs: 0.5rem\n  space-sm: 0.75rem\n  space-md: 1rem\n  space-lg: 1.5rem\n  space-xl: 2rem\n  space-2xl: 3rem\n  space-3xl: 4.5rem\n  container-prose: 45rem\n  container-wide: 72rem\n  gutter-mobile: 1rem\n  gutter-desktop: 2rem\n---\n\n## Brand & Style\n\nThis design system expresses the discipline, analytical rigor, and clarity of modern cloud architecture and AI systems. It merges the deliberate pacing of an intellectual editorial journal with the engineering precision of high-performance developer tooling.\n\nThe aesthetic philosophy centers on:\n- **Restrained Modernism:** Intentional white space, crisp structural lines, and absence of visual clutter.\n- **Micro-Atmospherics:** Translucent frosted surfaces, fine 1px hairline dividers, and precision glow indicators that signal vitality without cognitive noise.\n- **Intellectual Directness:** High-contrast slate typography that values long-form readability, technical diagrams, and computational literacy.\n\n## Colors\n\nThe palette establishes a high-acuity, glare-free daylight canvas composed of balanced cool slate and warm off-white tones, punctuated by precise cerulean accents.\n\n### Palette Roles\n- **Canvas Base (`#f8fafc`):** The primary view backdrop, mitigating stark retina fatigue while maintaining surgical cleanliness.\n- **Sub-Surface Canvas (`#f1f5f9`):** Recessed metadata tracks, sidebars, and inactive UI beds.\n- **Glass Panel Surface (`rgba(255, 255, 255, 0.85)`): Elevated frosted glass modules paired with hairline border accents (`rgba(226, 232, 240, 0.8)`).\n- **Primary Ink (`#0f172a`):** Deep obsidian slate for headings, titles, and maximum readability.\n- **Secondary Ink (`#334155`):** Body narrative copy with high optical clarity.\n- **Muted Ink (`#64748b`):** Metadata, dates, breadcrumbs, and non-interactive status glyphs.\n- **Electric Accent (`#0284c7` & `#0ea5e9`):** Focused energy for interactive links, active nodes, and systemic states.\n- **Terminal Canvas (`#090d16`):** Dedicated inverted high-contrast surface reserved strictly for code execution blocks and interactive CLI terminals.\n\n## Typography\n\nThe typographic hierarchy prioritizes long-form technical discourse, code-reading comprehension, and scannable technical taxonomy.\n\n### Typographic Principles\n- **Editorial Sans:** Body prose is set in `Inter` with optical kerning, relaxed line height (`1.65–1.75`), and negative tracking on major headings to balance visual weight.\n- **Architectural Monospace:** `JetBrains Mono` handles metadata tags, computational labels, runtime metrics, file tree layouts, and code segments.\n- **Line Length Discipline:** Main reading streams are constrained between 64 and 72 characters per line for optimal semantic retention.\n\n## Layout & Spacing\n\nThe spatial architecture balances centered long-form reading chambers with expansive technical canvases for architecture diagrams and multidimensional garden graphs.\n\n### Spatial Rhythm\n- **The Core Garden Track:** Deep reading pages utilize `container-prose` (45rem / 720px) centered to eliminate scanning fatigue.\n- **Split Architectural Canvas:** Interactive multi-pane views (e.g., interactive system designs, reference tables) scale up to `container-wide` (72rem / 1152px).\n- **8pt Base Grid:** All margins, paddings, and component bounds align strictly to multiples of 4px and 8px to enforce modular engineering consistency.\n\n### Breakpoints\n- **Mobile (< 768px):** Single-column stack, edge margins of `gutter-mobile`, pinned top compact nav, code blocks overflow horizontally with custom minimal scroll rails.\n- **Tablet (768px – 1024px):** Single-column layout with expanded `gutter-desktop`, contextual floating table of contents collapsed to bottom sheet.\n- **Desktop (> 1024px):** Asymmetric 3-column arrangement: Persistent left identity & garden index (240px), primary reading stream (720px), and dynamic right metadata/TOC rail (220px).\n\n## Elevation & Depth\n\nVisual depth is achieved through optical filtration rather than dark Drop Shadows. Surfaces feel like finely milled architectural acrylic sheets resting upon clean industrial paper.\n\n### Depth Hierarchy\n1. **Base Plate (0dp):** Solid `#f8fafc` background. Flat, static, structural.\n2. **Surface Layer (1dp):** `#ffffff` with a subtle hairline perimeter (`1px solid #e2e8f0`). Shadow: `0 1px 3px rgba(15, 23, 42, 0.03)`. Used for article cards, list items, and standard panels.\n3. **Glass Flight Layer (2dp):** Translucent white (`rgba(255, 255, 255, 0.80)`) with backdrop blur (`backdrop-filter: blur(12px)`), hairline stroke (`rgba(255, 255, 255, 0.9)` top/left, `rgba(226, 232, 240, 0.6)` bottom/right), and an ambient drop shadow (`0 8px 30px -4px rgba(15, 23, 42, 0.05)`). Used for sticky navigation headers, command bars, floating palettes, and garden node cards.\n4. **Active Focus Layer (3dp):** Elevated tooltips and modal dialogs. Supported by a dual-stage shadow (`0 20px 40px -8px rgba(15, 23, 42, 0.08)`) and a subtle cerulean glow rim (`box-shadow: 0 0 0 1px rgba(2, 132, 199, 0.25)`).\n\n## Shapes\n\nThe geometric framework balances human warmth with computational precision.\n\n- **Component Standard:** Core interactive components (buttons, input fields, standard card headers) use `0.5rem` (8px).\n- **Macro Containers:** Large article cards, code execution boxes, and modal viewports use `1rem` (16px) corner radii.\n- **System Tags & Status Pills:** Fully round pill architecture (`9999px`) reserved for technical metadata, AI telemetry tags, and git branch chips.\n\n## Components\n\n### Buttons\n- **Primary Action:** Solid deep slate fill (`#0f172a`), crisp white text, `8px` corner radius. On hover: shifts smoothly to `#1e293b` with a subtle elevation shift.\n- **Secondary Ghost:** Frosted glass surface (`rgba(255, 255, 255, 0.8)`), subtle 1px border (`#e2e8f0`), `#0f172a` label. Hover activates subtle blue outline (`#0284c7`).\n- **Accent Action:** Cerulean cyan fill (`#0284c7`), white text, faint matching glow (`0 0 16px rgba(2, 132, 199, 0.3)` on hover).\n\n### Code Blocks & Architecture Modules\n- **Terminal Execution Block:** Deep slate obsidian body (`#090d16`), soft white code typography (`#e2e8f0`), syntax tokens rendered in cerulean, steel, and mint. \n- **Header Strip:** Clean top meta-strip displaying language runtime (`JetBrains Mono`, 12px), active copy glyph, and an optional mock terminal dot matrix.\n- **Inline Code:** Recessed slate pill (`#f1f5f9`), 1px border (`#e2e8f0`), `#0369a1` ink tone.\n\n### Digital Garden Taxonomy Chips\n- **Status Pills:** Pill-shaped (`rounded-full`), micro typography (`JetBrains Mono`, 11px), 1px border.\n  - *Seedling:* Subdued slate dot with `#64748b` text.\n  - *Cultivated:* Cerulean dot with pulsing micro-beacon (`#0284c7`).\n  - *Evergreen:* Crisp deep teal indicator.\n\n### Article & Thought Stream Cards\n- **Card Anatomy:** Pure white frosted surface, 1px perimeter boundary (`#e2e8f0`), 16px corner radius, internal padding of 24px.\n- **Hover Micro-interaction:** Subtle vertical lift (-2px), boundary illuminates to `#cbd5e1`, title transitions to `#0284c7`.\n\n### Inputs & Command Palette\n- **Omnibox / Search:** Translucent white input panel, inset placeholder in `#94a3b8`, keyboard navigation shortcuts styled with tactile mono badges (`⌘K`). Focus state invokes `2px` focus ring in `#0284c7` with zero offset blur.",
+    "font": "INTER",
+    "headlineFont": "INTER",
+    "headlineFontFamily": "Inter",
+    "labelFont": "JETBRAINS_MONO",
+    "labelFontFamily": "Jetbrains Mono",
+    "namedColors": {
+      "background": "#f8f9ff",
+      "error": "#ba1a1a",
+      "error_container": "#ffdad6",
+      "inverse_on_surface": "#eaf1ff",
+      "inverse_primary": "#93ccff",
+      "inverse_surface": "#213145",
+      "on_background": "#0b1c30",
+      "on_error": "#ffffff",
+      "on_error_container": "#93000a",
+      "on_primary": "#ffffff",
+      "on_primary_container": "#fdfcff",
+      "on_primary_fixed": "#001d31",
+      "on_primary_fixed_variant": "#004b73",
+      "on_secondary": "#ffffff",
+      "on_secondary_container": "#5c647a",
+      "on_secondary_fixed": "#131b2e",
+      "on_secondary_fixed_variant": "#3f465c",
+      "on_surface": "#0b1c30",
+      "on_surface_variant": "#3f4850",
+      "on_tertiary": "#ffffff",
+      "on_tertiary_container": "#fcfcff",
+      "on_tertiary_fixed": "#001e2f",
+      "on_tertiary_fixed_variant": "#004c6e",
+      "outline": "#707881",
+      "outline_variant": "#bfc7d2",
+      "primary": "#006194",
+      "primary_container": "#007bb9",
+      "primary_fixed": "#cce5ff",
+      "primary_fixed_dim": "#93ccff",
+      "secondary": "#565e74",
+      "secondary_container": "#dae2fd",
+      "secondary_fixed": "#dae2fd",
+      "secondary_fixed_dim": "#bec6e0",
+      "surface": "#f8f9ff",
+      "surface_bright": "#f8f9ff",
+      "surface_container": "#e5eeff",
+      "surface_container_high": "#dce9ff",
+      "surface_container_highest": "#d3e4fe",
+      "surface_container_low": "#eff4ff",
+      "surface_container_lowest": "#ffffff",
+      "surface_dim": "#cbdbf5",
+      "surface_tint": "#006398",
+      "surface_variant": "#d3e4fe",
+      "tertiary": "#00628d",
+      "tertiary_container": "#007cb1",
+      "tertiary_fixed": "#c9e6ff",
+      "tertiary_fixed_dim": "#89ceff"
+    },
+    "overrideNeutralColor": "#64748b",
+    "overridePrimaryColor": "#0284c7",
+    "overrideSecondaryColor": "#0f172a",
+    "overrideTertiaryColor": "#0ea5e9",
+    "roundness": "ROUND_EIGHT",
+    "spacing": {
+      "container-prose": "45rem",
+      "container-wide": "72rem",
+      "gutter-desktop": "2rem",
+      "gutter-mobile": "1rem",
+      "space-2xl": "3rem",
+      "space-2xs": "0.25rem",
+      "space-3xl": "4.5rem",
+      "space-lg": "1.5rem",
+      "space-md": "1rem",
+      "space-sm": "0.75rem",
+      "space-xl": "2rem",
+      "space-xs": "0.5rem"
+    },
+    "spacingScale": 2,
+    "typography": {
+      "body-lg": {
+        "fontFamily": "Inter",
+        "fontSize": "1.125rem",
+        "fontWeight": "400",
+        "letterSpacing": "-0.01em",
+        "lineHeight": "1.75"
+      },
+      "body-md": {
+        "fontFamily": "Inter",
+        "fontSize": "1rem",
+        "fontWeight": "400",
+        "letterSpacing": "-0.005em",
+        "lineHeight": "1.65"
+      },
+      "body-sm": {
+        "fontFamily": "Inter",
+        "fontSize": "0.875rem",
+        "fontWeight": "400",
+        "letterSpacing": "0",
+        "lineHeight": "1.5"
+      },
+      "display": {
+        "fontFamily": "Inter",
+        "fontSize": "3.5rem",
+        "fontWeight": "700",
+        "letterSpacing": "-0.035em",
+        "lineHeight": "1.1"
+      },
+      "display-mobile": {
+        "fontFamily": "Inter",
+        "fontSize": "2.25rem",
+        "fontWeight": "700",
+        "letterSpacing": "-0.025em",
+        "lineHeight": "1.15"
+      },
+      "headline-lg": {
+        "fontFamily": "Inter",
+        "fontSize": "2.25rem",
+        "fontWeight": "600",
+        "letterSpacing": "-0.03em",
+        "lineHeight": "1.2"
+      },
+      "headline-lg-mobile": {
+        "fontFamily": "Inter",
+        "fontSize": "1.75rem",
+        "fontWeight": "600",
+        "letterSpacing": "-0.02em",
+        "lineHeight": "1.25"
+      },
+      "headline-md": {
+        "fontFamily": "Inter",
+        "fontSize": "1.5rem",
+        "fontWeight": "600",
+        "letterSpacing": "-0.02em",
+        "lineHeight": "1.3"
+      },
+      "headline-sm": {
+        "fontFamily": "Inter",
+        "fontSize": "1.25rem",
+        "fontWeight": "600",
+        "letterSpacing": "-0.015em",
+        "lineHeight": "1.4"
+      },
+      "label-code": {
+        "fontFamily": "JetBrains Mono",
+        "fontSize": "0.875rem",
+        "fontWeight": "400",
+        "letterSpacing": "-0.01em",
+        "lineHeight": "1.6"
+      },
+      "label-meta": {
+        "fontFamily": "JetBrains Mono",
+        "fontSize": "0.75rem",
+        "fontWeight": "500",
+        "letterSpacing": "0.04em",
+        "lineHeight": "1.4"
+      }
+    }
+  }
+}

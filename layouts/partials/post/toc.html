@@ -1,0 +1,20 @@
+{{/* 文章大纲：原生 TableOfContents（markup.tableOfContents 收 h1+h2 两级），样式在 main.src.css 的 .toc 容器选择器 */}}
+{{ $empty := `<nav id="TableOfContents"></nav>` }}
+{{ if and .TableOfContents (ne .TableOfContents $empty) }}
+  {{ $sections := len (findRE `<h1` .Content) }}
+  {{ if eq $sections 0 }}{{ $sections = len (findRE `<h2` .Content) }}{{ end }}
+  <div class="card p-5" id="toc">
+    <div class="flex items-center justify-between font-mono text-xs text-subtle">
+      <span class="flex items-center gap-1.5 font-bold text-main">
+        <span class="material-symbols-outlined text-sm text-primary">format_list_bulleted</span>
+        文章大纲
+      </span>
+      {{ if gt $sections 0 }}
+        <span class="rounded border border-primary/25 bg-primary-soft px-1.5 py-0.5 text-[10px] font-semibold text-primary">{{ $sections }} 个章节</span>
+      {{ end }}
+    </div>
+    <div class="toc mt-3">
+      {{ .TableOfContents }}
+    </div>
+  </div>
+{{ end }}

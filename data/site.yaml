@@ -1,0 +1,63 @@
+# 站点级数据：导航 / 页脚 / openGraph / 统计
+
+# 页脚版权声明
+copyright: © 2026 Paul. 本站文章采用 [CC BY-NC 4.0](https://creativecommons.org/licenses/by-nc/4.0/deed.zh) 许可协议，转载请注明出处。
+
+# Meta description（SEO）
+description: Paul 的技术博客 — Java / 微服务 / 云原生技术分享。
+
+# 子页面主导航（首页导航为页内锚点，见下方 homeAnchors）
+menus:
+  - name: 首页
+    url: /
+  - name: 文章
+    url: /posts/
+  - name: 归档
+    url: /archives/
+  - name: 关于
+    url: /about/
+
+# 首页页内锚点导航（还原设计稿；P2 接入 notes 段落后追加对应项）
+homeAnchors:
+  - name: 关于
+    url: "#about"
+    en: About
+  - name: 经历
+    url: "#experience"
+    en: Experience
+  - name: 技术栈
+    url: "#skills"
+    en: Skills
+  - name: 精选文章
+    url: "#articles"
+    en: Articles
+  - name: 联系
+    url: "#contact"
+    en: Contact
+
+# 页脚链接（含搜索）
+footerMenus:
+  - name: 文章列表
+    url: /posts/
+  - name: 归档
+    url: /archives/
+  - name: 搜索
+    url: /search/
+  - name: 关于
+    url: /about/
+
+# OpenGraph
+openGraph:
+  title: Paul的技术博客
+  type: website
+  description: Paul 的技术博客 — Java / 微服务 / 云原生技术分享。
+  image: images/author/paul.jpg
+  url: https://dkisser.cn/
+
+# 本博客源码仓库
+gitRepo: https://github.com/dkisser/paul_blog
+
+# umami 统计（自建；只走 Caddy 放行的采集端点，与 deploy/Caddyfile matcher 一致）
+umami:
+  script: https://stats.dkisser.cn/script.js
+  websiteId: 47d19573-f32e-46b1-8647-a73accac22e5

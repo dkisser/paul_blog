@@ -1,0 +1,17 @@
+{{/* 面包屑条：首页 / 文章 / 当前标题 */}}
+<nav class="flex items-center justify-between gap-4 border-b border-border py-3 font-mono text-xs text-subtle" aria-label="面包屑">
+  <ol class="flex min-w-0 items-center gap-2">
+    <li class="flex shrink-0 items-center gap-1">
+      <a href="/" class="inline-flex items-center gap-1 transition-colors hover:text-primary">
+        <span class="material-symbols-outlined text-sm">home</span>首页
+      </a>
+    </li>
+    <li class="shrink-0">/</li>
+    <li class="shrink-0"><a href="/posts/" class="transition-colors hover:text-primary">精选文章</a></li>
+    <li class="shrink-0">/</li>
+    <li class="truncate text-muted" aria-current="page">{{ .Title }}</li>
+  </ol>
+  <a href="/posts/" class="btn-ghost hidden !h-8 !px-3 !text-xs sm:inline-flex">
+    <span class="material-symbols-outlined text-sm">arrow_back</span>返回列表
+  </a>
+</nav>

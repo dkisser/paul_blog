@@ -1,0 +1,107 @@
+# 首页板块数据（版式见 layouts/index.html 与 layouts/partials/home/）
+# 标注 TODO 的为待补真实信息；标注 auto: 的值由模板自动计算，无需手填。
+
+hero:
+  # 主标题两行（第二行渐变高亮）
+  titleLines:
+    - 以工程构筑现实，
+    - 用笔记沉淀思考。
+  subtitle: 后端工程师 · 关注 Java / 微服务 / 云原生
+  primaryCta:
+    label: 阅读最新文章
+    url: /posts/
+  secondaryCta:
+    label: 关于我
+    url: /about/
+  # 统计条：auto:posts / auto:categories / auto:tags / auto:since 由模板计算
+  stats:
+    - value: auto:posts
+      label: 技术文章
+    - value: auto:categories
+      label: 文章分类
+    - value: auto:tags
+      label: 覆盖标签
+    - value: auto:since
+      label: 持续写作始于
+
+about:
+  sectionLabel: "// 01. Profile & Mindset"
+  # TODO: 城市与远程状态
+  photoBadge: 中国 · 远程协作
+  timezoneBadge: UTC+8
+  # TODO: 替换为自己的格言
+  quote: 代码是严谨的逻辑游戏，笔记是与未来自己的对话。
+  title: 从业务开发到云原生实践的持续沉淀
+  paragraphs:
+    - 你好，我是 Paul。一名后端工程师，日常工作围绕 Java 生态、微服务架构与云原生基础设施展开。
+    - 我相信文字是最好的知识复利。这个博客记录我在源码阅读、线上问题复盘与技术选型中的真实思考——不追求完美定稿，追求持续演进。
+  # 核心聚焦方向（3 个小卡片）
+  focus:
+    - icon: coffee
+      title: Java 与微服务
+      desc: Spring 生态、服务治理与高并发后端的工程实践。
+    - icon: deployed_code
+      title: 云原生基础设施
+      desc: 容器化、Kubernetes 与服务可观测性体系建设。
+    - icon: menu_book
+      title: 源码与复盘
+      desc: 通过源码阅读理解设计取舍，用复盘沉淀方法论。
+  # System Prompt 卡片（个性签名式展示；TODO: 改成自己的版本）
+  systemPrompt:
+    version: Paul v1.0
+    text: 角色设定：务实严谨的后端工程师。强调先理解问题再动手、用证据说话；写作偏好源码佐证与复盘视角，优先以最小复杂度解决真实问题。
+
+experience:
+  sectionLabel: "// 02. Track Record & Trajectory"
+  title: 经历
+  # TODO: 替换为真实经历。每条：period / role / org / desc / highlights(2 条) / tech(标签)
+  items:
+    - period: 20XX.XX — 至今
+      role: "TODO：职位"
+      org: "TODO：公司/组织"
+      desc: "TODO：一句话职责描述。"
+      highlights:
+        - "TODO：量化成果 1"
+        - "TODO：量化成果 2"
+      tech: [Java, Spring, Kubernetes]
+
+skills:
+  sectionLabel: "// 03. Engineering Capabilities"
+  title: 工程能力
+  # TODO: 按实际情况调整分组与条目
+  groups:
+    - icon: coffee
+      title: Java 与后端核心
+      items: [Java, Spring Boot, Spring Cloud, MySQL, Redis, gRPC]
+    - icon: cloud
+      title: 云原生与运维
+      items: [Kubernetes, Docker, CI/CD, Linux, 可观测性]
+    - icon: terminal
+      title: 工程效率
+      items: [Git, Shell, Hugo, Vim, Cursor]
+    - icon: psychology
+      title: 学习与写作
+      items: [源码阅读, 技术复盘, 知识管理, 博客写作]
+
+contact:
+  sectionLabel: "// 06. Initiate Connection"
+  title: 保持联系。
+  subtitle: 无论是技术交流还是问题讨论，都欢迎写信给我。
+  email: "437631891@qq.com"
+  # TODO: 如需展示微信号取消注释（留空则不显示该按钮）
+  wechat: ""
+  socials:
+    - name: GitHub
+      url: https://github.com/dkisser
+      icon: north_east
+  # 仿终端窗口内容（装饰性展示）
+  terminal:
+    user: paul
+    host: blog
+    lines:
+      - cmd: whoami
+        out: backend-engineer · java · cloud-native
+      - cmd: cat now.txt
+        out: 写作与复盘进行中 · 最新文章见 /posts/
+      - cmd: uptime
+        out: auto:since

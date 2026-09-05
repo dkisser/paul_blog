@@ -1,0 +1,21 @@
+{{/* 文章卡：首页精选与文章列表页共用 */}}
+<article class="card card-hover group flex flex-col justify-between p-6">
+  <div>
+    <div class="flex flex-wrap items-center gap-2 font-mono text-[11px] text-subtle">
+      {{ with index .Params.categories 0 }}
+        <span class="chip">{{ . }}</span>
+      {{ end }}
+      <span>{{ .Date.Format "2006-01-02" }}</span>
+      <span>·</span>
+      <span>约 {{ .ReadingTime }} 分钟</span>
+    </div>
+    <h3 class="mt-3 text-lg font-bold leading-snug text-main transition-colors group-hover:text-primary">
+      <a href="{{ .RelPermalink }}">{{ .Title }}</a>
+    </h3>
+    <p class="mt-2 line-clamp-3 text-sm leading-relaxed text-muted">{{ .Summary | plainify }}</p>
+  </div>
+  <a href="{{ .RelPermalink }}" class="mt-5 inline-flex items-center gap-1 text-sm font-medium text-primary">
+    阅读全文
+    <span class="material-symbols-outlined text-base transition-transform group-hover:translate-x-1">arrow_forward</span>
+  </a>
+</article>
