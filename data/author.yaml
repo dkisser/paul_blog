@@ -4,13 +4,15 @@ nickname: "Paul"
 greeting: "你好，我是"
 # 头像文件位于 assets/images/author/paul.jpg（经 Hugo Pipes 处理）
 image: "images/author/paul.jpg"
-designation: 后端工程师
-bio: 一名后端工程师，关注 Java 生态、微服务与云原生技术，喜欢阅读源码和复盘线上问题。这个博客记录我的学习笔记与技术思考。
+designation: Public Builder & 全栈工程师
+bio: 6 年后端 + 2 年全栈。曾就职于阿里巴巴速卖通，参与自营商品从零建设与供应链中台迁移，主导过亿级系统的数据迁移、查询优化与架构升级；近年转型全栈，重度使用 Claude Code 等 AI 工具。这个博客记录我的学习笔记与技术思考。
 contactInfo:
   email: "437631891@qq.com"
   github: dkisser
 # 首页 hero 打字机轮播文案（typeit）
 summary:
-  - 我是一名后端工程师
-  - 关注 Java / 微服务 / 云原生
+  - 我是一名 Public Builder & 全栈工程师
+  - 6 年后端锤炼，2 年全栈实践
+  - 主导亿级系统的数据迁移与架构升级
+  - 关注 AI产品构建 / 全栈开发 / 服务稳定性 
   - 喜欢源码阅读和问题复盘

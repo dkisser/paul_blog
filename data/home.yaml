@@ -6,7 +6,7 @@ hero:
   titleLines:
     - 以工程构筑现实，
     - 用笔记沉淀思考。
-  subtitle: 后端工程师 · 关注 Java / 微服务 / 云原生
+  subtitle: Public Builder & 全栈工程师 · 关注 AI产品构建 / 全栈开发 / 服务稳定性 
   primaryCta:
     label: 阅读最新文章
     url: /posts/
@@ -26,62 +26,77 @@ hero:
 
 about:
   sectionLabel: "Profile & Mindset"
-  # TODO: 城市与远程状态
-  photoBadge: 中国 · 远程协作
+  photoBadge: 中国 · 杭州
   timezoneBadge: UTC+8
-  # TODO: 替换为自己的格言
-  quote: 代码是严谨的逻辑游戏，笔记是与未来自己的对话。
-  title: 从业务开发到云原生实践的持续沉淀
+  quote: 半年前觉得优雅的实现，今天再看总有更好的解法。认知在演进，代码却停留在写下的那一刻。所以我忠实地记录着当时理解问题的方式，把每次在系统设计上的取舍、复盘的结论都写下来。—— 代码是当下认知的产物，笔记是与未来自己的持续对话
+  title: 从后端深耕，到全栈与 AI 应用的持续演进
   paragraphs:
-    - 你好，我是 Paul。一名后端工程师，日常工作围绕 Java 生态、微服务架构与云原生基础设施展开。
-    - 我相信文字是最好的知识复利。这个博客记录我在源码阅读、线上问题复盘与技术选型中的真实思考——不追求完美定稿，追求持续演进。
+    - 你好，我是 Paul，坐标杭州。6 年后端 + 2 年全栈：在东莞银行做过互联网直销放贷系统与网关架构升级，在阿里巴巴速卖通参与自营商品从零建设、主导货品系统向供应链中台迁移，也在 AI 创业公司担任过技术负责人。
+    - 在亿级数据、上万 QPS 的系统上主导数据迁移、查询优化与架构升级，对系统稳定性有切身理解；近两年转型全栈，日常重度使用 Coding Agent、Design Agent 等 AI 工具链。这个博客记录我在源码阅读、线上问题复盘与技术选型中的真实思考——不追求完美定稿，追求持续演进。
   # 核心聚焦方向（3 个小卡片）
   focus:
     - icon: coffee
-      title: Java 与微服务
-      desc: Spring 生态、服务治理与高并发后端的工程实践。
+      title: 高并发系统设计
+      desc: 亿级数据、万级 QPS 系统的稳定性设计与实践、架构升级与工程性能优化。
     - icon: deployed_code
-      title: 云原生基础设施
-      desc: 容器化、Kubernetes 与服务可观测性体系建设。
-    - icon: menu_book
-      title: 源码与复盘
-      desc: 通过源码阅读理解设计取舍，用复盘沉淀方法论。
-  # System Prompt 卡片（个性签名式展示；TODO: 改成自己的版本）
+      title: 全栈与出海业务
+      desc: 小程序与海外 APP 从零到一，打通跨境收单、结汇资金链路。
+    - icon: smart_toy
+      title: AI 工程实践
+      desc: 用 Coding Agent、Design Agent 等 AI 工具链重塑日常开发与交付方式。
+  # System Prompt 卡片（个性签名式展示）
   systemPrompt:
-    version: Paul v1.0
-    text: 角色设定：务实严谨的后端工程师。强调先理解问题再动手、用证据说话；写作偏好源码佐证与复盘视角，优先以最小复杂度解决真实问题。
+    version: Paul v2.0
+    text: 角色设定：后端出身的全栈工程师，务实严谨。先理解业务再动手设计，用证据与数据说话；主导过亿级系统的数据迁移与架构升级，对稳定性有本能警觉；写作偏好源码佐证与复盘视角，优先以最小复杂度解决真实问题。
 
 experience:
   sectionLabel: "Track Record & Trajectory"
   title: 经历
-  # TODO: 替换为真实经历。每条：period / role / org / desc / highlights(2 条) / tech(标签)
+  # 每条：period / role / org / desc / highlights / tech(标签)
   items:
-    - period: 20XX.XX — 至今
-      role: "TODO：职位"
-      org: "TODO：公司/组织"
-      desc: "TODO：一句话职责描述。"
+    - period: 2024.04 — 2024.11
+      role: 技术负责人
+      org: 杭州极匠科技 · AI 创业团队
+      desc: 从零到一帮助团队搭建微信小程序、Web、APP，统筹 CR、故障复盘、进度跟踪等研发流程管理。
       highlights:
-        - "TODO：量化成果 1"
-        - "TODO：量化成果 2"
-      tech: [Java, Spring, Kubernetes]
+        - 打通海外收单、结汇全资金链路，设计 T+7 资金回流方案，iOS 端上线美国市场
+        - 从零搭建小说推文业务链路，收敛收益计算模型，新渠道平台接入压缩至 2 天
+      tech: [JavaScript, Java, 微信小程序, 跨境支付]
+    - period: 2021.06 — 2024.03
+      role: 应用开发工程师
+      org: 阿里巴巴 · 速卖通 AliExpress
+      desc: 参与速卖通自营业务的供给、销售经营与供应链货品等系统的从零建设，主导速卖通货品系统的架构升级以及向供应链中台的迁移。
+      highlights:
+        - 主导全托管商货融合、半托管升级的方案设计，按租户维度抽象通用能力，兼任货品域 PM
+        - 主导 2 亿+ SKU 商货关系单表的分库分表迁移与搜索灰度切流，沉淀通用消息重投组件
+        - 设计竞品价格力离线数据回流链路：维度聚合 + 消息触发 + Redis 队列控频
+        - 从零到一建设自营销售/供货商品运营管理端，沉淀行业侧通用 Excel 导出方案
+      tech: [Java, 微服务, 分库分表, 消息队列]
+    - period: 2019.05 — 2021.05
+      role: 开发工程师
+      org: 深圳长亮科技 · 东莞银行直销银行团队
+      desc: 负责直销银行门户网关与开放平台建设，制定工程分层规范并沉淀文档，降低系统迭代成本。
+      highlights:
+        - 作为 PM 主导老网关向 Spring Cloud 体系升级与全链路压测，完成基金申赎、车位贷、小微贷等业务迁移
+        - 设计开放平台 SOAP 协议接入：协议/报文/加密/业务分层抽象，以 SPI 支持业务定制扩展
+      tech: [Java, Spring Cloud, 网关, SPI]
 
 skills:
   sectionLabel: "Engineering Capabilities"
   title: 工程能力
-  # TODO: 按实际情况调整分组与条目
   groups:
-    - icon: coffee
-      title: Java 与后端核心
-      items: [Java, Spring Boot, Spring Cloud, MySQL, Redis, gRPC]
-    - icon: cloud
-      title: 云原生与运维
-      items: [Kubernetes, Docker, CI/CD, Linux, 可观测性]
-    - icon: terminal
-      title: 工程效率
-      items: [Git, Shell, Hugo, Vim, Cursor]
+    - icon: code
+      title: 编程语言
+      items: [Java, JavaScript, Python, Node.js, Shell]
+    - icon: database
+      title: 后端与中间件
+      items: [Fastify, FastAPI, Spring Cloud, 数据库, 缓存, 消息队列, 分库分表]
+    - icon: deployed_code
+      title: 全栈与 AI 工具
+      items: [Web, H5, Claude Code, Cursor, Stitch]
     - icon: psychology
-      title: 学习与写作
-      items: [源码阅读, 技术复盘, 知识管理, 博客写作]
+      title: 工程与协作
+      items: [稳定性治理, 技术 PM, CR 与复盘, 知识管理]
 
 contact:
   sectionLabel: "Initiate Connection"
@@ -100,7 +115,7 @@ contact:
     host: blog
     lines:
       - cmd: whoami
-        out: backend-engineer · java · cloud-native
+        out: backend & fullstack · java / javascript / node.js / python
       - cmd: cat now.txt
         out: 写作与复盘进行中 · 最新文章见 /posts/
       - cmd: uptime

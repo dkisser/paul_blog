@@ -1,6 +1,6 @@
 # AGENTS.md
 
-面向 AI 编码代理的项目说明。本文件基于对仓库实际内容的梳理，更新日期 2026-09-05。
+面向 AI 编码代理的项目说明。本文件基于对仓库实际内容的梳理，更新日期 2026-09-06。
 
 ## 项目概述
 
@@ -85,7 +85,7 @@ layouts/             # 主题层（模板）：_default/（baseof、about/archiv
 assets/              # 主题层（要 Hugo Pipes 处理的资源）：css/main.src.css（Tailwind 源）、
                      #   js/main.js（主题切换/复制/scrollspy/mermaid/typeit）、images/（头像、favicon）
 data/                # 内容层数据：site.yaml（菜单/页脚/openGraph/umami）、author.yaml（作者简介/打字机文案）、
-                     #   home.yaml（首页五段文案；experience/skills 是 TODO 占位）、
+                     #   home.yaml（首页五段文案与真实履历）、
                      #   stages.yaml（笔记生长阶段查表）、garden.yaml（宣言/园丁法则/Quick Sparks）
 content/posts/       # 19 篇迁移文章（front matter 用 url: 固定旧 Jekyll URL，形如 /YYYY/MM/DD/<slug>.html）
 content/notes/       # 数字花园笔记（front matter：stage/version/tags/related，见「代码与内容约定」）
@@ -137,9 +137,7 @@ npm run verify    # 必须输出 19/19 命中
 真实域名已确定为 `dkisser.cn`：baseURL、openGraph.url、gitRepo、Caddyfile（含 stats 子域）均已配好。剩余待办：
 
 - 作者头像 `assets/images/author/paul.jpg` 当前是占位图（画面含 "TeXt Theme" 字样），需替换；favicon `assets/images/site/favicon.png` 同为占位
-- `data/home.yaml` 中 experience / skills 段是 TODO 占位，待填真实履历
 - 服务器 `deploy/.env`；GitHub Secrets 5 项
-- 正文 `content/about.md` 的自我介绍
 - 19 篇文章的 tags 为批量代拟（2026-09），待作者逐篇审阅校准；笔记体系已有 3 篇示例（`content/notes/`），按需替换为真实笔记
 
 ## 安全注意事项
