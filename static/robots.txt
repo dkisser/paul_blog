@@ -1,0 +1,6 @@
+# robots.txt —— 放行所有搜索引擎蜘蛛，并告知 sitemap 位置
+# 百度/Google/Bing 均支持从 robots.txt 发现 sitemap
+User-agent: *
+Allow: /
+
+Sitemap: https://dkisser.cn/sitemap.xml

@@ -103,13 +103,3 @@ npm run verify   # 等价于 node scripts/verify_urls.js，输出 19/19 命中
 
 迁移脚本可重复执行（幂等）：`npm run migrate`（等价于 `node scripts/migrate.js`）。
 
-## 部署前 TODO
-
-- ~~`hugo.yaml` 顶部 `baseURL` 与 `data/zh-cn/site.yaml` 里 openGraph.url~~（已完成，均为 https://dkisser.cn/）
-- 替换站点背景图 / logo / favicon（现为 Toha 主题自带占位图，见 hugo.yaml `params.background`/`params.logo`）
-- 填写真实简历 sections：`data/zh-cn/sections/` 下 skills / experiences / education / achievements（现为 TODO 占位）
-- `data/zh-cn/sections/projects.yaml` 替换为真实项目卡片
-- `content/about.md` 补正式自我介绍
-- ~~`hugo.yaml` 里 `params.gitRepo`~~（已填 https://github.com/dkisser/paul_blog）
-- 部署占位值：服务器上 `deploy/.env`（密码/APP_SECRET）、GitHub Secrets 5 项（见「部署」一节）、本地 `.env`（`.env.example` 模板）
-- umami 后台建好网站后，在 `hugo.yaml` 开启 analytics.umami（instance 填 `stats.dkisser.cn`，步骤见 `deploy/README.md` 第 5 节）

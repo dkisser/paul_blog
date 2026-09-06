@@ -92,8 +92,10 @@ content/notes/       # 数字花园笔记（front matter：stage/version/tags/re
 content/about.md     # 关于页（layouts/_default/about.html）
 content/archives.md  # 归档页（layouts/_default/archives.html 按年份分组）
 content/search.md    # 搜索页（layouts/_default/search.html，Pagefind UI 中文界面）
-docs/                # style-guide-light.md / style-guide-dark.md / design-tokens-*.json（见上节）
-static/              # 直出资源：assets/images/（文章配图）、fonts/material-symbols.woff2
+docs/                # style-guide-light.md / style-guide-dark.md / design-tokens-*.json（见上节）、
+                     #   seo-indexing.md（搜索引擎收录指南：GSC/Bing/百度操作步骤）
+static/              # 直出资源：robots.txt（放行蜘蛛 + 声明 sitemap）、assets/images/（文章配图）、
+                     #   fonts/material-symbols.woff2
 scripts/             # build.sh / deploy.sh / verify_urls.js；oneoff/ 一次性脚本（migrate.js、gen_redirects.js、old_urls.js）
 deploy/              # 服务器部署件：Caddyfile、docker-compose.yml（caddy+umami+postgres）、README.md
 .github/workflows/deploy.yml    # push main 自动构建 + rsync 部署
@@ -134,11 +136,11 @@ npm run verify    # 必须输出 19/19 命中
 
 ## 部署前待办（当前状态）
 
-真实域名已确定为 `dkisser.cn`：baseURL、openGraph.url、gitRepo、Caddyfile（含 stats 子域）均已配好。剩余待办：
+真实域名已确定为 `dkisser.cn`：baseURL、openGraph.url、gitRepo、Caddyfile（含 stats 子域）均已配好。已完成：作者头像（`assets/images/author/paul.jpg`）与 favicon（`assets/images/site/favicon.jpeg`，`head.html` 引用）已替换为正式图；服务器 `deploy/.env`、GitHub Secrets 5 项、umami 均已配置（2026-09-06 确认）。
 
-- 作者头像 `assets/images/author/paul.jpg` 当前是占位图（画面含 "TeXt Theme" 字样），需替换；favicon `assets/images/site/favicon.png` 同为占位
-- 服务器 `deploy/.env`；GitHub Secrets 5 项
-- 19 篇文章的 tags 为批量代拟（2026-09），待作者逐篇审阅校准；笔记体系已有 3 篇示例（`content/notes/`），按需替换为真实笔记
+剩余待办：
+
+- 19 篇文章的 tags 为批量代拟（2026-09），待作者逐篇审阅校准；笔记体系已有 3 篇笔记（`content/notes/`），按需增补真实笔记
 
 ## 安全注意事项
 
