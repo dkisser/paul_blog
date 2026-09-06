@@ -54,6 +54,16 @@ experience:
   title: 经历
   # 每条：period / role / org / desc / highlights / tech(标签)
   items:
+    - period: 2024.12 — 至今
+      role: 全栈开发
+      org: 杭州旭耶科技 · 跨境 B2B 创业团队
+      desc: 跨境 B2B 交易平台从零到一的全栈建设，覆盖交易链路、卖家工作台与商家运营工具体系。
+      highlights:
+        - 打通下单、商家发货、平台履约的交易全链路
+        - 重构卖家前端站点（商品、卖家两大模块）
+        - 从零构建运营站点
+        - 基于 OpenClaw + Playwright 搭建选品、铺货、广告投流、员工效率统计工具
+      tech: [Java, Python, React, Playwright, Spring Cloud]
     - period: 2024.04 — 2024.11
       role: 技术负责人
       org: 杭州极匠科技 · AI 创业团队
