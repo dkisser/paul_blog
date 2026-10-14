@@ -138,9 +138,12 @@ npm run verify    # 必须输出 19/19 命中
 
 真实域名已确定为 `dkisser.cn`：baseURL、openGraph.url、gitRepo、Caddyfile（含 stats 子域）均已配好。已完成：作者头像（`assets/images/author/paul.jpg`）与 favicon（`assets/images/site/favicon.jpeg`，`head.html` 引用）已替换为正式图；服务器 `deploy/.env`、GitHub Secrets 5 项、umami 均已配置（2026-09-06 确认）。
 
+2026-09-11 更新：工信部 ICP 备案通过（**浙ICP备2026075269号**），按《非经营性互联网信息服务备案管理办法》要求，备案号已在首页 footer 中间位置展示并链接到 `http://beian.miit.gov.cn/`（配置在 `data/site.yaml` 的 `beian` 字段，模板见 `layouts/partials/site-footer.html`）。
+
 剩余待办：
 
 - 19 篇文章的 tags 为批量代拟（2026-09），待作者逐篇审阅校准；笔记体系已有 3 篇笔记（`content/notes/`），按需增补真实笔记
+- 百度搜索资源平台收录（备案已通，可走「快速收录」通道）
 
 ## 安全注意事项
 

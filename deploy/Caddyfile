@@ -1,11 +1,12 @@
 # =============================================================================
 # Caddy 配置 —— 域名：dkisser.cn（主站）/ stats.dkisser.cn（umami 采集端点）
+#                 / browser-bridge.dkisser.cn（Browser Bridge 落地页）
 # =============================================================================
 
 # (a0) 显式 HTTP -> HTTPS 重定向（301）
 # Caddy 的自动 HTTPS 默认也会把 80 端口请求 308 跳转到 https，
-# 这里显式声明，固定为 301 且两个域名都覆盖
-http://dkisser.cn, http://stats.dkisser.cn {
+# 这里显式声明，固定为 301 且所有域名都覆盖
+http://dkisser.cn, http://stats.dkisser.cn, http://browser-bridge.dkisser.cn {
 	redir https://{host}{uri} permanent
 }
 
@@ -29,5 +30,19 @@ stats.dkisser.cn {
 	}
 	handle {
 		respond 404
+	}
+}
+
+# (c) Browser Bridge 落地页：独立目录，与博客互不影响
+# root 路径 /srv/landingpage 对应下方 docker-compose.yml 中挂载的宿主机目录
+# （/home/paul/landingpage，即 browser-bridge-landingpage 仓库的 DEPLOY_PATH）
+browser-bridge.dkisser.cn {
+	root * /srv/landingpage
+	encode zstd gzip
+	file_server
+	# 该站的资源文件名不带内容哈希，给长缓存会导致改完样式用户仍看到旧版，
+	# 因此统一 no-cache（每次校验，而非直接禁用缓存）
+	header {
+		Cache-Control "no-cache"
 	}
 }

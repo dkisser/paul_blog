@@ -1,7 +1,7 @@
 {{/* 全局页脚：版权 + 链接（参照 Glacial Synapse footer 规范） */}}
 {{ $siteData := hugo.Data.site }}
 <footer class="border-t border-border">
-  <div class="mx-auto flex w-full max-w-prose48 flex-col items-center gap-6 px-6 pb-12 pt-16 text-center">
+  <div class="mx-auto flex w-full max-w-prose48 flex-col items-center gap-6 px-6 pb-4 pt-8 text-center">
     <nav class="flex flex-wrap items-center justify-center gap-x-6 gap-y-2 text-sm" aria-label="页脚导航">
       {{ range $siteData.footerMenus }}
         <a href="{{ .url }}" class="text-muted transition-colors hover:text-primary">{{ .name }}</a>
@@ -10,6 +10,15 @@
         源码 <span class="material-symbols-outlined text-sm">north_east</span>
       </a>
     </nav>
-    <p class="max-w-xl text-xs leading-relaxed text-subtle">{{ $siteData.copyright | markdownify }}</p>
+    <p class="flex max-w-xl flex-wrap items-center justify-center gap-x-3 gap-y-1 text-xs leading-relaxed text-subtle">
+      <span>{{ $siteData.copyright | markdownify }}</span>
+      {{ with $siteData.beian }}
+      <span aria-hidden="true">·</span>
+      <a href="{{ .icpUrl }}" target="_blank" rel="noopener noreferrer" class="inline-flex items-center gap-1 transition-colors hover:text-primary">
+        <span class="material-symbols-outlined text-sm leading-none" aria-hidden="true">verified</span>
+        <span>{{ .icp }}</span>
+      </a>
+      {{ end }}
+    </p>
   </div>
 </footer>

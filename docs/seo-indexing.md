@@ -44,7 +44,8 @@
 - [ ] 部署一次，让 `robots.txt` 上线（`npm run deploy` 或 push main 走 CI），确认 `https://dkisser.cn/robots.txt` 可访问
 - [ ] 注册 Google Search Console → HTML 文件验证（放 `static/`）→ 提交 sitemap
 - [ ] 注册 Bing Webmaster Tools → 从 GSC 一键导入
-- [ ] （如有 ICP 备案）注册百度搜索资源平台 → 验证 → 提交 sitemap
+- [x] ICP 备案已完成（浙ICP备2026075269号，2026-09-11 通过，备案号已展示在首页 footer 并链接到 beian.miit.gov.cn）
+- [ ] 注册百度搜索资源平台 → 验证 → 提交 sitemap（备案已通，百度的「快速收录」权限可用）
 
 ## 后续注意事项
 
